@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/sections/blindness.css">
   <link rel="stylesheet" href="css/sections/dataset.css">
   <link rel="stylesheet" href="css/sections/diagnosis.css">
+  <link rel="stylesheet" href="css/sections/method.css">
 
   <script src="js/hero.js" defer></script>
   <script src="js/dataset.js" defer></script>
@@ -373,6 +374,110 @@
           magnitude deficit behind the OOD binding gap.
         </figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+<!-- == SECTION: method == -->
+<section class="section method" id="method">
+  <div class="container">
+    <h2 class="section-title">DeltaDirect: strengthening motion signals at the VL interface</h2>
+    <div class="split">
+      <figure class="figure method__figure">
+        <img src="static/images/method.png" width="2035" height="2730" loading="lazy"
+             alt="DeltaDirect architecture. Video frames pass through the vision encoder and projector into the LLM. During training, the difference between adjacent-frame projector features is pooled and passed to a motion head that predicts a 2-D motion vector, which is compared with the ground-truth motion vector by an MSE loss.">
+        <figcaption><b>Figure 6. DeltaDirect.</b> The motion head is a training-only branch.</figcaption>
+      </figure>
+
+      <div class="prose">
+        <p>
+          The diagnosis suggests a specific intervention point: make the projector output carry a
+          stronger signed displacement signal before it enters the LLM. DeltaDirect is a
+          training-only auxiliary objective applied to the projector output. Instead of adding
+          learned motion tokens or a motion-specific encoder at inference time, it uses synthetic
+          2-D motion vectors as supervision during training.
+        </p>
+
+        <h3 class="sub-title">Motion-induced feature deltas</h3>
+        <p>
+          DeltaDirect operates on the projector output <b>F</b> ∈ ℝ<sup><i>T</i>×<i>N</i>×<i>D</i></sup>.
+          For each adjacent frame pair, we spatially pool the temporal feature difference to obtain
+          a motion-change descriptor:
+        </p>
+        <div class="eq">
+          <math display="block">
+            <msub><mi>δ</mi><mi>t</mi></msub><mo>=</mo>
+            <mfrac><mn>1</mn><mi>N</mi></mfrac>
+            <munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover>
+            <mrow><mo>(</mo><msub><mi>𝐅</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>[</mo><mi>n</mi><mo>]</mo><mo>−</mo><msub><mi>𝐅</mi><mi>t</mi></msub><mo>[</mo><mi>n</mi><mo>]</mo><mo>)</mo></mrow>
+            <mo>∈</mo><msup><mi>ℝ</mi><mi>D</mi></msup><mo>,</mo>
+            <mspace width="1em"></mspace>
+            <mi>t</mi><mo>=</mo><mn>1</mn><mo>,</mo><mo>…</mo><mo>,</mo><mi>T</mi><mo>−</mo><mn>1</mn>
+          </math>
+          <span class="eq__n mono">(1)</span>
+        </div>
+        <p>
+          Feature differencing suppresses content that remains stable across adjacent frames and
+          focuses the auxiliary branch on motion-induced change.
+        </p>
+
+        <h3 class="sub-title">Training-only motion vector prediction</h3>
+        <p>
+          Because MoDirect-Inst is synthetic, the object center <b>c</b><sub><i>t</i></sub> is
+          known at each frame. For each moving frame pair, we define the normalized 2-D motion
+          target
+        </p>
+        <div class="eq">
+          <math display="block">
+            <msub><mi>𝐦</mi><mi>t</mi></msub><mo>=</mo>
+            <mfrac>
+              <mrow><msub><mi>𝐜</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>𝐜</mi><mi>t</mi></msub></mrow>
+              <mrow><msub><mrow><mo>‖</mo><msub><mi>𝐜</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>𝐜</mi><mi>t</mi></msub><mo>‖</mo></mrow><mn>2</mn></msub><mo>+</mo><mi>ε</mi></mrow>
+            </mfrac>
+            <mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup>
+          </math>
+          <span class="eq__n mono">(2)</span>
+        </div>
+        <p>A lightweight linear head predicts the motion vector from each pooled delta:</p>
+        <div class="eq">
+          <math display="block">
+            <msub><mover accent="true"><mi>𝐦</mi><mo>^</mo></mover><mi>t</mi></msub><mo>=</mo>
+            <mi>𝐖</mi><msub><mi>δ</mi><mi>t</mi></msub><mo>+</mo><mi>𝐛</mi><mo>,</mo>
+            <mspace width="1em"></mspace>
+            <mi>𝐖</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mn>2</mn><mo>×</mo><mi>D</mi></mrow></msup><mo>,</mo>
+            <mspace width="0.5em"></mspace>
+            <mi>𝐛</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup>
+          </math>
+          <span class="eq__n mono">(3)</span>
+        </div>
+        <p>
+          The head introduces only 2<i>D</i>+2 trainable parameters and is used only during
+          training. The Motion Vector Prediction (MVP) loss is
+        </p>
+        <div class="eq">
+          <math display="block">
+            <msub><mi>ℒ</mi><mtext>MVP</mtext></msub><mo>=</mo>
+            <mfrac><mn>1</mn><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow></mfrac>
+            <munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow></munderover>
+            <msubsup><mrow><mo>‖</mo><msub><mover accent="true"><mi>𝐦</mi><mo>^</mo></mover><mi>t</mi></msub><mo>−</mo><msub><mi>𝐦</mi><mi>t</mi></msub><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup>
+          </math>
+          <span class="eq__n mono">(4)</span>
+        </div>
+
+        <h3 class="sub-title">Training objective and inference</h3>
+        <p>The final training objective combines standard next-token prediction with the MVP loss:</p>
+        <div class="eq">
+          <math display="block">
+            <msub><mi>ℒ</mi><mtext>total</mtext></msub><mo>=</mo>
+            <msub><mi>ℒ</mi><mtext>LM</mtext></msub><mo>+</mo><mi>λ</mi><msub><mi>ℒ</mi><mtext>MVP</mtext></msub>
+          </math>
+          <span class="eq__n mono">(5)</span>
+        </div>
+        <p>
+          During inference, the MVP branch is removed, leaving the original input format, token
+          sequence, and decoding procedure unchanged.
+        </p>
+      </div>
     </div>
   </div>
 </section>

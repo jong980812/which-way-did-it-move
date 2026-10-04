@@ -1,0 +1,27 @@
+/* SECTION: method */
+.method__figure {
+  max-width: 460px;
+}
+
+.method .sub-title {
+  margin-top: var(--space-6);
+}
+
+.eq {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+  padding: var(--space-3) var(--space-4);
+  overflow-x: auto;
+  background: var(--plate);
+}
+
+.eq math {
+  font-size: 1.1em;
+}
+
+.eq__n {
+  color: var(--ink-2);
+}
