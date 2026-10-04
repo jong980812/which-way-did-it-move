@@ -2,9 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Which Way Did It Move?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Which Way Did It Move? Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</title>
+  <meta name="description" content="Most Video-LLMs perform near chance on the motion direction of a single moving object. We trace the failure to a direction binding gap and introduce MoDirect and DeltaDirect. NeurIPS 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Which Way Did It Move? Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs">
+  <meta property="og:description" content="Most Video-LLMs perform near chance on the motion direction of a single moving object. We trace the failure to a direction binding gap and introduce MoDirect and DeltaDirect.">
+  <meta property="og:url" content="https://jong980812.github.io/which-way-did-it-move/">
+  <meta property="og:image" content="https://jong980812.github.io/which-way-did-it-move/static/images/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Ccircle cx='21' cy='16' r='7' fill='%23f5b301'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sections/hero.css">
+
+  <script src="js/hero.js" defer></script>
 </head>
 <body>
-  <p>Coming soon</p>
+<main>
+
+<!-- == SECTION: hero == -->
+<header class="hero" id="top">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <p class="hero__venue mono">NeurIPS 2026</p>
+      <h1 class="hero__title">
+        <span class="hero__q">Which Way Did It Move?</span>
+        <span class="hero__sub">Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</span>
+      </h1>
+      <p class="hero__authors">
+        <span><a href="https://jong980812.github.io/">Jongseo Lee</a><sup>1*</sup></span>
+        <span><a href="https://hyuntak03.github.io/">Hyuntak Lee</a><sup>1*</sup></span>
+        <span>Sunghun Kim<sup>1</sup></span>
+        <span>Sooa Kim<sup>1</sup></span>
+        <span>Jihoon Chung<sup>2</sup></span>
+        <span>Jinwoo Choi<sup>1†</sup></span>
+      </p>
+      <p class="hero__affil">
+        <sup>1</sup>Kyung Hee University &nbsp; <sup>2</sup>Princeton University<br>
+        *Equally contributed first authors &nbsp; †Corresponding author
+      </p>
+      <nav class="hero__links" aria-label="Paper links">
+        <a class="btn btn--primary" href="https://arxiv.org/abs/2605.22823">arXiv</a>
+        <a class="btn" href="https://github.com/KHU-VLL/DeltaDirect">Code</a>
+        <span class="btn btn--disabled">Data (coming soon)</span>
+        <a class="btn" href="#bibtex">BibTeX</a>
+      </nav>
+      <p class="hero__tldr">
+        <b>TL;DR</b> On simple videos of a single object moving left, right, up, or down, most
+        Video-LLMs perform near chance. We trace the failure to a direction binding gap and
+        introduce MoDirect and DeltaDirect, which raise MoDirect-SynBench accuracy from 25.9% to
+        85.9%.
+      </p>
+    </div>
+
+    <figure class="hero__card">
+      <p class="visually-hidden">Animation: a circle moves from left to right. Asked which way it moved, the Video-LLM answers Left; the ground truth is Right.</p>
+      <div class="mcq">
+        <div class="mcq__frame" aria-hidden="true">
+          <span class="mcq__ghost" style="left:14%"></span>
+          <span class="mcq__ghost" style="left:32%"></span>
+          <span class="mcq__ghost" style="left:50%"></span>
+          <span class="mcq__ghost" style="left:68%"></span>
+          <span class="mcq__dot"></span>
+        </div>
+        <p class="mcq__q">From the viewer’s perspective, in which direction is the object moving in this video?</p>
+        <ul class="mcq__opts">
+          <li>A. Up</li>
+          <li class="is-pick">B. Left <span class="mcq__tag">Video-LLM</span></li>
+          <li class="is-gt">C. Right <span class="mcq__tag">Ground truth</span></li>
+          <li>D. Down</li>
+        </ul>
+      </div>
+      <figcaption class="caption">Illustration of the four-way motion direction question (Figure 1a). LLaVA-Video-7B scores 25.9% on MoDirect-SynBench; chance is 25%.</figcaption>
+    </figure>
+  </div>
+</header>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 <a href="https://github.com/KHU-VLL">KHU VLL</a>, Kyung Hee University.</p>
+  </div>
+</footer>
 </body>
 </html>

@@ -1,0 +1,268 @@
+/* Reset, typography and shared layout. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+ol,
+ul,
+pre,
+table {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+sup {
+  font-size: 0.68em;
+  line-height: 0;
+}
+
+/* ---------- layout ---------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-gap);
+  border-top: 1px solid var(--line);
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  max-width: 30ch;
+  margin-bottom: var(--space-5);
+  text-wrap: balance;
+}
+
+.sub-title {
+  font-family: var(--font-head);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin-bottom: var(--space-3);
+}
+
+.prose {
+  max-width: var(--measure);
+}
+
+.prose p + p {
+  margin-top: var(--space-4);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.plate {
+  background: var(--plate);
+  padding: var(--space-6);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- figures ---------- */
+.figure img {
+  width: 100%;
+}
+
+.figure figcaption,
+.caption {
+  max-width: var(--measure);
+  margin-top: var(--space-3);
+  color: var(--ink-2);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+}
+
+.figure figcaption b,
+.caption b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45em 1.1em;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--page);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-ui), color var(--dur-ui);
+}
+
+.btn:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--page);
+}
+
+.btn--disabled {
+  border-color: var(--line);
+  color: var(--ink-2);
+  cursor: default;
+}
+
+.btn--disabled:hover {
+  background: var(--page);
+  color: var(--ink-2);
+}
+
+/* ---------- tables ---------- */
+.table-wrap {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: 1.35;
+}
+
+.data-table th,
+.data-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.data-table th:first-child,
+.data-table td:first-child {
+  text-align: left;
+}
+
+.data-table thead th {
+  border-bottom-color: var(--ink);
+  font-weight: 600;
+}
+
+.data-table td {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+}
+
+.data-table td:first-child {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+}
+
+/* ---------- footer ---------- */
+.footer {
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: var(--fs-small);
+}
+
+@media (max-width: 1023px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 599px) {
+  .plate {
+    padding: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn {
+    transition: none;
+  }
+}
