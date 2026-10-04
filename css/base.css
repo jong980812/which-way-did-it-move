@@ -144,6 +144,11 @@ sup {
   width: 100%;
 }
 
+/* wide paper figures scroll sideways on small screens instead of shrinking */
+.figure__scroll {
+  overflow-x: auto;
+}
+
 .figure figcaption,
 .caption {
   max-width: var(--measure);
@@ -248,6 +253,12 @@ sup {
   .split {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
+  }
+}
+
+@media (max-width: 767px) {
+  .figure--wide img {
+    min-width: 680px;
   }
 }
 

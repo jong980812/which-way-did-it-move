@@ -40,7 +40,7 @@
   --section-gap: clamp(72px, 8vw, 112px);
   --container: 1200px;
   --container-wide: 1312px;
-  --measure: 68ch;
+  --measure: 62ch;
   --radius: 4px;
 
   /* motion */

@@ -1,0 +1,55 @@
+/* SECTION: abstract */
+.abstract__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  gap: var(--space-6);
+}
+
+.abstract__text {
+  max-width: var(--measure);
+}
+
+.contrib {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+.abstract__contrib-title {
+  margin-top: var(--space-8);
+}
+
+.contrib li {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--ink);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.contrib__n {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--ink-2);
+}
+
+.contrib__links {
+  margin-top: var(--space-3);
+  font-size: var(--fs-small);
+}
+
+@media (max-width: 1023px) {
+  .abstract__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .contrib {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  .abstract__contrib-title {
+    margin-top: var(--space-7);
+  }
+}

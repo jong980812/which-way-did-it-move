@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/sections/hero.css">
+  <link rel="stylesheet" href="css/sections/abstract.css">
+  <link rel="stylesheet" href="css/sections/blindness.css">
 
   <script src="js/hero.js" defer></script>
 </head>
@@ -83,6 +85,96 @@
     </figure>
   </div>
 </header>
+
+<!-- == SECTION: abstract == -->
+<section class="section abstract" id="abstract">
+  <div class="container">
+    <div class="abstract__grid">
+      <h2 class="section-title">Abstract</h2>
+      <p class="abstract__text">
+        Video Large Language Models (Video-LLMs) have made rapid progress on temporal video
+        understanding, yet many fail at a basic perceptual primitive: signed image-plane motion
+        direction. On simple videos of a single object moving left, right, up, or down, most
+        Video-LLMs perform near chance, with above-chance cases largely attributable to prediction
+        biases rather than genuine direction understanding. We call this failure <em>directional
+        motion blindness</em>. We localize the failure by tracing motion direction information
+        through the Video-LLM pipeline. Motion direction remains linearly accessible from the
+        vision encoder, projector, and LLM hidden states, but the readout fails to bind this signal
+        to the correct verbal answer option, revealing a <em>direction binding gap</em>. Although
+        synthetic motion direction instruction tuning reduces this gap on the source domain, motion
+        direction concept vector analysis shows that visual complexity weakens the signal magnitude
+        and limits out-of-domain generalization. We introduce MoDirect, a dataset family for motion
+        direction instruction tuning and evaluation, and DeltaDirect, a diagnosis-driven,
+        projector-level objective that predicts normalized 2-D motion vectors from adjacent-frame
+        feature deltas. On MoDirect-SynBench, instruction tuning with DeltaDirect improves motion
+        direction accuracy from 25.9% to 85.9%. On MoDirect-RealBench, DeltaDirect improves
+        real-world motion direction accuracy by 21.4 points over the vanilla baseline without
+        real-world tuning data, while preserving standard video-understanding performance.
+      </p>
+    </div>
+
+    <h3 class="sub-title abstract__contrib-title">Contributions</h3>
+    <ol class="contrib">
+      <li>
+        <span class="contrib__n mono">01</span>
+        We identify directional motion blindness in Video-LLMs: despite strong appearance
+        recognition, recent models fail to distinguish basic signed motion directions such as left,
+        right, up, and down. We diagnose this failure as a direction binding gap, where motion
+        direction information is linearly decodable but not reliably bound to the correct verbal
+        response.
+        <p class="contrib__links"><a href="#blindness">Directional motion blindness</a></p>
+      </li>
+      <li>
+        <span class="contrib__n mono">02</span>
+        We show that instruction tuning closes the direction binding gap on the source domain but
+        leaves an out-of-domain generalization gap. Through concept vector analysis, we trace this
+        gap to a magnitude deficit in shared motion direction representations across domains.
+        <p class="contrib__links"><a href="#diagnosis">Diagnosis</a></p>
+      </li>
+      <li>
+        <span class="contrib__n mono">03</span>
+        We introduce MoDirect, a controlled dataset family for motion direction instruction tuning
+        and evaluation, and propose DeltaDirect, a training-only auxiliary objective that predicts
+        motion vectors from adjacent-frame feature deltas. DeltaDirect improves motion direction
+        understanding while preserving or improving general video understanding.
+        <p class="contrib__links"><a href="#dataset">MoDirect</a> &nbsp; <a href="#method">DeltaDirect</a></p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- == SECTION: blindness == -->
+<section class="section blindness" id="blindness">
+  <div class="container">
+    <h2 class="section-title">Directional motion blindness</h2>
+    <div class="prose">
+      <p>
+        Consider a seemingly trivial synthetic video in which a yellow circle moves from left to
+        right. Can a Video-LLM correctly tell which way it moves: left→right, right→left,
+        bottom→top, or top→bottom? To our surprise, most Video-LLMs show accuracy close to random
+        chance (25%), with GPT-5 only reaching 58.9% accuracy. Humans identify such motion
+        directions instantly and effortlessly.
+      </p>
+      <p>
+        We refer to this systematic failure to distinguish signed motion directions as
+        <em>directional motion blindness</em>.
+      </p>
+    </div>
+    <figure class="figure figure--wide">
+      <div class="figure__scroll">
+        <img src="static/images/teaser.png" width="5480" height="1914" loading="lazy"
+             alt="Left: a synthetic video of a yellow circle moving from left to right. A Video-LLM answers the color question correctly (Yellow) but the direction question incorrectly (Leftward). Right: bar chart of color accuracy and motion direction accuracy for several Video-LLMs, with a chance line at 25 percent.">
+      </div>
+      <figcaption>
+        <b>Figure 1. Directional motion blindness in Video-LLMs.</b> (a) Given a simple synthetic
+        video of a yellow circle moving from left to right, recent Video-LLMs correctly identify
+        the object’s color but answer the wrong motion direction. (b) Across Video-LLMs, appearance
+        recognition is high, yet signed motion direction accuracy remains much lower, often near
+        chance.
+      </figcaption>
+    </figure>
+  </div>
+</section>
 
 </main>
 
