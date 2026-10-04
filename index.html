@@ -69,41 +69,35 @@
 
 <!-- == SECTION: hero == -->
 <header class="hero" id="top">
-  <div class="container hero__grid">
-    <div class="hero__text">
-      <p class="hero__venue">NeurIPS 2026</p>
-      <h1 class="hero__title">
-        <span class="hero__q">Which Way<br>Did It Move?</span>
-        <span class="hero__sub">Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</span>
-      </h1>
-      <p class="hero__authors">
-        <span><a href="https://jong980812.github.io/">Jongseo Lee</a><sup>1*</sup></span>
-        <span><a href="https://hyuntak03.github.io/">Hyuntak Lee</a><sup>1*</sup></span>
-        <span>Sunghun Kim<sup>1</sup></span>
-        <span>Sooa Kim<sup>1</sup></span>
-        <span>Jihoon Chung<sup>2</sup></span>
-        <span>Jinwoo Choi<sup>1†</sup></span>
-      </p>
-      <p class="hero__affil">
-        <sup>1</sup>Kyung Hee University &nbsp; <sup>2</sup>Princeton University<br>
-        *Equally contributed first authors &nbsp; †Corresponding author
-      </p>
-      <nav class="hero__links" aria-label="Paper links">
-        <a class="btn" href="https://arxiv.org/abs/2605.22823"><svg class="icon" aria-hidden="true"><use href="#i-paper"/></svg>arXiv</a>
-        <a class="btn" href="https://github.com/KHU-VLL/DeltaDirect"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>Code</a>
-        <span class="btn btn--off"><svg class="icon" aria-hidden="true"><use href="#i-data"/></svg>Data (soon)</span>
-        <a class="btn" href="#bibtex"><svg class="icon" aria-hidden="true"><use href="#i-cite"/></svg>BibTeX</a>
-      </nav>
-      <p class="hero__tldr">
-        <b>TL;DR</b> On simple videos of a single object moving left, right, up, or down, most
-        Video-LLMs perform near chance. We trace the failure to a direction binding gap and
-        introduce MoDirect and DeltaDirect, which raise MoDirect-SynBench accuracy from 25.9% to
-        85.9%.
-      </p>
-    </div>
+  <div class="container">
+    <p class="hero__venue">NeurIPS 2026</p>
+    <h1 class="hero__title">
+      <span class="hero__q">Which Way Did It Move?</span>
+      <span class="hero__sub">Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</span>
+    </h1>
+    <p class="hero__authors">
+      <span><a href="https://jong980812.github.io/">Jongseo Lee</a><sup>1*</sup></span>
+      <span><a href="https://hyuntak03.github.io/">Hyuntak Lee</a><sup>1*</sup></span>
+      <span>Sunghun Kim<sup>1</sup></span>
+      <span>Sooa Kim<sup>1</sup></span>
+      <span>Jihoon Chung<sup>2</sup></span>
+      <span>Jinwoo Choi<sup>1†</sup></span>
+    </p>
+    <p class="hero__affil">
+      <span><sup>1</sup>Kyung Hee University</span>
+      <span><sup>2</sup>Princeton University</span>
+      <span>*Equally contributed first authors</span>
+      <span>†Corresponding author</span>
+    </p>
+    <nav class="hero__links" aria-label="Paper links">
+      <a class="btn" href="https://arxiv.org/abs/2605.22823"><svg class="icon" aria-hidden="true"><use href="#i-paper"/></svg>arXiv</a>
+      <a class="btn" href="https://github.com/KHU-VLL/DeltaDirect"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>Code</a>
+      <span class="btn btn--off"><svg class="icon" aria-hidden="true"><use href="#i-data"/></svg>Data (soon)</span>
+      <a class="btn" href="#bibtex"><svg class="icon" aria-hidden="true"><use href="#i-cite"/></svg>BibTeX</a>
+    </nav>
 
     <figure class="hero__scene">
-      <p class="visually-hidden">Animation: a yellow circle moves from left to right. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, the Video-LLM answers Leftward; the ground truth is Rightward.</p>
+      <p class="visually-hidden">Animation: a yellow circle moves from left to right. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, the Video-LLM answers Leftward, which is wrong.</p>
       <div class="scene" aria-hidden="true">
         <div class="scene__video">
           <span class="scene__ghost" style="left:14%"></span>
@@ -112,22 +106,21 @@
           <span class="scene__ghost" style="left:68%"></span>
           <span class="scene__ball"></span>
           <span class="scene__tag">Input video</span>
-          <svg class="scene__arrow" viewBox="0 0 200 12"><path d="M2 6h194M188 1.5l8 4.5-8 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="scene__gt">Ground truth: “Rightward”</span>
+          <span class="scene__progress"><span></span></span>
         </div>
         <div class="scene__qa">
           <div class="qa qa--color">
-            <p class="qa__q">“What color is the moving object?”</p>
+            <p class="qa__q">What color is the moving object?</p>
             <div class="qa__a">
-              <svg class="qa__bot"><use href="#i-bot"/></svg>
-              <div class="qa__reply"><span class="qa__say">“Yellow”</span><span class="qa__mark qa__mark--ok">✓</span></div>
+              <span class="qa__bot"><svg><use href="#i-bot"/></svg></span>
+              <span class="qa__reply">Yellow<span class="qa__mark">✓</span></span>
             </div>
           </div>
           <div class="qa qa--dir">
-            <p class="qa__q">“Which way is the object moving?”</p>
+            <p class="qa__q">Which way is the object moving?</p>
             <div class="qa__a">
-              <svg class="qa__bot"><use href="#i-bot"/></svg>
-              <div class="qa__reply"><span class="qa__say">“Leftward”</span><span class="qa__mark qa__mark--no">✕</span></div>
+              <span class="qa__bot"><svg><use href="#i-bot"/></svg></span>
+              <span class="qa__reply">Leftward<span class="qa__mark">✕</span></span>
             </div>
           </div>
         </div>
@@ -136,6 +129,13 @@
         Figure 1(a), animated. LLaVA-Video-7B scores 25.9% on MoDirect-SynBench; chance is 25%.
       </figcaption>
     </figure>
+
+    <p class="hero__tldr">
+      <b>TL;DR</b> On simple videos of a single object moving left, right, up, or down, most
+      Video-LLMs perform near chance. We trace the failure to a direction binding gap and
+      introduce MoDirect and DeltaDirect, which raise MoDirect-SynBench accuracy from 25.9% to
+      85.9%.
+    </p>
   </div>
 </header>
 
