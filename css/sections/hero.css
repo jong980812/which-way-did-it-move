@@ -431,3 +431,593 @@
     animation: none;
   }
 }
+
+/* ---------- reel: the teaser as a 15-second motion piece ----------
+   One clock (--reel) drives every element. Times in the keyframes are
+   percentages of 15s: scene 1 ends at 18.67%, 2 at 36%, 3 at 61.33%, 4 at 80%.
+   All sizes are in cqw so the stage scales like a video. */
+.hero__scene .scene {
+  display: none;
+}
+
+.reel {
+  --reel: 15s;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reel__stage {
+  position: relative;
+  aspect-ratio: 1280 / 500;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--panel);
+  container-type: inline-size;
+}
+
+.reel__stage * {
+  animation-duration: var(--reel);
+  animation-timing-function: var(--ease);
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+.reel.is-paused .reel__stage * {
+  animation-play-state: paused;
+}
+
+.reel__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.reel__controls .btn {
+  padding: 0.35em 1em;
+  font-size: 1rem;
+}
+
+/* captions: one line per scene, top left */
+.reel__cap {
+  position: absolute;
+  top: 3.4cqw;
+  left: 4cqw;
+  max-width: 70cqw;
+  font-family: var(--font-head);
+  font-size: 2.5cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  opacity: 0;
+}
+
+.reel__cap--1 { animation-name: reel-cap-1; }
+.reel__cap--2 { animation-name: reel-cap-2; }
+.reel__cap--3 { animation-name: reel-cap-3; }
+.reel__cap--4 { animation-name: reel-cap-4; }
+.reel__cap--5 { animation-name: reel-cap-5; }
+
+/* scene markers, top right */
+.reel__scenes {
+  position: absolute;
+  top: 4.3cqw;
+  right: 4cqw;
+  display: flex;
+  gap: 0.7cqw;
+}
+
+.reel__scenes li {
+  width: 0.8cqw;
+  height: 0.8cqw;
+  border-radius: 50%;
+  background: var(--bar-base);
+}
+
+.reel__scenes li:nth-child(1) { animation-name: reel-scene-1; }
+.reel__scenes li:nth-child(2) { animation-name: reel-scene-2; }
+.reel__scenes li:nth-child(3) { animation-name: reel-scene-3; }
+.reel__scenes li:nth-child(4) { animation-name: reel-scene-4; }
+.reel__scenes li:nth-child(5) { animation-name: reel-scene-5; }
+
+.reel__progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 0.4cqw;
+}
+
+.reel__progress span {
+  display: block;
+  height: 100%;
+  background: var(--yellow);
+  animation-name: reel-progress;
+  animation-timing-function: linear;
+}
+
+/* the input video */
+.reel__video {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  width: 22cqw;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 0.24cqw solid var(--ink);
+  border-radius: 1.6cqw;
+  background: #fffdf5;
+  animation-name: reel-video;
+}
+
+.reel__ball,
+.reel__dot {
+  position: absolute;
+  top: 43%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--yellow);
+  transform: translate(-50%, -50%);
+}
+
+.reel__dot {
+  width: 3.4%;
+  opacity: 0.5;
+}
+
+.reel__ball {
+  left: 12%;
+  width: 14%;
+  animation-name: reel-ball;
+}
+
+/* the true direction, drawn while the clip replays */
+.reel__truth,
+.reel__truth-tip {
+  position: absolute;
+  top: 61%;
+  height: 7%;
+  color: var(--ink-2);
+}
+
+.reel__truth {
+  left: 12%;
+  width: 76%;
+  animation-name: reel-truth;
+  animation-timing-function: linear;
+}
+
+.reel__truth-tip {
+  left: 85%;
+  width: 5.5%;
+  animation-name: reel-truth-tip;
+}
+
+.reel__bar {
+  position: absolute;
+  right: 6%;
+  bottom: 6%;
+  left: 6%;
+  display: flex;
+  align-items: center;
+  gap: 4%;
+}
+
+.reel__play {
+  flex: none;
+  width: 0;
+  height: 0;
+  border-top: 0.5cqw solid transparent;
+  border-bottom: 0.5cqw solid transparent;
+  border-left: 0.8cqw solid var(--ink);
+}
+
+.reel__time {
+  flex: 1;
+  height: 0.6cqw;
+  overflow: hidden;
+  border-radius: 0.3cqw;
+  background: var(--line);
+}
+
+.reel__time span {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  animation-name: reel-time;
+}
+
+/* video -> model */
+.reel__link {
+  position: absolute;
+  top: 57%;
+  left: 32cqw;
+  width: 4.6cqw;
+  margin-top: -1.15cqw;
+  color: var(--ink);
+  animation-name: reel-link;
+}
+
+.reel__model {
+  position: absolute;
+  top: 57%;
+  left: 43.5cqw;
+  display: grid;
+  justify-items: center;
+  gap: 0.8cqw;
+  transform: translate(-50%, -50%);
+  animation-name: reel-model;
+}
+
+.reel__bot {
+  display: grid;
+  place-items: center;
+  width: 8.6cqw;
+  height: 8.6cqw;
+  border: 0.24cqw solid var(--ink);
+  border-radius: 50%;
+  background: #fff;
+}
+
+.reel__bot svg {
+  width: 5cqw;
+  height: 5cqw;
+}
+
+.reel__name {
+  font-size: 1.6cqw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* question and answer */
+.reel__talk {
+  position: absolute;
+  top: 57%;
+  left: 52cqw;
+  display: grid;
+  justify-items: start;
+  gap: 1.3cqw;
+  transform: translateY(-50%);
+}
+
+.reel__q {
+  padding: 0.9cqw 1.6cqw;
+  border-radius: 1.2cqw;
+  font-size: 1.8cqw;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.reel__talk--color .reel__q {
+  background: var(--blue-soft);
+  animation-name: reel-q-color;
+}
+
+.reel__talk--dir .reel__q {
+  background: var(--red-soft);
+  animation-name: reel-q-dir;
+}
+
+.reel__a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9cqw;
+  padding: 0.5cqw 0.7cqw 0.5cqw 1.9cqw;
+  border: 0.26cqw solid;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 2.7cqw;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.reel__a i {
+  color: var(--red);
+  font-style: normal;
+}
+
+.reel__mark {
+  display: grid;
+  place-items: center;
+  width: 3.4cqw;
+  height: 3.4cqw;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.9cqw;
+}
+
+.reel__talk--color .reel__a {
+  border-color: var(--green);
+  animation-name: reel-a-color;
+}
+
+.reel__talk--color .reel__mark {
+  background: var(--green);
+}
+
+.reel__talk--dir .reel__a {
+  border-color: var(--red);
+  animation-name: reel-a-dir;
+}
+
+.reel__talk--dir .reel__mark {
+  background: var(--red);
+}
+
+/* the number and the bar */
+.reel__metric {
+  position: absolute;
+  top: 58%;
+  right: 6cqw;
+  left: 6cqw;
+  display: grid;
+  grid-template-columns: 31cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 5cqw;
+  transform: translateY(-50%);
+  animation-name: reel-metric;
+}
+
+.reel__num {
+  font-family: var(--font-head);
+  font-size: 8.4cqw;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.reel__who {
+  position: relative;
+  height: 2.4cqw;
+  margin-top: 1cqw;
+  font-size: 1.7cqw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.reel__who span {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.reel__who-base { animation-name: reel-who-base; }
+.reel__who-ours { animation-name: reel-who-ours; }
+
+.reel__track {
+  position: relative;
+  height: 3.4cqw;
+  border-radius: 0.7cqw;
+  background: #fff;
+}
+
+.reel__fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 0.7cqw;
+}
+
+.reel__fill--base {
+  background: var(--ink-2);
+  animation-name: reel-fill-base;
+}
+
+.reel__fill--ours {
+  background: var(--yellow);
+  animation-name: reel-fill-ours;
+}
+
+.reel__chance {
+  position: absolute;
+  top: -1.2cqw;
+  bottom: -1.2cqw;
+  left: 25%;
+  border-left: 0.22cqw dashed var(--red);
+  animation-name: reel-chance;
+}
+
+.reel__chance b {
+  position: absolute;
+  bottom: 100%;
+  left: -0.2cqw;
+  padding-bottom: 0.3cqw;
+  color: var(--red);
+  font-size: 1.4cqw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.reel__axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.6cqw;
+  color: var(--ink-2);
+  font-size: 1.4cqw;
+}
+
+/* ----- keyframes ----- */
+@keyframes reel-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes reel-cap-1 {
+  0%, 1% { opacity: 0; transform: translateY(1.2cqw); }
+  3.5%, 16.67% { opacity: 1; transform: none; }
+  18.67%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
+}
+
+@keyframes reel-cap-2 {
+  0%, 19.5% { opacity: 0; transform: translateY(1.2cqw); }
+  22%, 34% { opacity: 1; transform: none; }
+  36%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
+}
+
+@keyframes reel-cap-3 {
+  0%, 36.5% { opacity: 0; transform: translateY(1.2cqw); }
+  39%, 59% { opacity: 1; transform: none; }
+  61%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
+}
+
+@keyframes reel-cap-4 {
+  0%, 61.5% { opacity: 0; transform: translateY(1.2cqw); }
+  64%, 78.5% { opacity: 1; transform: none; }
+  80.5%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
+}
+
+@keyframes reel-cap-5 {
+  0%, 81% { opacity: 0; transform: translateY(1.2cqw); }
+  83.5%, 96.5% { opacity: 1; transform: none; }
+  98.5%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
+}
+
+@keyframes reel-scene-1 {
+  0%, 18.67% { background: var(--ink); }
+  19.5%, 100% { background: var(--bar-base); }
+}
+
+@keyframes reel-scene-2 {
+  0%, 18.67% { background: var(--bar-base); }
+  19.5%, 36% { background: var(--ink); }
+  37%, 100% { background: var(--bar-base); }
+}
+
+@keyframes reel-scene-3 {
+  0%, 36% { background: var(--bar-base); }
+  37%, 61.33% { background: var(--ink); }
+  62.3%, 100% { background: var(--bar-base); }
+}
+
+@keyframes reel-scene-4 {
+  0%, 61.33% { background: var(--bar-base); }
+  62.3%, 80% { background: var(--ink); }
+  81%, 100% { background: var(--bar-base); }
+}
+
+@keyframes reel-scene-5 {
+  0%, 80% { background: var(--bar-base); }
+  81%, 98% { background: var(--ink); }
+  100% { background: var(--bar-base); }
+}
+
+/* the video opens in the middle, then steps aside for the model */
+@keyframes reel-video {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
+  2.5%, 18.67% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  22%, 59.5% { opacity: 1; transform: translate(calc(-50% - 31cqw), -50%) scale(0.8); }
+  61.5%, 100% { opacity: 0; transform: translate(calc(-50% - 36cqw), -50%) scale(0.8); }
+}
+
+/* 8 frames in scene 1, then the same clip again in scene 3 */
+@keyframes reel-ball {
+  0%, 3.33% { left: 12%; animation-timing-function: steps(7, end); }
+  15.33%, 36.6% { left: 88%; animation-timing-function: step-end; }
+  36.7%, 40% { left: 12%; animation-timing-function: steps(7, end); }
+  50.67%, 100% { left: 88%; }
+}
+
+@keyframes reel-time {
+  0%, 3.33% { width: 12.5%; animation-timing-function: steps(7, end); }
+  15.33%, 36.6% { width: 100%; animation-timing-function: step-end; }
+  36.7%, 40% { width: 12.5%; animation-timing-function: steps(7, end); }
+  50.67%, 100% { width: 100%; }
+}
+
+@keyframes reel-truth {
+  0%, 40% { opacity: 1; clip-path: inset(0 100% 0 0); }
+  50.67%, 100% { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes reel-truth-tip {
+  0%, 49.5% { opacity: 0; }
+  50.67%, 100% { opacity: 1; }
+}
+
+@keyframes reel-link {
+  0%, 19.5% { opacity: 0; clip-path: inset(0 100% 0 0); }
+  22.5%, 59.5% { opacity: 1; clip-path: inset(0 0 0 0); }
+  61.5%, 100% { opacity: 0; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes reel-model {
+  0%, 20% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  23%, 59.5% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  61.5%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes reel-q-color {
+  0%, 21.5% { opacity: 0; transform: translateX(2cqw); }
+  24%, 34% { opacity: 1; transform: none; }
+  36%, 100% { opacity: 0; transform: translateY(-1cqw); }
+}
+
+@keyframes reel-a-color {
+  0%, 26% { opacity: 0; transform: scale(0.7); }
+  28%, 34% { opacity: 1; transform: scale(1); }
+  36%, 100% { opacity: 0; transform: scale(1); }
+}
+
+@keyframes reel-q-dir {
+  0%, 37.5% { opacity: 0; transform: translateX(2cqw); }
+  40%, 59.5% { opacity: 1; transform: none; }
+  61.5%, 100% { opacity: 0; transform: translateY(-1cqw); }
+}
+
+/* the wrong answer lands after the clip ends, then shakes once */
+@keyframes reel-a-dir {
+  0%, 52% { opacity: 0; transform: scale(0.7); }
+  54% { opacity: 1; transform: scale(1); }
+  54.6% { transform: translateX(-0.6cqw); }
+  55.2% { transform: translateX(0.6cqw); }
+  55.8% { transform: translateX(-0.4cqw); }
+  56.4%, 59.5% { opacity: 1; transform: none; }
+  61.5%, 100% { opacity: 0; transform: none; }
+}
+
+@keyframes reel-metric {
+  0%, 61.5% { opacity: 0; transform: translateY(calc(-50% + 1.5cqw)); }
+  64%, 96.5% { opacity: 1; transform: translateY(-50%); }
+  98.5%, 100% { opacity: 0; transform: translateY(-50%); }
+}
+
+@keyframes reel-fill-base {
+  0%, 63.33% { width: 0; }
+  70%, 100% { width: 25.9%; }
+}
+
+@keyframes reel-fill-ours {
+  0%, 82% { width: 25.9%; opacity: 0; }
+  82.1% { width: 25.9%; opacity: 1; }
+  88.67%, 100% { width: 85.9%; opacity: 1; }
+}
+
+@keyframes reel-chance {
+  0%, 64% { opacity: 0; }
+  66%, 100% { opacity: 1; }
+}
+
+@keyframes reel-who-base {
+  0%, 80% { opacity: 1; }
+  81.5%, 100% { opacity: 0; }
+}
+
+@keyframes reel-who-ours {
+  0%, 81.5% { opacity: 0; }
+  83.5%, 100% { opacity: 1; }
+}
+
+/* small screens and reduced motion get the static diagram instead */
+@media (max-width: 759px), (prefers-reduced-motion: reduce) {
+  .reel {
+    display: none;
+  }
+
+  .hero__scene .scene {
+    display: block;
+  }
+}
