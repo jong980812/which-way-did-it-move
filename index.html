@@ -108,31 +108,44 @@
     </p>
 
     <figure class="hero__scene">
-      <p class="visually-hidden">Animation: a yellow circle moves from left to right. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, the Video-LLM answers Leftward, which is wrong.</p>
-      <div class="scene" aria-hidden="true">
-        <div class="scene__video">
-          <span class="scene__ghost" style="left:14%"></span>
-          <span class="scene__ghost" style="left:32%"></span>
-          <span class="scene__ghost" style="left:50%"></span>
-          <span class="scene__ghost" style="left:68%"></span>
-          <span class="scene__ball"></span>
-          <span class="scene__tag">Input video</span>
-          <span class="scene__progress"><span></span></span>
-        </div>
-        <div class="qa qa--color">
-          <p class="qa__kind">Appearance</p>
-          <p class="qa__q">What color is the moving object?</p>
-          <div class="qa__a">
-            <span class="qa__bot"><svg><use href="#i-bot"/></svg></span>
-            <span class="qa__reply">Yellow<span class="qa__mark">✓</span></span>
+      <p class="visually-hidden">Animation: a yellow circle moves from left to right over eight video frames. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, the Video-LLM answers Leftward, which is wrong.</p>
+      <div class="scene">
+        <p class="scene__title">Recent Video-LLMs correctly identify the object’s color but answer the wrong motion direction.</p>
+        <div class="scene__flow" aria-hidden="true">
+          <div class="scene__input">
+            <div class="scene__video">
+              <span class="scene__dot" style="left:12%"></span>
+              <span class="scene__dot" style="left:22.86%"></span>
+              <span class="scene__dot" style="left:33.71%"></span>
+              <span class="scene__dot" style="left:44.57%"></span>
+              <span class="scene__dot" style="left:55.43%"></span>
+              <span class="scene__dot" style="left:66.29%"></span>
+              <span class="scene__dot" style="left:77.14%"></span>
+              <span class="scene__dot" style="left:88%"></span>
+              <span class="scene__ball"></span>
+              <span class="scene__bar"><span class="scene__play"></span><span class="scene__progress"><span></span></span></span>
+            </div>
+            <p class="scene__label">Input video, 8 frames</p>
           </div>
-        </div>
-        <div class="qa qa--dir">
-          <p class="qa__kind">Motion direction</p>
-          <p class="qa__q">Which way is the object moving?</p>
-          <div class="qa__a">
-            <span class="qa__bot"><svg><use href="#i-bot"/></svg></span>
-            <span class="qa__reply">Leftward<span class="qa__mark">✕</span></span>
+
+          <svg class="scene__arrow" viewBox="0 0 48 24"><path d="M3 12h38M31 3l11 9-11 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+          <div class="scene__model">
+            <span class="scene__bot"><svg><use href="#i-bot"/></svg></span>
+            <p class="scene__label">Video-LLM</p>
+          </div>
+
+          <svg class="scene__arrow" viewBox="0 0 48 24"><path d="M3 12h38M31 3l11 9-11 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+          <div class="scene__qa">
+            <div class="qa qa--color">
+              <p class="qa__q">What color is the moving object?</p>
+              <p class="qa__reply">Yellow<span class="qa__mark">✓</span></p>
+            </div>
+            <div class="qa qa--dir">
+              <p class="qa__q">Which way is the object moving?</p>
+              <p class="qa__reply"><span class="qa__way">←</span>Leftward<span class="qa__mark">✕</span></p>
+            </div>
           </div>
         </div>
       </div>
