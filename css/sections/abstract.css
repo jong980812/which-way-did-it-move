@@ -37,10 +37,6 @@
   margin-top: var(--space-5);
 }
 
-.story__abstract p {
-  max-width: 78ch;
-}
-
 @media (max-width: 899px) {
   .story__steps {
     grid-template-columns: minmax(0, 1fr);

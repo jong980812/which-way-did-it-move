@@ -12,7 +12,7 @@ html {
 
 /* anchors land below the sticky section index */
 [id] {
-  scroll-margin-top: 72px;
+  scroll-margin-top: 96px;
 }
 
 body {
@@ -155,14 +155,6 @@ sup {
   line-height: 1;
 }
 
-/* handwritten side notes */
-.hand {
-  font-family: var(--font-hand);
-  font-size: var(--fs-hand);
-  font-weight: 600;
-  line-height: 1.1;
-}
-
 .mono {
   font-family: var(--font-mono);
   font-size: var(--fs-mono);
@@ -195,7 +187,6 @@ sup {
 
 .figure figcaption,
 .caption {
-  max-width: 70ch;
   margin-top: var(--space-3);
   color: var(--ink-2);
   font-size: var(--fs-small);
@@ -218,7 +209,7 @@ sup {
   border-radius: 999px;
   background: var(--ink);
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.0625rem;
   font-weight: 600;
   line-height: 1.4;
   cursor: pointer;
@@ -290,7 +281,7 @@ sup {
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-variant-numeric: tabular-nums;
   line-height: 1.35;
 }

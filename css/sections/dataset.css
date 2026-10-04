@@ -38,7 +38,7 @@
 /* rows = foreground type, columns = background type */
 .dataset__matrix {
   display: grid;
-  grid-template-columns: auto minmax(0, 230px) minmax(0, 230px);
+  grid-template-columns: auto minmax(0, 250px) minmax(0, 250px);
   gap: var(--space-3) var(--space-4);
   justify-content: center;
   align-items: center;
@@ -74,7 +74,7 @@
   gap: 0 var(--space-2);
   margin-top: var(--space-1);
   color: var(--ink-2);
-  font-size: 0.875rem;
+  font-size: 0.95rem;
 }
 
 .clip__cap b {

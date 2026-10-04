@@ -13,7 +13,7 @@
   justify-content: space-between;
   gap: var(--space-5);
   max-width: calc(var(--container-wide) + 2 * var(--gutter));
-  min-height: 56px;
+  min-height: 76px;
 }
 
 .nav__home {
@@ -22,7 +22,7 @@
   gap: 0.5em;
   color: var(--ink);
   font-family: var(--font-head);
-  font-size: 1.0625rem;
+  font-size: 1.35rem;
   font-weight: 800;
   white-space: nowrap;
 }
@@ -52,10 +52,10 @@
 
 .nav__list a {
   display: block;
-  padding: 5px 14px;
+  padding: 9px 18px;
   border-radius: 999px;
   color: var(--ink-2);
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   white-space: nowrap;
   transition: background-color var(--dur-ui), color var(--dur-ui);
@@ -78,7 +78,7 @@
   }
 
   .nav__inner {
-    min-height: 48px;
+    min-height: 60px;
     padding-inline: var(--space-3);
   }
 }

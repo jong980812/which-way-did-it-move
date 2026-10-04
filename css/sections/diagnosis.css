@@ -23,7 +23,7 @@
 }
 
 .step__small {
-  max-width: 600px;
+  max-width: 680px;
 }
 
 /* ---------- pipeline ---------- */
@@ -125,6 +125,7 @@
 .stage__label {
   display: block;
   margin: 0 0 var(--space-3);
+  font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.3;
 }

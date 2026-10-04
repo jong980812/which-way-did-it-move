@@ -48,8 +48,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2px 14px;
-  max-width: 27em;
-  font-size: 1rem;
+  max-width: 24em;
+  font-size: 1.0625rem;
   font-weight: 500;
 }
 
@@ -71,7 +71,6 @@
 }
 
 .hero__tldr {
-  max-width: 60ch;
   margin-top: var(--space-5);
   padding: var(--space-4) var(--space-5);
   border-radius: var(--radius);
@@ -143,6 +142,8 @@
   bottom: 5%;
   left: 0;
   color: var(--green);
+  font-size: 1.05rem;
+  font-weight: 700;
   text-align: center;
 }
 
