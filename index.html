@@ -111,68 +111,105 @@
     </p>
 
     <figure class="hero__scene">
-      <p class="visually-hidden">A 15-second animation. A yellow circle moves from left to right over eight video frames. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, it answers Leftward, which is wrong. LLaVA-Video-7B scores 25.9% on MoDirect-SynBench, where chance is 25%. After tuning with DeltaDirect it scores 85.9%.</p>
+      <p class="visually-hidden">An animation in nine scenes. A yellow circle moves from left to right over eight video frames. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, it answers Leftward, which is wrong. We call this failure directional motion blindness: LLaVA-Video-7B scores 25.9% on MoDirect-SynBench, where chance is 25%. Why? Linear probes still decode the direction inside the model, at 99.8% after the vision encoder, 96.5% after the projector and 95.3% in the LLM, but the answer is correct only 27.6% of the time: the direction is not bound to the answer. DeltaDirect strengthens the motion signal at the projector, and accuracy on MoDirect-SynBench rises from 25.9% to 85.9%.</p>
       <div class="reel">
         <div class="reel__stage" aria-hidden="true">
-          <p class="reel__cap reel__cap--1">A single object moves from left to right.</p>
-          <p class="reel__cap reel__cap--2">Video-LLMs name its color.</p>
-          <p class="reel__cap reel__cap--3">But they miss its direction.</p>
-          <p class="reel__cap reel__cap--4">Accuracy sits near chance.</p>
-          <p class="reel__cap reel__cap--5">DeltaDirect raises it to 85.9%.</p>
+          <p class="reel__cap" data-scene="1">A single object moves from left to right.</p>
+          <p class="reel__cap" data-scene="2">Video-LLMs name its color.</p>
+          <p class="reel__cap" data-scene="3">But they miss its direction.</p>
+          <p class="reel__cap" data-scene="4">We call this failure</p>
+          <p class="reel__cap" data-scene="6">Inside the model, the direction is still decodable.</p>
+          <p class="reel__cap" data-scene="7">But it is not bound to the answer.</p>
+          <p class="reel__cap" data-scene="8">DeltaDirect strengthens the motion signal at the projector.</p>
+          <p class="reel__cap" data-scene="9">On MoDirect-SynBench, accuracy rises from 25.9% to 85.9%.</p>
 
-          <div class="reel__video">
-            <span class="reel__dot" style="left:12%"></span>
-            <span class="reel__dot" style="left:22.86%"></span>
-            <span class="reel__dot" style="left:33.71%"></span>
-            <span class="reel__dot" style="left:44.57%"></span>
-            <span class="reel__dot" style="left:55.43%"></span>
-            <span class="reel__dot" style="left:66.29%"></span>
-            <span class="reel__dot" style="left:77.14%"></span>
-            <span class="reel__dot" style="left:88%"></span>
-            <span class="reel__ball"></span>
-            <svg class="reel__truth" viewBox="0 0 200 16" preserveAspectRatio="none"><path d="M2 8h192" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
-            <svg class="reel__truth-tip" viewBox="0 0 12 16"><path d="M2 2l8 6-8 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span class="reel__bar"><span class="reel__play"></span><span class="reel__time"><span></span></span></span>
-          </div>
-
-          <svg class="reel__link" viewBox="0 0 48 24"><path d="M3 12h38M31 3l11 9-11 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-
-          <div class="reel__model">
-            <span class="reel__bot"><svg><use href="#i-bot"/></svg></span>
-            <span class="reel__name">Video-LLM</span>
-          </div>
-
-          <div class="reel__talk reel__talk--color">
-            <p class="reel__q">What color is the moving object?</p>
-            <p class="reel__a">Yellow<span class="reel__mark">✓</span></p>
-          </div>
-          <div class="reel__talk reel__talk--dir">
-            <p class="reel__q">Which way is the object moving?</p>
-            <p class="reel__a"><i>←</i>Leftward<span class="reel__mark">✕</span></p>
-          </div>
-
-          <div class="reel__metric">
-            <div>
-              <p class="reel__num" data-reel-num>25.9%</p>
-              <p class="reel__who">
-                <span class="reel__who-base">LLaVA-Video-7B</span>
-                <span class="reel__who-ours">LLaVA-Video-7B with DeltaDirect</span>
-              </p>
+          <!-- act A: the example (scenes 1-3) -->
+          <div class="reel__act reel__act--a">
+            <div class="reel__video">
+              <span class="reel__dot" style="left:12%"></span>
+              <span class="reel__dot" style="left:22.86%"></span>
+              <span class="reel__dot" style="left:33.71%"></span>
+              <span class="reel__dot" style="left:44.57%"></span>
+              <span class="reel__dot" style="left:55.43%"></span>
+              <span class="reel__dot" style="left:66.29%"></span>
+              <span class="reel__dot" style="left:77.14%"></span>
+              <span class="reel__dot" style="left:88%"></span>
+              <span class="reel__ball"></span>
+              <svg class="reel__truth" viewBox="0 0 200 16" preserveAspectRatio="none"><path d="M2 8h192" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="reel__truth-tip" viewBox="0 0 12 16"><path d="M2 2l8 6-8 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="reel__bar"><span class="reel__play"></span><span class="reel__time"><span></span></span></span>
             </div>
-            <div>
-              <div class="reel__track">
-                <span class="reel__fill reel__fill--ours"></span>
-                <span class="reel__fill reel__fill--base"></span>
-                <span class="reel__chance"><b>chance 25%</b></span>
+            <svg class="reel__link" viewBox="0 0 48 24"><path d="M3 12h38M31 3l11 9-11 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="reel__model">
+              <span class="reel__bot"><svg><use href="#i-bot"/></svg></span>
+              <span class="reel__name">Video-LLM</span>
+            </div>
+            <div class="reel__talk reel__talk--color">
+              <p class="reel__q">What color is the moving object?</p>
+              <p class="reel__a">Yellow<span class="reel__mark">✓</span></p>
+            </div>
+            <div class="reel__talk reel__talk--dir">
+              <p class="reel__q">Which way is the object moving?</p>
+              <p class="reel__a"><i>←</i>Leftward<span class="reel__mark">✕</span></p>
+            </div>
+          </div>
+
+          <!-- act B: the name, and the question (scenes 4-5) -->
+          <div class="reel__act reel__act--b">
+            <p class="reel__title"><span>Directional</span><span>motion blindness</span></p>
+            <p class="reel__stat">LLaVA-Video-7B scores 25.9% on MoDirect-SynBench. Chance is 25%.</p>
+          </div>
+          <div class="reel__act reel__act--why">
+            <p class="reel__why">Why?</p>
+          </div>
+
+          <!-- act C: where the direction is lost, and the fix (scenes 6-8) -->
+          <div class="reel__act reel__act--c">
+            <span class="reel__wire reel__wire--1"></span>
+            <span class="reel__wire reel__wire--2"></span>
+            <span class="reel__wire reel__wire--gap"></span>
+            <span class="reel__gap">direction binding gap</span>
+
+            <div class="reel__node reel__node--1">Vision encoder</div>
+            <div class="reel__node reel__node--2">Projector<span class="reel__delta">Δ</span></div>
+            <div class="reel__node reel__node--3">LLM</div>
+            <div class="reel__node reel__node--4">Answer</div>
+
+            <span class="reel__probe reel__probe--1">99.8%</span>
+            <span class="reel__probe reel__probe--2">96.5%</span>
+            <span class="reel__probe reel__probe--3">95.3%</span>
+            <span class="reel__probe reel__probe--bad">27.6%</span>
+            <span class="reel__probe reel__probe--good">✓</span>
+
+            <span class="reel__sig"></span>
+            <p class="reel__note">Motion direction accuracy at each stage: linear probes inside the model, multiple choice at the answer.</p>
+          </div>
+
+          <!-- act D: the result (scene 9) -->
+          <div class="reel__act reel__act--d">
+            <div class="reel__metric">
+              <div>
+                <p class="reel__num" data-reel-num>25.9%</p>
+                <p class="reel__who">
+                  <span class="reel__who-base">LLaVA-Video-7B</span>
+                  <span class="reel__who-ours">LLaVA-Video-7B with DeltaDirect</span>
+                </p>
               </div>
-              <p class="reel__axis"><span>0</span><span>MoDirect-SynBench accuracy (%)</span><span>100</span></p>
+              <div>
+                <div class="reel__track">
+                  <span class="reel__fill reel__fill--ours"></span>
+                  <span class="reel__fill reel__fill--base"></span>
+                  <span class="reel__chance"><b>chance 25%</b></span>
+                </div>
+                <p class="reel__axis"><span>0</span><span>MoDirect-SynBench accuracy (%)</span><span>100</span></p>
+              </div>
             </div>
           </div>
 
-          <ol class="reel__scenes"><li></li><li></li><li></li><li></li><li></li></ol>
           <span class="reel__progress"><span></span></span>
         </div>
         <div class="reel__controls">
+          <ol class="reel__scenes" aria-label="Scenes"></ol>
           <button class="btn btn--soft" type="button" data-reel-toggle aria-pressed="false">Pause</button>
           <button class="btn btn--soft" type="button" data-reel-restart>Replay</button>
         </div>
@@ -218,8 +255,8 @@
         </div>
       </div>
       <figcaption class="caption hero__cap">
-        Figure 1(a) as a 15-second animation. LLaVA-Video-7B scores 25.9% on MoDirect-SynBench
-        (chance is 25%) and 85.9% after tuning with DeltaDirect.
+        The paper in nine scenes. Values are for LLaVA-Video-7B: stage accuracies from Figure 2
+        (Primitive-on-Syn), and 25.9% and 85.9% on MoDirect-SynBench, where chance is 25%.
       </figcaption>
     </figure>
   </div>

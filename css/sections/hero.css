@@ -87,8 +87,8 @@
   margin-top: var(--space-6);
   padding: var(--space-5) var(--space-6);
   border-radius: var(--radius);
-  background: var(--yellow);
-  font-size: clamp(1.2rem, 1.85vw, 1.6rem);
+  background: var(--yellow-pastel);
+  font-size: clamp(1.3rem, 2.1vw, 1.85rem);
   font-weight: 500;
   line-height: 1.4;
   text-align: center;
@@ -432,17 +432,22 @@
   }
 }
 
-/* ---------- reel: the teaser as a 15-second motion piece ----------
-   One clock (--reel) drives every element. Times in the keyframes are
-   percentages of 15s: scene 1 ends at 18.67%, 2 at 36%, 3 at 61.33%, 4 at 80%.
-   All sizes are in cqw so the stage scales like a video. */
-.hero__scene .scene {
+/* ---------- reel: the teaser as a short motion piece ----------
+   reel.js steps through the scenes and sets data-scene on the stage. CSS
+   shows each scene's parts and runs its animations. Sizes are in cqw, so
+   the stage scales like a video. Without the script, on small screens and
+   under reduced motion, the static diagram below is shown instead. */
+.reel {
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   display: none;
 }
 
-.reel {
-  --reel: 15s;
-  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+.reel.is-ready {
+  display: block;
+}
+
+.reel.is-ready ~ .scene {
+  display: none;
 }
 
 .reel__stage {
@@ -454,20 +459,13 @@
   container-type: inline-size;
 }
 
-.reel__stage * {
-  animation-duration: var(--reel);
-  animation-timing-function: var(--ease);
-  animation-iteration-count: infinite;
-  animation-fill-mode: both;
-}
-
 .reel.is-paused .reel__stage * {
   animation-play-state: paused;
 }
 
 .reel__controls {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
   gap: var(--space-2);
   margin-top: var(--space-3);
 }
@@ -477,46 +475,40 @@
   font-size: 1rem;
 }
 
-/* captions: one line per scene, top left */
-.reel__cap {
-  position: absolute;
-  top: 3.4cqw;
-  left: 4cqw;
-  max-width: 70cqw;
-  font-family: var(--font-head);
-  font-size: 2.5cqw;
-  font-weight: 700;
-  line-height: 1.15;
-  opacity: 0;
-}
-
-.reel__cap--1 { animation-name: reel-cap-1; }
-.reel__cap--2 { animation-name: reel-cap-2; }
-.reel__cap--3 { animation-name: reel-cap-3; }
-.reel__cap--4 { animation-name: reel-cap-4; }
-.reel__cap--5 { animation-name: reel-cap-5; }
-
-/* scene markers, top right */
+/* one button per scene: shows where the reel is, and jumps there */
 .reel__scenes {
-  position: absolute;
-  top: 4.3cqw;
-  right: 4cqw;
   display: flex;
-  gap: 0.7cqw;
+  align-items: center;
+  gap: 2px;
+  margin-right: auto;
 }
 
-.reel__scenes li {
-  width: 0.8cqw;
-  height: 0.8cqw;
+.reel__scenes button {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+
+.reel__scenes span {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--bar-base);
 }
 
-.reel__scenes li:nth-child(1) { animation-name: reel-scene-1; }
-.reel__scenes li:nth-child(2) { animation-name: reel-scene-2; }
-.reel__scenes li:nth-child(3) { animation-name: reel-scene-3; }
-.reel__scenes li:nth-child(4) { animation-name: reel-scene-4; }
-.reel__scenes li:nth-child(5) { animation-name: reel-scene-5; }
+.reel__scenes button:hover span {
+  background: var(--ink-2);
+}
+
+.reel__scenes .is-on span {
+  background: var(--ink);
+}
 
 .reel__progress {
   position: absolute;
@@ -528,13 +520,52 @@
 
 .reel__progress span {
   display: block;
+  width: 0;
   height: 100%;
   background: var(--yellow);
-  animation-name: reel-progress;
-  animation-timing-function: linear;
 }
 
-/* the input video */
+/* captions: one line per scene, top left */
+.reel__cap {
+  position: absolute;
+  top: 3.4cqw;
+  left: 4cqw;
+  max-width: 90cqw;
+  font-family: var(--font-head);
+  font-size: 2.6cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  opacity: 0;
+  transform: translateY(1cqw);
+  transition: opacity 0.3s, transform 0.5s var(--ease);
+}
+
+.reel__cap.is-on {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.15s;
+}
+
+/* acts: groups of parts that stay on stage across neighbouring scenes */
+.reel__act {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s, visibility 0s 0.35s;
+}
+
+.reel__stage:is([data-scene="1"], [data-scene="2"], [data-scene="3"]) .reel__act--a,
+.reel__stage[data-scene="4"] .reel__act--b,
+.reel__stage[data-scene="5"] .reel__act--why,
+.reel__stage:is([data-scene="6"], [data-scene="7"], [data-scene="8"]) .reel__act--c,
+.reel__stage[data-scene="9"] .reel__act--d {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s, visibility 0s;
+}
+
+/* ----- act A: the example ----- */
 .reel__video {
   position: absolute;
   top: 57%;
@@ -545,7 +576,12 @@
   border: 0.24cqw solid var(--ink);
   border-radius: 1.6cqw;
   background: #fffdf5;
-  animation-name: reel-video;
+  transform: translate(-50%, -50%);
+  transition: transform 0.7s var(--ease);
+}
+
+.reel__stage:is([data-scene="2"], [data-scene="3"]) .reel__video {
+  transform: translate(calc(-50% - 31cqw), -50%) scale(0.8);
 }
 
 .reel__ball,
@@ -566,29 +602,19 @@
 .reel__ball {
   left: 12%;
   width: 14%;
-  animation-name: reel-ball;
 }
 
-/* the true direction, drawn while the clip replays */
-.reel__truth,
-.reel__truth-tip {
-  position: absolute;
-  top: 61%;
-  height: 7%;
-  color: var(--ink-2);
+/* 8 frames in scene 1; the same clip replays in scene 3 */
+.reel__stage[data-scene="1"] .reel__ball {
+  animation: reel-step 1.6s steps(7, end) 0.5s both;
 }
 
-.reel__truth {
-  left: 12%;
-  width: 76%;
-  animation-name: reel-truth;
-  animation-timing-function: linear;
+.reel__stage[data-scene="2"] .reel__ball {
+  left: 88%;
 }
 
-.reel__truth-tip {
-  left: 85%;
-  width: 5.5%;
-  animation-name: reel-truth-tip;
+.reel__stage[data-scene="3"] .reel__ball {
+  animation: reel-step 1.6s steps(7, end) 0.9s both;
 }
 
 .reel__bar {
@@ -620,12 +646,52 @@
 
 .reel__time span {
   display: block;
+  width: 12.5%;
   height: 100%;
   background: var(--ink);
-  animation-name: reel-time;
 }
 
-/* video -> model */
+.reel__stage[data-scene="1"] .reel__time span {
+  animation: reel-time 1.6s steps(7, end) 0.5s both;
+}
+
+.reel__stage[data-scene="2"] .reel__time span {
+  width: 100%;
+}
+
+.reel__stage[data-scene="3"] .reel__time span {
+  animation: reel-time 1.6s steps(7, end) 0.9s both;
+}
+
+/* the true direction, drawn while the clip replays */
+.reel__truth,
+.reel__truth-tip {
+  position: absolute;
+  top: 61%;
+  height: 7%;
+  color: var(--ink-2);
+}
+
+.reel__truth {
+  left: 12%;
+  width: 76%;
+  clip-path: inset(0 100% 0 0);
+}
+
+.reel__truth-tip {
+  left: 85%;
+  width: 5.5%;
+  opacity: 0;
+}
+
+.reel__stage[data-scene="3"] .reel__truth {
+  animation: reel-draw 1.6s linear 0.9s both;
+}
+
+.reel__stage[data-scene="3"] .reel__truth-tip {
+  animation: reel-fade 0.2s linear 2.4s both;
+}
+
 .reel__link {
   position: absolute;
   top: 57%;
@@ -633,7 +699,8 @@
   width: 4.6cqw;
   margin-top: -1.15cqw;
   color: var(--ink);
-  animation-name: reel-link;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .reel__model {
@@ -643,8 +710,20 @@
   display: grid;
   justify-items: center;
   gap: 0.8cqw;
-  transform: translate(-50%, -50%);
-  animation-name: reel-model;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  transition: opacity 0.3s, transform 0.5s var(--ease);
+}
+
+.reel__stage:is([data-scene="2"], [data-scene="3"]) .reel__link {
+  opacity: 1;
+  transition-delay: 0.35s;
+}
+
+.reel__stage:is([data-scene="2"], [data-scene="3"]) .reel__model {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  transition-delay: 0.4s;
 }
 
 .reel__bot {
@@ -668,7 +747,6 @@
   white-space: nowrap;
 }
 
-/* question and answer */
 .reel__talk {
   position: absolute;
   top: 57%;
@@ -686,16 +764,15 @@
   font-weight: 700;
   line-height: 1.25;
   white-space: nowrap;
+  opacity: 0;
 }
 
 .reel__talk--color .reel__q {
   background: var(--blue-soft);
-  animation-name: reel-q-color;
 }
 
 .reel__talk--dir .reel__q {
   background: var(--red-soft);
-  animation-name: reel-q-dir;
 }
 
 .reel__a {
@@ -707,10 +784,11 @@
   border-radius: 999px;
   background: #fff;
   color: var(--ink);
-  font-size: 2.7cqw;
+  font-size: 2.8cqw;
   font-weight: 800;
   line-height: 1.2;
   white-space: nowrap;
+  opacity: 0;
 }
 
 .reel__a i {
@@ -730,7 +808,6 @@
 
 .reel__talk--color .reel__a {
   border-color: var(--green);
-  animation-name: reel-a-color;
 }
 
 .reel__talk--color .reel__mark {
@@ -739,14 +816,272 @@
 
 .reel__talk--dir .reel__a {
   border-color: var(--red);
-  animation-name: reel-a-dir;
 }
 
 .reel__talk--dir .reel__mark {
   background: var(--red);
 }
 
-/* the number and the bar */
+.reel__stage[data-scene="2"] .reel__talk--color .reel__q {
+  animation: reel-slide 0.5s var(--ease) 0.7s both;
+}
+
+.reel__stage[data-scene="2"] .reel__talk--color .reel__a {
+  animation: reel-pop 0.45s var(--ease) 1.3s both;
+}
+
+.reel__stage[data-scene="3"] .reel__talk--dir .reel__q {
+  animation: reel-slide 0.5s var(--ease) 0.2s both;
+}
+
+/* the wrong answer lands after the clip ends, then shakes once */
+.reel__stage[data-scene="3"] .reel__talk--dir .reel__a {
+  animation: reel-pop 0.45s var(--ease) 2.7s both, reel-shake 0.45s linear 3.15s;
+}
+
+/* ----- act B: the name, then the question ----- */
+.reel__title {
+  position: absolute;
+  top: 54%;
+  right: 0;
+  left: 0;
+  font-family: var(--font-head);
+  font-size: 6.4cqw;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+.reel__title span {
+  display: block;
+  opacity: 0;
+}
+
+.reel__stage[data-scene="4"] .reel__title span {
+  animation: reel-rise 0.6s var(--ease) 0.15s both;
+}
+
+.reel__stage[data-scene="4"] .reel__title span:last-child {
+  animation-delay: 0.32s;
+}
+
+.reel__stat {
+  position: absolute;
+  top: 80%;
+  right: 0;
+  left: 0;
+  color: var(--ink-2);
+  font-size: 2.1cqw;
+  font-weight: 500;
+  text-align: center;
+  opacity: 0;
+}
+
+.reel__stage[data-scene="4"] .reel__stat {
+  animation: reel-fade 0.5s ease 1.1s both;
+}
+
+.reel__why {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-size: 13cqw;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.reel__stage[data-scene="5"] .reel__why {
+  animation: reel-zoom 0.7s var(--ease) both;
+}
+
+/* ----- act C: where the direction is lost, and the fix ----- */
+.reel__wire {
+  position: absolute;
+  top: 52%;
+  margin-top: -0.12cqw;
+  border-top: 0.24cqw solid var(--ink);
+}
+
+.reel__wire--1 {
+  left: 20cqw;
+  width: 8.5cqw;
+}
+
+.reel__wire--2 {
+  left: 44.5cqw;
+  width: 8.5cqw;
+}
+
+.reel__wire--gap {
+  left: 69cqw;
+  width: 9cqw;
+  border-top: 0.3cqw dashed var(--red);
+}
+
+.reel__stage[data-scene="8"] .reel__wire--gap {
+  animation: reel-mend 0.01s linear 2.2s both;
+}
+
+.reel__gap {
+  position: absolute;
+  top: 52%;
+  left: 73.5cqw;
+  margin-top: -7.8cqw;
+  padding: 0.35cqw 1.3cqw;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: 1.8cqw;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+.reel__stage[data-scene="7"] .reel__gap {
+  animation: reel-fade 0.4s ease 0.9s both;
+}
+
+.reel__stage[data-scene="8"] .reel__gap {
+  animation: reel-out 0.3s ease 2.1s both;
+}
+
+/* the signal passes behind each module and comes out on the other side */
+.reel__sig {
+  position: absolute;
+  top: 52%;
+  left: 12cqw;
+  width: 2.6cqw;
+  height: 2.6cqw;
+  margin: -1.3cqw 0 0 -1.3cqw;
+  border: 0.24cqw solid var(--ink);
+  border-radius: 50%;
+  background: var(--yellow);
+  opacity: 0;
+}
+
+.reel__stage[data-scene="6"] .reel__sig {
+  animation: reel-sig-a 2.6s linear 0.3s both;
+}
+
+.reel__stage[data-scene="7"] .reel__sig {
+  animation: reel-sig-b 1s ease 0.2s both;
+}
+
+.reel__stage[data-scene="8"] .reel__sig {
+  animation: reel-sig-c 2.2s linear 0.6s both;
+}
+
+.reel__node {
+  position: absolute;
+  z-index: 1;
+  top: 52%;
+  display: grid;
+  place-items: center;
+  width: 16cqw;
+  height: 6.6cqw;
+  margin-top: -3.3cqw;
+  border: 0.24cqw solid var(--ink);
+  border-radius: 1.3cqw;
+  background: #fff;
+  font-size: 1.9cqw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.reel__node--1 { left: 4cqw; }
+.reel__node--2 { left: 28.5cqw; }
+.reel__node--3 { left: 53cqw; }
+.reel__node--4 { left: 78cqw; }
+
+.reel__delta {
+  position: absolute;
+  top: -2cqw;
+  right: -2cqw;
+  display: grid;
+  place-items: center;
+  width: 4cqw;
+  height: 4cqw;
+  border: 0.24cqw solid var(--ink);
+  border-radius: 50%;
+  background: var(--yellow);
+  font-size: 2.2cqw;
+  font-weight: 800;
+  opacity: 0;
+}
+
+.reel__stage[data-scene="8"] .reel__delta {
+  animation: reel-pop 0.45s var(--ease) 0.2s both;
+}
+
+/* accuracy at each stage, shown as the signal leaves it */
+.reel__probe {
+  position: absolute;
+  top: 52%;
+  margin-top: 4.7cqw;
+  padding: 0.3cqw 1.5cqw;
+  border: 0.26cqw solid var(--blue);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 2.4cqw;
+  font-weight: 800;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+.reel__probe--1 { left: 12cqw; }
+.reel__probe--2 { left: 36.5cqw; }
+.reel__probe--3 { left: 61cqw; }
+
+.reel__probe--bad,
+.reel__probe--good {
+  left: 86cqw;
+}
+
+.reel__probe--bad {
+  border-color: var(--red);
+}
+
+.reel__probe--good {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+
+.reel__stage[data-scene="6"] .reel__probe--1 { animation: reel-chip 0.4s var(--ease) 0.9s both; }
+.reel__stage[data-scene="6"] .reel__probe--2 { animation: reel-chip 0.4s var(--ease) 1.8s both; }
+.reel__stage[data-scene="6"] .reel__probe--3 { animation: reel-chip 0.4s var(--ease) 2.6s both; }
+
+.reel__stage:is([data-scene="7"], [data-scene="8"]) .reel__probe:not(.reel__probe--bad):not(.reel__probe--good) {
+  opacity: 1;
+}
+
+.reel__stage[data-scene="7"] .reel__probe--bad {
+  animation: reel-chip 0.4s var(--ease) 1.4s both;
+}
+
+.reel__stage[data-scene="8"] .reel__probe--bad {
+  animation: reel-out 0.3s ease 2.3s both;
+}
+
+.reel__stage[data-scene="8"] .reel__probe--good {
+  animation: reel-chip 0.4s var(--ease) 2.7s both;
+}
+
+.reel__note {
+  position: absolute;
+  bottom: 3.4cqw;
+  left: 4cqw;
+  color: var(--ink-2);
+  font-size: 1.6cqw;
+}
+
+/* ----- act D: the result ----- */
 .reel__metric {
   position: absolute;
   top: 58%;
@@ -757,7 +1092,6 @@
   align-items: center;
   gap: 5cqw;
   transform: translateY(-50%);
-  animation-name: reel-metric;
 }
 
 .reel__num {
@@ -784,8 +1118,17 @@
   left: 0;
 }
 
-.reel__who-base { animation-name: reel-who-base; }
-.reel__who-ours { animation-name: reel-who-ours; }
+.reel__who-ours {
+  opacity: 0;
+}
+
+.reel__stage[data-scene="9"] .reel__who-base {
+  animation: reel-out 0.3s ease 0.7s both;
+}
+
+.reel__stage[data-scene="9"] .reel__who-ours {
+  animation: reel-fade 0.4s ease 0.9s both;
+}
 
 .reel__track {
   position: relative;
@@ -799,17 +1142,20 @@
   top: 0;
   bottom: 0;
   left: 0;
+  width: 25.9%;
   border-radius: 0.7cqw;
 }
 
 .reel__fill--base {
   background: var(--ink-2);
-  animation-name: reel-fill-base;
 }
 
 .reel__fill--ours {
   background: var(--yellow);
-  animation-name: reel-fill-ours;
+}
+
+.reel__stage[data-scene="9"] .reel__fill--ours {
+  animation: reel-grow 1.2s var(--ease) 0.7s both;
 }
 
 .reel__chance {
@@ -818,7 +1164,6 @@
   bottom: -1.2cqw;
   left: 25%;
   border-left: 0.22cqw dashed var(--red);
-  animation-name: reel-chance;
 }
 
 .reel__chance b {
@@ -841,183 +1186,102 @@
 }
 
 /* ----- keyframes ----- */
-@keyframes reel-progress {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes reel-cap-1 {
-  0%, 1% { opacity: 0; transform: translateY(1.2cqw); }
-  3.5%, 16.67% { opacity: 1; transform: none; }
-  18.67%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
-}
-
-@keyframes reel-cap-2 {
-  0%, 19.5% { opacity: 0; transform: translateY(1.2cqw); }
-  22%, 34% { opacity: 1; transform: none; }
-  36%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
-}
-
-@keyframes reel-cap-3 {
-  0%, 36.5% { opacity: 0; transform: translateY(1.2cqw); }
-  39%, 59% { opacity: 1; transform: none; }
-  61%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
-}
-
-@keyframes reel-cap-4 {
-  0%, 61.5% { opacity: 0; transform: translateY(1.2cqw); }
-  64%, 78.5% { opacity: 1; transform: none; }
-  80.5%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
-}
-
-@keyframes reel-cap-5 {
-  0%, 81% { opacity: 0; transform: translateY(1.2cqw); }
-  83.5%, 96.5% { opacity: 1; transform: none; }
-  98.5%, 100% { opacity: 0; transform: translateY(-1.2cqw); }
-}
-
-@keyframes reel-scene-1 {
-  0%, 18.67% { background: var(--ink); }
-  19.5%, 100% { background: var(--bar-base); }
-}
-
-@keyframes reel-scene-2 {
-  0%, 18.67% { background: var(--bar-base); }
-  19.5%, 36% { background: var(--ink); }
-  37%, 100% { background: var(--bar-base); }
-}
-
-@keyframes reel-scene-3 {
-  0%, 36% { background: var(--bar-base); }
-  37%, 61.33% { background: var(--ink); }
-  62.3%, 100% { background: var(--bar-base); }
-}
-
-@keyframes reel-scene-4 {
-  0%, 61.33% { background: var(--bar-base); }
-  62.3%, 80% { background: var(--ink); }
-  81%, 100% { background: var(--bar-base); }
-}
-
-@keyframes reel-scene-5 {
-  0%, 80% { background: var(--bar-base); }
-  81%, 98% { background: var(--ink); }
-  100% { background: var(--bar-base); }
-}
-
-/* the video opens in the middle, then steps aside for the model */
-@keyframes reel-video {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
-  2.5%, 18.67% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  22%, 59.5% { opacity: 1; transform: translate(calc(-50% - 31cqw), -50%) scale(0.8); }
-  61.5%, 100% { opacity: 0; transform: translate(calc(-50% - 36cqw), -50%) scale(0.8); }
-}
-
-/* 8 frames in scene 1, then the same clip again in scene 3 */
-@keyframes reel-ball {
-  0%, 3.33% { left: 12%; animation-timing-function: steps(7, end); }
-  15.33%, 36.6% { left: 88%; animation-timing-function: step-end; }
-  36.7%, 40% { left: 12%; animation-timing-function: steps(7, end); }
-  50.67%, 100% { left: 88%; }
+@keyframes reel-step {
+  from { left: 12%; }
+  to { left: 88%; }
 }
 
 @keyframes reel-time {
-  0%, 3.33% { width: 12.5%; animation-timing-function: steps(7, end); }
-  15.33%, 36.6% { width: 100%; animation-timing-function: step-end; }
-  36.7%, 40% { width: 12.5%; animation-timing-function: steps(7, end); }
-  50.67%, 100% { width: 100%; }
+  from { width: 12.5%; }
+  to { width: 100%; }
 }
 
-@keyframes reel-truth {
-  0%, 40% { opacity: 1; clip-path: inset(0 100% 0 0); }
-  50.67%, 100% { opacity: 1; clip-path: inset(0 0 0 0); }
+@keyframes reel-draw {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
 }
 
-@keyframes reel-truth-tip {
-  0%, 49.5% { opacity: 0; }
-  50.67%, 100% { opacity: 1; }
+@keyframes reel-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@keyframes reel-link {
-  0%, 19.5% { opacity: 0; clip-path: inset(0 100% 0 0); }
-  22.5%, 59.5% { opacity: 1; clip-path: inset(0 0 0 0); }
-  61.5%, 100% { opacity: 0; clip-path: inset(0 0 0 0); }
+@keyframes reel-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
-@keyframes reel-model {
-  0%, 20% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
-  23%, 59.5% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  61.5%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+@keyframes reel-slide {
+  from { opacity: 0; transform: translateX(2cqw); }
+  to { opacity: 1; transform: none; }
 }
 
-@keyframes reel-q-color {
-  0%, 21.5% { opacity: 0; transform: translateX(2cqw); }
-  24%, 34% { opacity: 1; transform: none; }
-  36%, 100% { opacity: 0; transform: translateY(-1cqw); }
+@keyframes reel-pop {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes reel-a-color {
-  0%, 26% { opacity: 0; transform: scale(0.7); }
-  28%, 34% { opacity: 1; transform: scale(1); }
-  36%, 100% { opacity: 0; transform: scale(1); }
+/* like reel-pop, for parts that are centered with translateX(-50%) */
+@keyframes reel-chip {
+  from { opacity: 0; transform: translateX(-50%) scale(0.7); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
 }
 
-@keyframes reel-q-dir {
-  0%, 37.5% { opacity: 0; transform: translateX(2cqw); }
-  40%, 59.5% { opacity: 1; transform: none; }
-  61.5%, 100% { opacity: 0; transform: translateY(-1cqw); }
+@keyframes reel-shake {
+  0%, 100% { transform: none; }
+  25% { transform: translateX(-0.6cqw); }
+  50% { transform: translateX(0.6cqw); }
+  75% { transform: translateX(-0.4cqw); }
 }
 
-/* the wrong answer lands after the clip ends, then shakes once */
-@keyframes reel-a-dir {
-  0%, 52% { opacity: 0; transform: scale(0.7); }
-  54% { opacity: 1; transform: scale(1); }
-  54.6% { transform: translateX(-0.6cqw); }
-  55.2% { transform: translateX(0.6cqw); }
-  55.8% { transform: translateX(-0.4cqw); }
-  56.4%, 59.5% { opacity: 1; transform: none; }
-  61.5%, 100% { opacity: 0; transform: none; }
+@keyframes reel-rise {
+  from { opacity: 0; transform: translateY(2.4cqw); }
+  to { opacity: 1; transform: none; }
 }
 
-@keyframes reel-metric {
-  0%, 61.5% { opacity: 0; transform: translateY(calc(-50% + 1.5cqw)); }
-  64%, 96.5% { opacity: 1; transform: translateY(-50%); }
-  98.5%, 100% { opacity: 0; transform: translateY(-50%); }
+@keyframes reel-zoom {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes reel-fill-base {
-  0%, 63.33% { width: 0; }
-  70%, 100% { width: 25.9%; }
+@keyframes reel-mend {
+  to { border-top: 0.24cqw solid var(--ink); }
 }
 
-@keyframes reel-fill-ours {
-  0%, 82% { width: 25.9%; opacity: 0; }
-  82.1% { width: 25.9%; opacity: 1; }
-  88.67%, 100% { width: 85.9%; opacity: 1; }
+@keyframes reel-grow {
+  from { width: 25.9%; }
+  to { width: 85.9%; }
 }
 
-@keyframes reel-chance {
-  0%, 64% { opacity: 0; }
-  66%, 100% { opacity: 1; }
+/* through the encoder, the projector and the LLM, pausing after each */
+@keyframes reel-sig-a {
+  0% { left: 12cqw; opacity: 1; }
+  22%, 30% { left: 24.25cqw; opacity: 1; }
+  55%, 63% { left: 48.75cqw; opacity: 1; }
+  90%, 100% { left: 71cqw; opacity: 1; }
 }
 
-@keyframes reel-who-base {
-  0%, 80% { opacity: 1; }
-  81.5%, 100% { opacity: 0; }
+/* then it fades in the gap before the answer */
+@keyframes reel-sig-b {
+  from { left: 71cqw; opacity: 1; }
+  to { left: 75cqw; opacity: 0; }
 }
 
-@keyframes reel-who-ours {
-  0%, 81.5% { opacity: 0; }
-  83.5%, 100% { opacity: 1; }
+/* a stronger signal from the projector on, all the way to the answer */
+@keyframes reel-sig-c {
+  0% { left: 36.5cqw; opacity: 1; transform: scale(1.5); }
+  35%, 42% { left: 48.75cqw; opacity: 1; transform: scale(1.5); }
+  80% { left: 73.5cqw; opacity: 1; transform: scale(1.5); }
+  100% { left: 86cqw; opacity: 1; transform: scale(1.5); }
 }
 
-/* small screens and reduced motion get the static diagram instead */
 @media (max-width: 759px), (prefers-reduced-motion: reduce) {
-  .reel {
+  .reel,
+  .reel.is-ready {
     display: none;
   }
 
-  .hero__scene .scene {
+  .reel.is-ready ~ .scene {
     display: block;
   }
 }
