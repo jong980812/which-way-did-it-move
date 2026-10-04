@@ -13,7 +13,7 @@
 }
 
 .keys__name {
-  font-size: 1rem;
+  font-size: 1.0625rem;
   font-weight: 700;
 }
 
@@ -48,7 +48,7 @@
 
 /* ---------- chart ---------- */
 .chart {
-  --label: 270px;
+  --label: 310px;
   --value: 52px;
 }
 
@@ -71,7 +71,7 @@
 .chart__group {
   margin: var(--space-4) 0 var(--space-1);
   color: var(--ink-2);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -143,9 +143,8 @@
   left: var(--chance);
   padding-left: 8px;
   color: var(--red);
-  font-family: var(--font-hand);
-  font-size: var(--fs-hand);
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 700;
   white-space: nowrap;
   transition: left var(--dur-ui) linear;
 }

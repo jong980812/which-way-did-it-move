@@ -1,0 +1,90 @@
+/* SECTION: nav (sticky section index; the current section is highlighted) */
+.nav {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--page);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  max-width: calc(var(--container-wide) + 2 * var(--gutter));
+  min-height: 56px;
+}
+
+.nav__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.nav__home:hover {
+  text-decoration: none;
+}
+
+.nav__ball {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+.nav__list {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__list a {
+  display: block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color var(--dur-ui), color var(--dur-ui);
+}
+
+.nav__list a:hover {
+  background: var(--yellow-soft);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav__list a[aria-current="true"] {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+@media (max-width: 899px) {
+  .nav__home {
+    display: none;
+  }
+
+  .nav__inner {
+    min-height: 48px;
+    padding-inline: var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__list a {
+    transition: none;
+  }
+}

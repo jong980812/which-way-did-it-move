@@ -10,6 +10,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* anchors land below the sticky section index */
+[id] {
+  scroll-margin-top: 72px;
+}
+
 body {
   margin: 0;
   background: var(--page);
@@ -213,7 +218,7 @@ sup {
   border-radius: 999px;
   background: var(--ink);
   color: #fff;
-  font-size: 0.975rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
   cursor: pointer;
@@ -285,7 +290,7 @@ sup {
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-variant-numeric: tabular-nums;
   line-height: 1.35;
 }

@@ -118,7 +118,7 @@
 .stage__group {
   display: block;
   color: var(--ink-2);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
@@ -171,15 +171,14 @@
   color: var(--red);
 }
 
-/* handwritten aside under the answer accuracy */
+/* aside under the answer accuracy */
 .stage--qa::after {
-  content: "near chance!";
+  content: "near chance";
   display: block;
   color: var(--red);
-  font-family: var(--font-hand);
-  font-size: var(--fs-hand);
-  font-weight: 600;
-  line-height: 1;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
   opacity: 0;
   transition: opacity var(--dur-ui);
 }
@@ -196,7 +195,7 @@
   border-radius: 999px;
   background: var(--red);
   color: #fff;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 700;
   white-space: nowrap;
   opacity: 0;
