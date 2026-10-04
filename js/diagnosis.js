@@ -31,7 +31,7 @@
   function build(data) {
     root.style.setProperty('--chance', data.chance + '%');
 
-    var legend = el('p', 'pipeline__legend mono');
+    var legend = el('p', 'pipeline__legend');
     legend.appendChild(legendKey('', 'Direction probe accuracy'));
     legend.appendChild(legendKey('pipeline__key--qa', 'QA accuracy'));
     legend.appendChild(legendKey('pipeline__key--chance', 'Chance (' + data.chance + '%)'));
@@ -41,7 +41,7 @@
       var item = el('li', 'stage stage--' + stage.kind);
       item.appendChild(el('span', 'stage__rail'));
       item.appendChild(el('span', 'stage__node'));
-      item.appendChild(el('span', 'stage__group mono', stage.group));
+      item.appendChild(el('span', 'stage__group', stage.group));
 
       var label = el('span', 'stage__label', stage.label + ' ');
       if (stage.symbol) {
@@ -60,7 +60,7 @@
 
       if (index === data.gap.after) {
         item.classList.add('stage--break');
-        gapLabel = el('span', 'stage__gap mono', data.gap.label);
+        gapLabel = el('span', 'stage__gap', data.gap.label);
         item.appendChild(gapLabel);
       }
 

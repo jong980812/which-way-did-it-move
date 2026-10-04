@@ -1,10 +1,27 @@
 /* SECTION: method */
 .method__figure {
-  max-width: 460px;
+  max-width: 440px;
 }
 
-.method .sub-title {
-  margin-top: var(--space-6);
+.method__steps {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.method__steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  line-height: 1.5;
+}
+
+.method__steps p {
+  padding-top: 0.25em;
+}
+
+.method .fold {
+  margin-top: var(--space-5);
 }
 
 .eq {
@@ -12,10 +29,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  margin: var(--space-4) 0;
+  margin-top: var(--space-2);
   padding: var(--space-3) var(--space-4);
   overflow-x: auto;
-  background: var(--plate);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
 }
 
 .eq math {
@@ -24,4 +42,11 @@
 
 .eq__n {
   color: var(--ink-2);
+  font-size: var(--fs-small);
+}
+
+.eq__what {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  font-weight: 600;
 }

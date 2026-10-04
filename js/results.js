@@ -28,12 +28,12 @@
     var rows = [];
 
     table.groups.forEach(function (group) {
-      plot.appendChild(el('p', 'chart__group mono', group.name));
+      plot.appendChild(el('p', 'chart__group', group.name));
       group.rows.forEach(function (row) {
         var line = el('div', 'chart__row' + (row.ours ? ' is-ours' : ''));
         var track = el('span', 'chart__track');
         var bar = el('span', 'chart__bar');
-        var value = el('span', 'chart__val mono');
+        var value = el('span', 'chart__val');
         track.appendChild(bar);
         track.appendChild(value);
         line.appendChild(el('span', 'chart__label', row.model));
@@ -43,7 +43,7 @@
       });
     });
 
-    var chanceRow = el('p', 'chart__chance mono');
+    var chanceRow = el('p', 'chart__chance');
     var chanceLabel = el('span');
     chanceRow.appendChild(chanceLabel);
     plot.appendChild(chanceRow);

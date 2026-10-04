@@ -1,8 +1,9 @@
 /* SECTION: bibtex */
 .bibtex__box {
   position: relative;
-  max-width: 860px;
-  background: var(--plate);
+  max-width: 820px;
+  border-radius: var(--radius);
+  background: var(--surface);
 }
 
 .bibtex__code {
@@ -22,13 +23,15 @@
 }
 
 .bibtex__ack {
-  margin-top: var(--space-8);
+  max-width: 820px;
+  margin-top: var(--space-6);
+  color: var(--ink-2);
+  font-size: 0.82rem;
+  line-height: 1.55;
 }
 
-.bibtex__acktext {
-  color: var(--ink-2);
-  font-size: var(--fs-small);
-  line-height: 1.6;
+.bibtex__ack b {
+  color: var(--ink);
 }
 
 @media (max-width: 599px) {

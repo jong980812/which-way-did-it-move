@@ -1,30 +1,37 @@
 /* Design tokens. Change colors, type, spacing and motion timing here only. */
 :root {
-  /* color: achromatic base + one accent (the moving object in Figure 1) */
+  /* color: the yellow ball is the identity; blue = signal / correct, red = wrong / gap
+     (the same roles these colors play in the paper's figures) */
   --page: #ffffff;
+  --band: #fff9e6;
   --surface: #ffffff;
-  --ink: #111111;
-  --ink-2: #595959;
-  --line: #d6d6d6;
-  --plate: #f1f1f1;
-  --bar-base: #cfcfcf;
-  --accent: #f5b301;
-  --on-accent: #111111;
-  --frame: #111111;
+  --ink: #24292f;
+  --ink-2: #5f6b7a;
+  --line: #e4e7ec;
+  --yellow: #ffc533;
+  --yellow-soft: #fff1c2;
+  --blue: #2b6ff3;
+  --blue-soft: #e8f0ff;
+  --red: #ef5350;
+  --red-soft: #ffe9e8;
+  --green: #22a565;
+  --bar-base: #d6dce6;
 
   /* type */
-  --font-head: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --font-head: "Gabarito", "Figtree", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-hand: "Caveat", "Segoe Print", cursive;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
 
-  --fs-title: clamp(2.125rem, 3.9vw, 3.5rem);
-  --fs-subtitle: clamp(1.25rem, 2.1vw, 1.875rem);
-  --fs-h2: clamp(1.75rem, 2.6vw, 2.25rem);
-  --fs-h3: clamp(1.1875rem, 1.6vw, 1.375rem);
-  --fs-body: clamp(1.0625rem, 1.25vw, 1.125rem);
-  --fs-small: 0.875rem;
+  --fs-title: clamp(2.6rem, 5vw, 4.5rem);
+  --fs-subtitle: clamp(1.15rem, 1.9vw, 1.6rem);
+  --fs-h2: clamp(1.7rem, 2.6vw, 2.3rem);
+  --fs-h3: clamp(1.15rem, 1.5vw, 1.3rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9rem;
   --fs-mono: 0.8125rem;
-  --fs-key: clamp(1.375rem, 2vw, 1.75rem);
+  --fs-hand: 1.45rem;
+  --fs-key: clamp(1.7rem, 2.6vw, 2.2rem);
 
   /* space */
   --space-1: 4px;
@@ -37,14 +44,15 @@
   --space-8: 64px;
   --space-9: 96px;
   --gutter: clamp(20px, 4.4vw, 64px);
-  --section-gap: clamp(72px, 8vw, 112px);
-  --container: 1200px;
-  --container-wide: 1312px;
-  --measure: 62ch;
-  --radius: 4px;
+  --section-gap: clamp(56px, 7vw, 96px);
+  --container: 1120px;
+  --container-wide: 1240px;
+  --measure: 60ch;
+  --radius: 16px;
+  --radius-sm: 10px;
 
   /* motion */
-  --dur-loop: 3400ms;
+  --dur-loop: 5200ms;
   --dur-hop: 700ms;
   --dur-ui: 200ms;
 }

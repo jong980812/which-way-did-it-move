@@ -11,11 +11,11 @@
   <meta property="og:url" content="https://jong980812.github.io/which-way-did-it-move/">
   <meta property="og:image" content="https://jong980812.github.io/which-way-did-it-move/static/images/og-card.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Ccircle cx='21' cy='16' r='7' fill='%23f5b301'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23ffc533'/%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Figtree:wght@400;500;600;700;800&family=Gabarito:wght@600;700;800&family=IBM+Plex+Mono&display=swap">
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
@@ -35,15 +35,26 @@
   <script src="js/bibtex.js" defer></script>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bot" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.5V3"/><rect x="4" y="5.5" width="16" height="14" rx="4"/><path d="M9.5 15.5h5M2 11v3M22 11v3"/></g>
+    <circle cx="9" cy="11" r="1.5" fill="currentColor"/><circle cx="15" cy="11" r="1.5" fill="currentColor"/><circle cx="12" cy="2.4" r="1.4" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-paper" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></g></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-data" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></g></symbol>
+  <symbol id="i-cite" viewBox="0 0 24 24"><path d="M10 8H6v5h4c0 2-1 3.5-3 4M18 8h-4v5h4c0 2-1 3.5-3 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
 <main>
 
 <!-- == SECTION: hero == -->
 <header class="hero" id="top">
   <div class="container hero__grid">
     <div class="hero__text">
-      <p class="hero__venue mono">NeurIPS 2026</p>
+      <p class="hero__venue">NeurIPS 2026</p>
       <h1 class="hero__title">
-        <span class="hero__q">Which Way Did It Move?</span>
+        <span class="hero__q">Which Way<br>Did It Move?</span>
         <span class="hero__sub">Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</span>
       </h1>
       <p class="hero__authors">
@@ -59,10 +70,10 @@
         *Equally contributed first authors &nbsp; †Corresponding author
       </p>
       <nav class="hero__links" aria-label="Paper links">
-        <a class="btn btn--primary" href="https://arxiv.org/abs/2605.22823">arXiv</a>
-        <a class="btn" href="https://github.com/KHU-VLL/DeltaDirect">Code</a>
-        <span class="btn btn--disabled">Data (coming soon)</span>
-        <a class="btn" href="#bibtex">BibTeX</a>
+        <a class="btn" href="https://arxiv.org/abs/2605.22823"><svg class="icon" aria-hidden="true"><use href="#i-paper"/></svg>arXiv</a>
+        <a class="btn" href="https://github.com/KHU-VLL/DeltaDirect"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>Code</a>
+        <span class="btn btn--off"><svg class="icon" aria-hidden="true"><use href="#i-data"/></svg>Data (soon)</span>
+        <a class="btn" href="#bibtex"><svg class="icon" aria-hidden="true"><use href="#i-cite"/></svg>BibTeX</a>
       </nav>
       <p class="hero__tldr">
         <b>TL;DR</b> On simple videos of a single object moving left, right, up, or down, most
@@ -72,35 +83,69 @@
       </p>
     </div>
 
-    <figure class="hero__card">
-      <p class="visually-hidden">Animation: a circle moves from left to right. Asked which way it moved, the Video-LLM answers Left; the ground truth is Right.</p>
-      <div class="mcq">
-        <div class="mcq__frame" aria-hidden="true">
-          <span class="mcq__ghost" style="left:14%"></span>
-          <span class="mcq__ghost" style="left:32%"></span>
-          <span class="mcq__ghost" style="left:50%"></span>
-          <span class="mcq__ghost" style="left:68%"></span>
-          <span class="mcq__dot"></span>
+    <figure class="hero__scene">
+      <p class="visually-hidden">Animation: a yellow circle moves from left to right. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, the Video-LLM answers Leftward; the ground truth is Rightward.</p>
+      <div class="scene" aria-hidden="true">
+        <div class="scene__video">
+          <span class="scene__ghost" style="left:14%"></span>
+          <span class="scene__ghost" style="left:32%"></span>
+          <span class="scene__ghost" style="left:50%"></span>
+          <span class="scene__ghost" style="left:68%"></span>
+          <span class="scene__ball"></span>
+          <span class="scene__tag">Input video</span>
+          <svg class="scene__arrow" viewBox="0 0 200 12"><path d="M2 6h194M188 1.5l8 4.5-8 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="scene__gt hand">Ground truth: “Rightward”</span>
         </div>
-        <p class="mcq__q">From the viewer’s perspective, in which direction is the object moving in this video?</p>
-        <ul class="mcq__opts">
-          <li>A. Up</li>
-          <li class="is-pick">B. Left <span class="mcq__tag">Video-LLM</span></li>
-          <li class="is-gt">C. Right <span class="mcq__tag">Ground truth</span></li>
-          <li>D. Down</li>
-        </ul>
+        <div class="scene__qa">
+          <div class="qa qa--color">
+            <p class="qa__q">“What color is the moving object?”</p>
+            <div class="qa__a">
+              <svg class="qa__bot"><use href="#i-bot"/></svg>
+              <div class="qa__reply"><span class="qa__say hand">“Yellow”</span><span class="qa__mark qa__mark--ok">✓</span></div>
+            </div>
+          </div>
+          <div class="qa qa--dir">
+            <p class="qa__q">“Which way is the object moving?”</p>
+            <div class="qa__a">
+              <svg class="qa__bot"><use href="#i-bot"/></svg>
+              <div class="qa__reply"><span class="qa__say hand">“Leftward”</span><span class="qa__mark qa__mark--no">✕</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <figcaption class="caption">Illustration of the four-way motion direction question (Figure 1a). LLaVA-Video-7B scores 25.9% on MoDirect-SynBench; chance is 25%.</figcaption>
+      <figcaption class="caption">
+        Figure 1(a), animated. Recent Video-LLMs correctly identify the object’s color but answer
+        the wrong motion direction. LLaVA-Video-7B scores 25.9% on MoDirect-SynBench; chance is 25%.
+      </figcaption>
     </figure>
   </div>
 </header>
 
 <!-- == SECTION: abstract == -->
-<section class="section abstract" id="abstract">
+<section class="section section--band story" id="abstract">
   <div class="container">
-    <div class="abstract__grid">
-      <h2 class="section-title">Abstract</h2>
-      <p class="abstract__text">
+    <h2 class="visually-hidden">Overview</h2>
+    <ol class="story__steps">
+      <li>
+        <p class="story__head"><span class="ball-n">1</span>Find</p>
+        <p>Recent Video-LLMs identify an object’s color, yet fail to tell whether it moved left, right, up, or down.</p>
+        <p class="story__links"><a href="#blindness">Directional motion blindness</a></p>
+      </li>
+      <li>
+        <p class="story__head"><span class="ball-n">2</span>Diagnose</p>
+        <p>Motion direction is linearly decodable inside the model, but it is not bound to the correct answer option.</p>
+        <p class="story__links"><a href="#diagnosis">The direction binding gap</a></p>
+      </li>
+      <li>
+        <p class="story__head"><span class="ball-n">3</span>Fix</p>
+        <p>A controlled dataset family and a training-only objective improve direction understanding without changing inference.</p>
+        <p class="story__links"><a href="#dataset">MoDirect</a><a href="#method">DeltaDirect</a></p>
+      </li>
+    </ol>
+
+    <details class="fold story__abstract">
+      <summary>Read the abstract</summary>
+      <p class="fold__body">
         Video Large Language Models (Video-LLMs) have made rapid progress on temporal video
         understanding, yet many fail at a basic perceptual primitive: signed image-plane motion
         direction. On simple videos of a single object moving left, right, up, or down, most
@@ -120,35 +165,7 @@
         real-world motion direction accuracy by 21.4 points over the vanilla baseline without
         real-world tuning data, while preserving standard video-understanding performance.
       </p>
-    </div>
-
-    <h3 class="sub-title abstract__contrib-title">Contributions</h3>
-    <ol class="contrib">
-      <li>
-        <span class="contrib__n mono">01</span>
-        We identify directional motion blindness in Video-LLMs: despite strong appearance
-        recognition, recent models fail to distinguish basic signed motion directions such as left,
-        right, up, and down. We diagnose this failure as a direction binding gap, where motion
-        direction information is linearly decodable but not reliably bound to the correct verbal
-        response.
-        <p class="contrib__links"><a href="#blindness">Directional motion blindness</a></p>
-      </li>
-      <li>
-        <span class="contrib__n mono">02</span>
-        We show that instruction tuning closes the direction binding gap on the source domain but
-        leaves an out-of-domain generalization gap. Through concept vector analysis, we trace this
-        gap to a magnitude deficit in shared motion direction representations across domains.
-        <p class="contrib__links"><a href="#diagnosis">Diagnosis</a></p>
-      </li>
-      <li>
-        <span class="contrib__n mono">03</span>
-        We introduce MoDirect, a controlled dataset family for motion direction instruction tuning
-        and evaluation, and propose DeltaDirect, a training-only auxiliary objective that predicts
-        motion vectors from adjacent-frame feature deltas. DeltaDirect improves motion direction
-        understanding while preserving or improving general video understanding.
-        <p class="contrib__links"><a href="#dataset">MoDirect</a> &nbsp; <a href="#method">DeltaDirect</a></p>
-      </li>
-    </ol>
+    </details>
   </div>
 </section>
 
@@ -156,19 +173,12 @@
 <section class="section blindness" id="blindness">
   <div class="container">
     <h2 class="section-title">Directional motion blindness</h2>
-    <div class="prose">
-      <p>
-        Consider a seemingly trivial synthetic video in which a yellow circle moves from left to
-        right. Can a Video-LLM correctly tell which way it moves: left→right, right→left,
-        bottom→top, or top→bottom? To our surprise, most Video-LLMs show accuracy close to random
-        chance (25%), with GPT-5 only reaching 58.9% accuracy. Humans identify such motion
-        directions instantly and effortlessly.
-      </p>
-      <p>
-        We refer to this systematic failure to distinguish signed motion directions as
-        <em>directional motion blindness</em>.
-      </p>
-    </div>
+    <p class="prose">
+      On a seemingly trivial synthetic video of a yellow circle moving from left to right, most
+      Video-LLMs show accuracy close to random chance (25%), with GPT-5 only reaching 58.9%. We
+      refer to this systematic failure to distinguish signed motion directions as
+      <em>directional motion blindness</em>.
+    </p>
     <figure class="figure figure--wide">
       <div class="figure__scroll">
         <img src="static/images/teaser.png" width="5480" height="1914" loading="lazy"
@@ -186,84 +196,79 @@
 </section>
 
 <!-- == SECTION: dataset == -->
-<section class="section dataset" id="dataset">
+<section class="section section--band dataset" id="dataset">
   <div class="container">
     <div class="dataset__stage">
-      <div class="dataset__card">
+      <div>
         <h2 class="section-title">MoDirect</h2>
         <p>
-          MoDirect is a dataset family for signed image-plane motion direction, with three subsets:
-          MoDirect-Inst, MoDirect-SynBench, and MoDirect-RealBench.
+          A dataset family for signed image-plane motion direction. Its synthetic part is a
+          controlled 2×2 design over foreground type and background type, and every video contains
+          a single object moving in one of four directions.
         </p>
-        <p>
-          Its synthetic part contains four domains under a controlled 2×2 design over foreground
-          type and background type. Each video contains a single foreground object moving in one of
-          four signed directions: left, right, up, down.
-        </p>
+        <ul class="dataset__dirs" aria-label="The four motion directions">
+          <li><span aria-hidden="true">←</span>left</li>
+          <li><span aria-hidden="true">→</span>right</li>
+          <li><span aria-hidden="true">↑</span>up</li>
+          <li><span aria-hidden="true">↓</span>down</li>
+        </ul>
       </div>
 
-      <figure class="dataset__figure">
-        <div class="plate">
+      <figure class="figure">
+        <div class="panel">
           <div class="dataset__matrix">
             <span class="dataset__corner"></span>
-            <span class="dataset__axis mono">Syn background</span>
-            <span class="dataset__axis mono">Real background</span>
+            <span class="dataset__axis dataset__axis--col">Syn background</span>
+            <span class="dataset__axis dataset__axis--col">Real background</span>
 
-            <span class="dataset__axis dataset__axis--row mono">Primitive foreground</span>
+            <span class="dataset__axis dataset__axis--row">Primitive foreground</span>
             <div class="clip">
               <video src="static/videos/domains/P-Syn.mp4" width="192" height="192" autoplay muted loop playsinline preload="metadata"
                      aria-label="Primitive-on-Syn example: a geometric primitive moving over a uniform-color background"></video>
-              <p class="clip__cap mono"><span>Primitive-on-Syn</span><span>6,000 videos</span></p>
+              <p class="clip__cap"><b>Primitive-on-Syn</b><span>6,000 videos</span></p>
             </div>
             <div class="clip">
               <video src="static/videos/domains/P-Real.mp4" width="192" height="192" autoplay muted loop playsinline preload="metadata"
                      aria-label="Primitive-on-Real example: a geometric primitive moving over a natural scene background"></video>
-              <p class="clip__cap mono"><span>Primitive-on-Real</span><span>6,000 videos</span></p>
+              <p class="clip__cap"><b>Primitive-on-Real</b><span>6,000 videos</span></p>
             </div>
 
-            <span class="dataset__axis dataset__axis--row mono">Cutout foreground</span>
+            <span class="dataset__axis dataset__axis--row">Cutout foreground</span>
             <div class="clip">
               <video src="static/videos/domains/C-Syn.mp4" width="192" height="192" autoplay muted loop playsinline preload="metadata"
                      aria-label="Cutout-on-Syn example: a segmented real-world object moving over a uniform-color background"></video>
-              <p class="clip__cap mono"><span>Cutout-on-Syn</span><span>6,000 videos</span></p>
+              <p class="clip__cap"><b>Cutout-on-Syn</b><span>6,000 videos</span></p>
             </div>
             <div class="clip">
               <video src="static/videos/domains/C-Real.mp4" width="192" height="192" autoplay muted loop playsinline preload="metadata"
                      aria-label="Cutout-on-Real example: a segmented real-world object moving over a natural scene background"></video>
-              <p class="clip__cap mono"><span>Cutout-on-Real</span><span>6,000 videos</span></p>
+              <p class="clip__cap"><b>Cutout-on-Real</b><span>6,000 videos</span></p>
             </div>
           </div>
         </div>
-        <figcaption class="caption">
+        <figcaption>
           <b>The four domains of MoDirect-SynBench.</b> Primitive videos contain rendered geometric
-          primitives such as circles, triangles, and squares; Cutout videos contain segmented
-          real-world object images. Synthetic videos use uniform-color backgrounds, whereas Real
-          videos use natural scene backgrounds.
+          primitives; Cutout videos contain segmented real-world object images. Synthetic videos
+          use uniform-color backgrounds, whereas Real videos use natural scene backgrounds.
         </figcaption>
       </figure>
     </div>
 
     <div class="dataset__family">
       <div>
+        <span class="dataset__role">Instruction tuning</span>
         <h3 class="sub-title">MoDirect-Inst</h3>
-        <p>
-          100,000 video–QA pairs built from the Primitive-on-Syn domain for instruction tuning,
-          with direction MCQ, open-ended direction, and static appearance questions.
-        </p>
+        <p>100,000 video–QA pairs built from the Primitive-on-Syn domain.</p>
       </div>
       <div>
+        <span class="dataset__role">Synthetic evaluation</span>
         <h3 class="sub-title">MoDirect-SynBench</h3>
-        <p>
-          Four domains with 6,000 videos each, 1,500 per direction. Four-way multiple choice with
-          randomized option order; chance is 25%.
-        </p>
+        <p>Four domains with 6,000 videos each. Four-way multiple choice; chance is 25%.</p>
       </div>
       <div>
+        <span class="dataset__role">Real-video evaluation</span>
         <h3 class="sub-title">MoDirect-RealBench</h3>
-        <p>
-          Real videos curated from Something-Something-V2 (722 samples), KTH (899), and TOMATO
-          (403).
-        </p>
+        <p>Curated from Something-Something-V2 (722), KTH (899), and TOMATO (403).</p>
       </div>
     </div>
   </div>
@@ -274,29 +279,23 @@
   <div class="container">
     <h2 class="section-title">Where does directional motion blindness arise?</h2>
     <p class="prose">
-      We trace motion direction information across the Video-LLM pipeline, from visual
-      representations to the answer token, using LLaVA-Video.
+      We trace motion direction information through LLaVA-Video, from visual representations to
+      the answer token.
     </p>
 
     <div class="step">
-      <h3 class="sub-title"><span class="step__n mono">1</span>Direction is decodable, but not converted into the answer</h3>
-      <div class="prose">
-        <p>
-          A four-way linear probe on the frozen vision-encoder output recovers motion direction
-          with 99.8% accuracy, and accuracy remains high at 96.5% on the projector output. Inside
-          the LLM, visual-token probes achieve 98.1% and readout-token probes achieve 95.3%. The
-          LLM does not simply discard the direction signal.
-        </p>
-        <p>
-          Yet the model achieves only 27.6% MCQ accuracy, near the 25% chance level. Because the
-          option order is randomized, the model must bind the perceived direction to the option
-          text in the current prompt. We call this mismatch the <em>direction binding gap</em>.
-          Simple input-side scaffolds do not solve the task either: the best combination reaches
-          only 34.7% on Primitive-on-Syn.
-        </p>
+      <div class="step__head">
+        <span class="ball-n">1</span>
+        <h3 class="sub-title">Direction is decodable, but not converted into the answer</h3>
       </div>
+      <p class="prose">
+        Linear probes recover motion direction at every stage: 99.8% from the vision encoder,
+        96.5% after the projector, and 98.1% and 95.3% inside the LLM. Yet MCQ accuracy is 27.6%,
+        near the 25% chance level, and the best input-side scaffold reaches only 34.7%. We call
+        this mismatch the <em>direction binding gap</em>.
+      </p>
       <figure class="figure step__figure">
-        <div class="plate">
+        <div class="panel pipeline-panel">
           <div class="pipeline" data-src="data/diagnosis.json"></div>
         </div>
         <figcaption>
@@ -309,8 +308,8 @@
 
       <div class="split step__row">
         <p class="prose">
-          This gap persists across architectures and scales, indicating a shared structural
-          limitation rather than a model-specific artifact.
+          The gap persists across architectures and scales: a shared structural limitation rather
+          than a model-specific artifact.
         </p>
         <figure class="figure step__small">
           <img src="static/images/figure_3.png" width="900" height="515" loading="lazy"
@@ -321,24 +320,16 @@
     </div>
 
     <div class="step">
-      <h3 class="sub-title"><span class="step__n mono">2</span>Instruction tuning closes the gap on the source domain</h3>
+      <div class="step__head">
+        <span class="ball-n">2</span>
+        <h3 class="sub-title">Instruction tuning closes the gap on the source domain</h3>
+      </div>
       <div class="split">
-        <div class="prose">
-          <p>
-            We fine-tune LLaVA-Video-7B on MoDirect-Inst, built from the simplest synthetic domain,
-            Primitive-on-Syn. In the vanilla model, direction is highly decodable from the readout
-            token, but its logit lens accuracy stays near chance, matching its low MCQ accuracy of
-            27.6%. After instruction tuning, logit lens accuracy rises in the late layers and
-            converges to direction probing accuracy. MCQ accuracy correspondingly increases to
-            99.5%.
-          </p>
-          <p>
-            The binding gap reopens out of domain. Instruction tuning nearly closes the gap on the
-            Primitive-on-Syn test set (0.3 points), but the gap reopens on OOD domains, e.g., 12.1
-            points on Cutout-on-Real. Although direction remains decodable from the final readout
-            token, MCQ accuracy drops as object and background complexity increase.
-          </p>
-        </div>
+        <p class="prose">
+          After tuning on MoDirect-Inst, logit lens accuracy converges to probing accuracy and MCQ
+          accuracy on Primitive-on-Syn rises from 27.6% to 99.5%. But the gap reopens out of
+          domain: 0.3 points on Primitive-on-Syn, 12.1 points on Cutout-on-Real.
+        </p>
         <figure class="figure step__small">
           <img src="static/images/figure_4.png" width="689" height="468" loading="lazy"
                alt="Layer-wise accuracy for LLaVA-Video on Primitive-on-Syn. Linear probe accuracy is high with and without tuning. Logit lens accuracy stays near chance for the vanilla model and rises to match the probe in late layers after tuning on MoDirect-Inst.">
@@ -348,22 +339,16 @@
     </div>
 
     <div class="step">
-      <h3 class="sub-title"><span class="step__n mono">3</span>Shared orientation, weak magnitude</h3>
-      <div class="prose">
-        <p>
-          Using difference-in-means, we extract motion direction concept vectors from the readout
-          position of each LLM layer for each domain and motion direction. After instruction
-          tuning, these vectors become well aligned across domains, despite training only on
-          Primitive-on-Syn.
-        </p>
-        <p>
-          Yet their magnitude drops sharply on complex domains, mirroring the accuracy drop.
-          Rescaling the readout state along the concept-vector orientation to match the average
-          Primitive-on-Syn magnitude improves OOD MCQ accuracy, with the largest gain of 15.5
-          points on Cutout-on-Real. The out-of-domain failure is not due to a missing motion
-          direction geometry, but to a magnitude deficit.
-        </p>
+      <div class="step__head">
+        <span class="ball-n">3</span>
+        <h3 class="sub-title">Shared orientation, weak magnitude</h3>
       </div>
+      <p class="prose">
+        After instruction tuning, motion direction concept vectors align across domains, but
+        their magnitude drops with visual complexity. Restoring only the magnitude recovers up to
+        15.5 points on Cutout-on-Real: the out-of-domain failure is a magnitude deficit, not a
+        missing motion direction geometry.
+      </p>
       <figure class="figure figure--wide step__figure">
         <div class="figure__scroll">
           <img src="static/images/fig5_magnitude.png" width="2125" height="650" loading="lazy"
@@ -383,104 +368,97 @@
 </section>
 
 <!-- == SECTION: method == -->
-<section class="section method" id="method">
+<section class="section section--band method" id="method">
   <div class="container">
-    <h2 class="section-title">DeltaDirect: strengthening motion signals at the VL interface</h2>
     <div class="split">
       <figure class="figure method__figure">
-        <img src="static/images/method.png" width="2035" height="2730" loading="lazy"
-             alt="DeltaDirect architecture. Video frames pass through the vision encoder and projector into the LLM. During training, the difference between adjacent-frame projector features is pooled and passed to a motion head that predicts a 2-D motion vector, which is compared with the ground-truth motion vector by an MSE loss.">
+        <div class="panel">
+          <img src="static/images/method.png" width="2035" height="2730" loading="lazy"
+               alt="DeltaDirect architecture. Video frames pass through the vision encoder and projector into the LLM. During training, the difference between adjacent-frame projector features is pooled and passed to a motion head that predicts a 2-D motion vector, which is compared with the ground-truth motion vector by an MSE loss.">
+        </div>
         <figcaption><b>Figure 6. DeltaDirect.</b> The motion head is a training-only branch.</figcaption>
       </figure>
 
-      <div class="prose">
-        <p>
-          The diagnosis suggests a specific intervention point: make the projector output carry a
+      <div>
+        <h2 class="section-title">DeltaDirect</h2>
+        <p class="prose">
+          The diagnosis points to one place to intervene: make the projector output carry a
           stronger signed displacement signal before it enters the LLM. DeltaDirect is a
-          training-only auxiliary objective applied to the projector output. Instead of adding
-          learned motion tokens or a motion-specific encoder at inference time, it uses synthetic
-          2-D motion vectors as supervision during training.
+          training-only auxiliary objective that does exactly that.
         </p>
+        <ol class="method__steps">
+          <li>
+            <span class="ball-n">1</span>
+            <p>Pool the difference of projector features between adjacent frames into a motion-change descriptor.</p>
+          </li>
+          <li>
+            <span class="ball-n">2</span>
+            <p>A linear head with only 2<i>D</i>+2 parameters predicts the normalized 2-D motion vector, supervised by the known object motion in MoDirect-Inst.</p>
+          </li>
+          <li>
+            <span class="ball-n">3</span>
+            <p>The branch is removed at inference: input format, token sequence, and decoding procedure stay unchanged.</p>
+          </li>
+        </ol>
 
-        <h3 class="sub-title">Motion-induced feature deltas</h3>
-        <p>
-          DeltaDirect operates on the projector output <b>F</b> ∈ ℝ<sup><i>T</i>×<i>N</i>×<i>D</i></sup>.
-          For each adjacent frame pair, we spatially pool the temporal feature difference to obtain
-          a motion-change descriptor:
-        </p>
-        <div class="eq">
-          <math display="block">
-            <msub><mi>δ</mi><mi>t</mi></msub><mo>=</mo>
-            <mfrac><mn>1</mn><mi>N</mi></mfrac>
-            <munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover>
-            <mrow><mo>(</mo><msub><mi>𝐅</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>[</mo><mi>n</mi><mo>]</mo><mo>−</mo><msub><mi>𝐅</mi><mi>t</mi></msub><mo>[</mo><mi>n</mi><mo>]</mo><mo>)</mo></mrow>
-            <mo>∈</mo><msup><mi>ℝ</mi><mi>D</mi></msup><mo>,</mo>
-            <mspace width="1em"></mspace>
-            <mi>t</mi><mo>=</mo><mn>1</mn><mo>,</mo><mo>…</mo><mo>,</mo><mi>T</mi><mo>−</mo><mn>1</mn>
-          </math>
-          <span class="eq__n mono">(1)</span>
-        </div>
-        <p>
-          Feature differencing suppresses content that remains stable across adjacent frames and
-          focuses the auxiliary branch on motion-induced change.
-        </p>
-
-        <h3 class="sub-title">Training-only motion vector prediction</h3>
-        <p>
-          Because MoDirect-Inst is synthetic, the object center <b>c</b><sub><i>t</i></sub> is
-          known at each frame. For each moving frame pair, we define the normalized 2-D motion
-          target
-        </p>
-        <div class="eq">
-          <math display="block">
-            <msub><mi>𝐦</mi><mi>t</mi></msub><mo>=</mo>
-            <mfrac>
-              <mrow><msub><mi>𝐜</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>𝐜</mi><mi>t</mi></msub></mrow>
-              <mrow><msub><mrow><mo>‖</mo><msub><mi>𝐜</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>𝐜</mi><mi>t</mi></msub><mo>‖</mo></mrow><mn>2</mn></msub><mo>+</mo><mi>ε</mi></mrow>
-            </mfrac>
-            <mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup>
-          </math>
-          <span class="eq__n mono">(2)</span>
-        </div>
-        <p>A lightweight linear head predicts the motion vector from each pooled delta:</p>
-        <div class="eq">
-          <math display="block">
-            <msub><mover accent="true"><mi>𝐦</mi><mo>^</mo></mover><mi>t</mi></msub><mo>=</mo>
-            <mi>𝐖</mi><msub><mi>δ</mi><mi>t</mi></msub><mo>+</mo><mi>𝐛</mi><mo>,</mo>
-            <mspace width="1em"></mspace>
-            <mi>𝐖</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mn>2</mn><mo>×</mo><mi>D</mi></mrow></msup><mo>,</mo>
-            <mspace width="0.5em"></mspace>
-            <mi>𝐛</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup>
-          </math>
-          <span class="eq__n mono">(3)</span>
-        </div>
-        <p>
-          The head introduces only 2<i>D</i>+2 trainable parameters and is used only during
-          training. The Motion Vector Prediction (MVP) loss is
-        </p>
-        <div class="eq">
-          <math display="block">
-            <msub><mi>ℒ</mi><mtext>MVP</mtext></msub><mo>=</mo>
-            <mfrac><mn>1</mn><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow></mfrac>
-            <munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow></munderover>
-            <msubsup><mrow><mo>‖</mo><msub><mover accent="true"><mi>𝐦</mi><mo>^</mo></mover><mi>t</mi></msub><mo>−</mo><msub><mi>𝐦</mi><mi>t</mi></msub><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup>
-          </math>
-          <span class="eq__n mono">(4)</span>
-        </div>
-
-        <h3 class="sub-title">Training objective and inference</h3>
-        <p>The final training objective combines standard next-token prediction with the MVP loss:</p>
-        <div class="eq">
-          <math display="block">
-            <msub><mi>ℒ</mi><mtext>total</mtext></msub><mo>=</mo>
-            <msub><mi>ℒ</mi><mtext>LM</mtext></msub><mo>+</mo><mi>λ</mi><msub><mi>ℒ</mi><mtext>MVP</mtext></msub>
-          </math>
-          <span class="eq__n mono">(5)</span>
-        </div>
-        <p>
-          During inference, the MVP branch is removed, leaving the original input format, token
-          sequence, and decoding procedure unchanged.
-        </p>
+        <details class="fold">
+          <summary>Show the equations</summary>
+          <div class="fold__body">
+            <p class="eq__what">Motion-change descriptor from adjacent-frame projector features</p>
+            <div class="eq">
+              <math display="block">
+                <msub><mi>δ</mi><mi>t</mi></msub><mo>=</mo>
+                <mfrac><mn>1</mn><mi>N</mi></mfrac>
+                <munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover>
+                <mrow><mo>(</mo><msub><mi>𝐅</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>[</mo><mi>n</mi><mo>]</mo><mo>−</mo><msub><mi>𝐅</mi><mi>t</mi></msub><mo>[</mo><mi>n</mi><mo>]</mo><mo>)</mo></mrow>
+                <mo>∈</mo><msup><mi>ℝ</mi><mi>D</mi></msup>
+              </math>
+              <span class="eq__n">(1)</span>
+            </div>
+            <p class="eq__what">Normalized 2-D motion target from the object centers</p>
+            <div class="eq">
+              <math display="block">
+                <msub><mi>𝐦</mi><mi>t</mi></msub><mo>=</mo>
+                <mfrac>
+                  <mrow><msub><mi>𝐜</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>𝐜</mi><mi>t</mi></msub></mrow>
+                  <mrow><msub><mrow><mo>‖</mo><msub><mi>𝐜</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>𝐜</mi><mi>t</mi></msub><mo>‖</mo></mrow><mn>2</mn></msub><mo>+</mo><mi>ε</mi></mrow>
+                </mfrac>
+                <mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup>
+              </math>
+              <span class="eq__n">(2)</span>
+            </div>
+            <p class="eq__what">Linear prediction head</p>
+            <div class="eq">
+              <math display="block">
+                <msub><mover accent="true"><mi>𝐦</mi><mo>^</mo></mover><mi>t</mi></msub><mo>=</mo>
+                <mi>𝐖</mi><msub><mi>δ</mi><mi>t</mi></msub><mo>+</mo><mi>𝐛</mi><mo>,</mo>
+                <mspace width="1em"></mspace>
+                <mi>𝐖</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mn>2</mn><mo>×</mo><mi>D</mi></mrow></msup><mo>,</mo>
+                <mspace width="0.5em"></mspace>
+                <mi>𝐛</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup>
+              </math>
+              <span class="eq__n">(3)</span>
+            </div>
+            <p class="eq__what">Motion Vector Prediction (MVP) loss</p>
+            <div class="eq">
+              <math display="block">
+                <msub><mi>ℒ</mi><mtext>MVP</mtext></msub><mo>=</mo>
+                <mfrac><mn>1</mn><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow></mfrac>
+                <munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow></munderover>
+                <msubsup><mrow><mo>‖</mo><msub><mover accent="true"><mi>𝐦</mi><mo>^</mo></mover><mi>t</mi></msub><mo>−</mo><msub><mi>𝐦</mi><mi>t</mi></msub><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup>
+              </math>
+              <span class="eq__n">(4)</span>
+            </div>
+            <p class="eq__what">Total training objective</p>
+            <div class="eq">
+              <math display="block">
+                <msub><mi>ℒ</mi><mtext>total</mtext></msub><mo>=</mo>
+                <msub><mi>ℒ</mi><mtext>LM</mtext></msub><mo>+</mo><mi>λ</mi><msub><mi>ℒ</mi><mtext>MVP</mtext></msub>
+              </math>
+              <span class="eq__n">(5)</span>
+            </div>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -490,26 +468,21 @@
 <section class="section results" id="results">
   <div class="container">
     <h2 class="section-title">Results</h2>
-    <p class="prose">
-      We evaluate whether DeltaDirect improves synthetic and real-world motion direction
-      understanding without real-world direction supervision, and whether it preserves general
-      video understanding.
-    </p>
 
     <div class="keys">
       <div>
         <h3 class="keys__name">MoDirect-SynBench</h3>
-        <p class="keys__num mono">25.9% → 85.9%</p>
+        <p class="keys__num">25.9% → 85.9%</p>
         <p class="keys__note">Average accuracy of LLaVA-Video-7B, before and after tuning with DeltaDirect. Chance: 25%.</p>
       </div>
       <div>
         <h3 class="keys__name">MoDirect-RealBench</h3>
-        <p class="keys__num mono">43.1% → 64.5%</p>
+        <p class="keys__num">43.1% → 64.5%</p>
         <p class="keys__note">+21.4 points over the vanilla baseline, without real-world tuning data. Chance: 39.7%.</p>
       </div>
       <div>
         <h3 class="keys__name">Standard video benchmarks</h3>
-        <p class="keys__num mono">69.4 → 69.8</p>
+        <p class="keys__num">69.4 → 69.8</p>
         <p class="keys__note">Average over five benchmarks for LLaVA-Video-7B. General video understanding is preserved.</p>
       </div>
     </div>
@@ -525,57 +498,58 @@
       <figcaption>
         <b>Average motion direction accuracy (%) of every model in Table 1.</b> The dashed line
         marks random chance: 25.0% on MoDirect-SynBench and 39.7% on MoDirect-RealBench.
-        Highlighted bars are models trained with DeltaDirect.
+        Yellow bars are models trained with DeltaDirect.
       </figcaption>
     </figure>
 
-    <div class="prose results__text">
-      <p>
-        MoDirect-Inst tuning nearly solves Primitive-on-Syn (99.7%) but transfers poorly to the
-        hardest synthetic OOD domain, Cutout-on-Real (61.0%). DeltaDirect targets this gap,
-        improving Cutout-on-Real to 72.5% and raising MoDirect-SynBench average accuracy from 79.3%
-        to 85.9% over MoDirect-Inst alone. It also transfers to real videos without real-world
-        tuning, improving MoDirect-RealBench Avg. from 58.6% to 64.5%.
-      </p>
+    <div class="results__folds">
+      <details class="fold">
+        <summary>Table 1: every model, every domain</summary>
+        <figure class="figure fold__body">
+          <div class="table-wrap" data-table="table1"></div>
+          <figcaption>
+            <b>Table 1. DeltaDirect improves motion direction understanding on both
+            MoDirect-SynBench and MoDirect-RealBench.</b> We report Top-1 accuracy (%). Rows with ±
+            report the mean and standard deviation over three seeds. Best results are in bold and
+            second best are underlined.
+          </figcaption>
+        </figure>
+      </details>
+
+      <details class="fold">
+        <summary>Tables 2–3: where and what to supervise</summary>
+        <div class="results__pair fold__body">
+          <figure class="figure">
+            <div class="table-wrap" data-table="table2"></div>
+            <figcaption>
+              <b>Table 2. Where to apply supervision.</b> Post-projector supervision performs best
+              on average, while readout supervision performs poorly despite the binding gap being
+              observed there.
+            </figcaption>
+          </figure>
+          <figure class="figure">
+            <div class="table-wrap" data-table="table3"></div>
+            <figcaption>
+              <b>Table 3. What motion signal to supervise.</b> Signed 2-D motion-vector supervision
+              is most effective.
+            </figcaption>
+          </figure>
+        </div>
+      </details>
+
+      <details class="fold">
+        <summary>Table 4: general video benchmarks</summary>
+        <figure class="figure results__stack fold__body">
+          <div class="table-wrap" data-table="table4standard"></div>
+          <div class="table-wrap" data-table="table4fine"></div>
+          <figcaption>
+            <b>Table 4. DeltaDirect preserves general video understanding.</b> We compare
+            DeltaDirect with the base LLaVA-Video-7B on standard and fine-grained video benchmarks.
+            EgoSchema uses the validation set; Vinoground reports the Group score.
+          </figcaption>
+        </figure>
+      </details>
     </div>
-
-    <figure class="figure">
-      <div class="table-wrap" data-table="table1"></div>
-      <figcaption>
-        <b>Table 1. DeltaDirect improves motion direction understanding on both MoDirect-SynBench
-        and MoDirect-RealBench.</b> We report Top-1 accuracy (%). Rows with ± report the mean and
-        standard deviation over three seeds. Best results are in bold and second best are
-        underlined.
-      </figcaption>
-    </figure>
-
-    <div class="results__pair">
-      <figure class="figure">
-        <div class="table-wrap" data-table="table2"></div>
-        <figcaption>
-          <b>Table 2. Where to apply supervision.</b> Post-projector supervision performs best on
-          average, while readout supervision performs poorly despite the binding gap being observed
-          there.
-        </figcaption>
-      </figure>
-      <figure class="figure">
-        <div class="table-wrap" data-table="table3"></div>
-        <figcaption>
-          <b>Table 3. What motion signal to supervise.</b> Signed 2-D motion-vector supervision is
-          most effective.
-        </figcaption>
-      </figure>
-    </div>
-
-    <figure class="figure results__stack">
-      <div class="table-wrap" data-table="table4standard"></div>
-      <div class="table-wrap" data-table="table4fine"></div>
-      <figcaption>
-        <b>Table 4. DeltaDirect preserves general video understanding.</b> We compare DeltaDirect
-        with the base LLaVA-Video-7B on standard and fine-grained video benchmarks. EgoSchema uses
-        the validation set; Vinoground reports the Group score.
-      </figcaption>
-    </figure>
 
     <noscript>
       <p class="prose">The chart and tables need JavaScript. All numbers are in the <a href="https://arxiv.org/abs/2605.22823">paper</a>.</p>
@@ -584,11 +558,11 @@
 </section>
 
 <!-- == SECTION: bibtex == -->
-<section class="section bibtex" id="bibtex">
+<section class="section section--band bibtex" id="bibtex">
   <div class="container">
     <h2 class="section-title">BibTeX</h2>
     <div class="bibtex__box">
-      <button class="btn bibtex__copy" type="button">Copy</button>
+      <button class="btn btn--soft bibtex__copy" type="button">Copy</button>
       <pre class="bibtex__code mono"><code>@inproceedings{lee2026deltadirect,
   title     = {Which Way Did It Move? Diagnosing and Overcoming
                Directional Motion Blindness in Video-LLMs},
@@ -599,8 +573,8 @@
 }</code></pre>
     </div>
 
-    <h3 class="sub-title bibtex__ack">Acknowledgment</h3>
-    <p class="prose bibtex__acktext">
+    <p class="bibtex__ack">
+      <b>Acknowledgment.</b>
       This work was supported by the National Research Foundation of Korea (NRF) grants funded by
       the Korea government (MSIT) (RS-2025-02216217, 50%) and (RS-2026-25616405, 25%).
       Additionally, it was supported in part by the Institute of Information &amp; Communications

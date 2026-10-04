@@ -46,19 +46,16 @@ video {
 }
 
 a {
-  color: inherit;
-  text-decoration-line: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 0.14em;
-  text-underline-offset: 0.2em;
+  color: var(--blue);
+  text-decoration: none;
 }
 
 a:hover {
-  text-decoration-color: var(--ink);
+  text-decoration: underline;
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 3px solid var(--blue);
   outline-offset: 3px;
 }
 
@@ -82,27 +79,40 @@ sup {
 
 .section {
   padding-block: var(--section-gap);
-  border-top: 1px solid var(--line);
 }
 
+/* soft yellow band: sections alternate between white and this */
+.section--band {
+  background: var(--band);
+}
+
+/* every section title starts with the ball */
 .section-title {
+  margin-bottom: var(--space-4);
   font-family: var(--font-head);
   font-size: var(--fs-h2);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.12;
-  max-width: 30ch;
-  margin-bottom: var(--space-5);
+  font-weight: 800;
+  line-height: 1.15;
   text-wrap: balance;
 }
 
+.section-title::before {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.4em;
+  border-radius: 50%;
+  background: var(--yellow);
+  vertical-align: 0.08em;
+}
+
 .sub-title {
+  margin-bottom: var(--space-2);
   font-family: var(--font-head);
   font-size: var(--fs-h3);
   font-weight: 700;
-  letter-spacing: -0.015em;
   line-height: 1.25;
-  margin-bottom: var(--space-3);
 }
 
 .prose {
@@ -110,19 +120,42 @@ sup {
 }
 
 .prose p + p {
-  margin-top: var(--space-4);
+  margin-top: var(--space-3);
 }
 
 .split {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: var(--space-8);
-  align-items: start;
+  gap: var(--space-7);
+  align-items: center;
 }
 
-.plate {
-  background: var(--plate);
-  padding: var(--space-6);
+.panel {
+  padding: var(--space-5);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* numbered ball for steps */
+.ball-n {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background: var(--yellow);
+  font-family: var(--font-head);
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* handwritten side notes */
+.hand {
+  font-family: var(--font-hand);
+  font-size: var(--fs-hand);
+  font-weight: 600;
+  line-height: 1.1;
 }
 
 .mono {
@@ -139,6 +172,12 @@ sup {
   white-space: nowrap;
 }
 
+.icon {
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+}
+
 /* ---------- figures ---------- */
 .figure img {
   width: 100%;
@@ -151,7 +190,7 @@ sup {
 
 .figure figcaption,
 .caption {
-  max-width: var(--measure);
+  max-width: 70ch;
   margin-top: var(--space-3);
   color: var(--ink-2);
   font-size: var(--fs-small);
@@ -168,37 +207,74 @@ sup {
 .btn {
   display: inline-flex;
   align-items: center;
-  padding: 0.45em 1.1em;
-  border: 1px solid var(--ink);
-  border-radius: var(--radius);
-  background: var(--page);
-  font-size: 0.9375rem;
-  font-weight: 500;
+  gap: 0.45em;
+  padding: 0.5em 1.15em;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.975rem;
+  font-weight: 600;
   line-height: 1.4;
-  text-decoration: none;
   cursor: pointer;
-  transition: background-color var(--dur-ui), color var(--dur-ui);
+  transition: background-color var(--dur-ui);
 }
 
 .btn:hover {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--blue);
+  text-decoration: none;
 }
 
-.btn--primary {
-  background: var(--ink);
-  color: var(--page);
+.btn--soft {
+  background: var(--yellow-soft);
+  color: var(--ink);
 }
 
-.btn--disabled {
-  border-color: var(--line);
+.btn--soft:hover {
+  background: var(--yellow);
+}
+
+.btn--off,
+.btn--off:hover {
+  background: var(--line);
   color: var(--ink-2);
   cursor: default;
 }
 
-.btn--disabled:hover {
-  background: var(--page);
-  color: var(--ink-2);
+/* ---------- fold: content that is there but not in the way ---------- */
+.fold > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 1.15em;
+  border-radius: 999px;
+  background: var(--yellow-soft);
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+  transition: background-color var(--dur-ui);
+}
+
+.fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.fold > summary::before {
+  content: "+";
+  font-family: var(--font-head);
+  font-weight: 800;
+}
+
+.fold[open] > summary::before {
+  content: "–";
+}
+
+.fold > summary:hover {
+  background: var(--yellow);
+}
+
+.fold__body {
+  margin-top: var(--space-4);
 }
 
 /* ---------- tables ---------- */
@@ -209,7 +285,8 @@ sup {
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--fs-small);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
   line-height: 1.35;
 }
 
@@ -227,24 +304,13 @@ sup {
 }
 
 .data-table thead th {
-  border-bottom-color: var(--ink);
-  font-weight: 600;
-}
-
-.data-table td {
-  font-family: var(--font-mono);
-  font-size: var(--fs-mono);
-}
-
-.data-table td:first-child {
-  font-family: var(--font-body);
-  font-size: var(--fs-small);
+  border-bottom: 2px solid var(--ink);
+  font-weight: 700;
 }
 
 /* ---------- footer ---------- */
 .footer {
   padding-block: var(--space-6);
-  border-top: 1px solid var(--line);
   color: var(--ink-2);
   font-size: var(--fs-small);
 }
@@ -263,7 +329,7 @@ sup {
 }
 
 @media (max-width: 599px) {
-  .plate {
+  .panel {
     padding: var(--space-4);
   }
 }
@@ -273,7 +339,8 @@ sup {
     scroll-behavior: auto;
   }
 
-  .btn {
+  .btn,
+  .fold > summary {
     transition: none;
   }
 }

@@ -2,40 +2,48 @@
 .keys {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-6);
-  margin-top: var(--space-6);
+  gap: var(--space-5);
+  margin-top: var(--space-5);
 }
 
 .keys > div {
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--ink);
+  padding: var(--space-5);
+  border-radius: var(--radius);
+  background: var(--yellow-soft);
 }
 
 .keys__name {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .keys__num {
-  margin: 2px 0 var(--space-2);
+  margin: 2px 0 var(--space-1);
+  font-family: var(--font-head);
   font-size: var(--fs-key);
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  line-height: 1.15;
   white-space: nowrap;
 }
 
 .keys__note {
-  color: var(--ink-2);
   font-size: var(--fs-small);
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .results .figure {
-  margin-top: var(--space-8);
+  margin-top: var(--space-7);
 }
 
-.results__text {
+.results__folds {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
   margin-top: var(--space-6);
+}
+
+.results__folds .figure {
+  margin-top: 0;
 }
 
 /* ---------- chart ---------- */
@@ -50,14 +58,21 @@
   gap: var(--space-2);
 }
 
+.chart__toggle .btn {
+  background: var(--yellow-soft);
+  color: var(--ink);
+}
+
 .chart__toggle .btn[aria-pressed="true"] {
   background: var(--ink);
-  color: var(--page);
+  color: #fff;
 }
 
 .chart__group {
-  margin: var(--space-5) 0 var(--space-2);
+  margin: var(--space-4) 0 var(--space-1);
   color: var(--ink-2);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .chart__row {
@@ -65,13 +80,13 @@
   grid-template-columns: var(--label) minmax(0, 1fr);
   align-items: center;
   gap: var(--space-4);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   font-size: var(--fs-small);
   line-height: 1.3;
 }
 
 .chart__row.is-ours .chart__label {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .chart__track {
@@ -84,46 +99,53 @@
 .chart__track::after {
   content: "";
   position: absolute;
-  top: -4px;
-  bottom: -4px;
+  top: -3px;
+  bottom: -3px;
   left: var(--chance);
-  border-left: 1px dashed var(--ink);
+  border-left: 2px dashed var(--red);
   transition: left var(--dur-ui) linear;
 }
 
 .chart__bar {
   display: block;
   height: 100%;
+  border-radius: 0 9px 9px 0;
   background: var(--bar-base);
   transition: width var(--dur-ui) linear;
 }
 
 .chart__row.is-ours .chart__bar {
-  background: var(--accent);
+  background: var(--yellow);
 }
 
 .chart__val {
   position: absolute;
   z-index: 1;
   top: 50%;
-  margin-left: 2px;
+  margin-left: 3px;
   padding: 0 4px;
   background: var(--page);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
   transform: translateY(-50%);
   transition: left var(--dur-ui) linear;
 }
 
 .chart__chance {
   position: relative;
-  height: 22px;
+  height: 30px;
   margin: 0 var(--value) 0 calc(var(--label) + var(--space-4));
 }
 
 .chart__chance span {
   position: absolute;
-  top: 4px;
+  top: 2px;
   left: var(--chance);
-  padding-left: 6px;
+  padding-left: 8px;
+  color: var(--red);
+  font-family: var(--font-hand);
+  font-size: var(--fs-hand);
+  font-weight: 600;
   white-space: nowrap;
   transition: left var(--dur-ui) linear;
 }
@@ -132,22 +154,25 @@
 .data-table .is-group th {
   padding-top: var(--space-4);
   color: var(--ink-2);
-  font-weight: 500;
+  font-weight: 700;
   text-align: left;
 }
 
 .data-table .is-span {
-  border-bottom-color: var(--line);
+  border-bottom: 1px solid var(--line);
   text-align: center;
 }
 
+.data-table .is-ours td {
+  background: var(--yellow-soft);
+}
+
 .data-table .is-ours td:first-child {
-  box-shadow: inset 3px 0 0 var(--accent);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .data-table b {
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .data-table u {
@@ -157,13 +182,13 @@
 
 .data-table .sd {
   color: var(--ink-2);
-  font-size: 0.85em;
+  font-size: 0.82em;
 }
 
 .results__pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-7);
+  gap: var(--space-6);
 }
 
 .results__stack .table-wrap + .table-wrap {
@@ -173,12 +198,11 @@
 @media (max-width: 1023px) {
   .keys {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-5);
+    gap: var(--space-3);
   }
 
   .results__pair {
     grid-template-columns: minmax(0, 1fr);
-    gap: 0;
   }
 }
 
