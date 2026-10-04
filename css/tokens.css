@@ -35,6 +35,7 @@
   --fs-h3: clamp(1.35rem, 2vw, 1.7rem);
   --fs-body: clamp(1.125rem, 1.5vw, 1.375rem);
   --fs-small: clamp(1rem, 1.2vw, 1.125rem);
+  --fs-label: clamp(1.1rem, 1.45vw, 1.3rem);
   --fs-mono: 1rem;
   --fs-key: clamp(1.9rem, 3vw, 2.6rem);
 
