@@ -25,10 +25,12 @@
   <link rel="stylesheet" href="css/sections/dataset.css">
   <link rel="stylesheet" href="css/sections/diagnosis.css">
   <link rel="stylesheet" href="css/sections/method.css">
+  <link rel="stylesheet" href="css/sections/results.css">
 
   <script src="js/hero.js" defer></script>
   <script src="js/dataset.js" defer></script>
   <script src="js/diagnosis.js" defer></script>
+  <script src="js/results.js" defer></script>
 </head>
 <body>
 <main>
@@ -479,6 +481,103 @@
         </p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- == SECTION: results == -->
+<section class="section results" id="results">
+  <div class="container">
+    <h2 class="section-title">Results</h2>
+    <p class="prose">
+      We evaluate whether DeltaDirect improves synthetic and real-world motion direction
+      understanding without real-world direction supervision, and whether it preserves general
+      video understanding.
+    </p>
+
+    <div class="keys">
+      <div>
+        <h3 class="keys__name">MoDirect-SynBench</h3>
+        <p class="keys__num mono">25.9% → 85.9%</p>
+        <p class="keys__note">Average accuracy of LLaVA-Video-7B, before and after tuning with DeltaDirect. Chance: 25%.</p>
+      </div>
+      <div>
+        <h3 class="keys__name">MoDirect-RealBench</h3>
+        <p class="keys__num mono">43.1% → 64.5%</p>
+        <p class="keys__note">+21.4 points over the vanilla baseline, without real-world tuning data. Chance: 39.7%.</p>
+      </div>
+      <div>
+        <h3 class="keys__name">Standard video benchmarks</h3>
+        <p class="keys__num mono">69.4 → 69.8</p>
+        <p class="keys__note">Average over five benchmarks for LLaVA-Video-7B. General video understanding is preserved.</p>
+      </div>
+    </div>
+
+    <figure class="figure">
+      <div class="chart" data-src="data/results.json">
+        <div class="chart__toggle" role="group" aria-label="Benchmark shown in the chart">
+          <button class="btn" type="button" data-bench="syn" aria-pressed="true">MoDirect-SynBench</button>
+          <button class="btn" type="button" data-bench="real" aria-pressed="false">MoDirect-RealBench</button>
+        </div>
+        <div class="chart__plot"></div>
+      </div>
+      <figcaption>
+        <b>Average motion direction accuracy (%) of every model in Table 1.</b> The dashed line
+        marks random chance: 25.0% on MoDirect-SynBench and 39.7% on MoDirect-RealBench.
+        Highlighted bars are models trained with DeltaDirect.
+      </figcaption>
+    </figure>
+
+    <div class="prose results__text">
+      <p>
+        MoDirect-Inst tuning nearly solves Primitive-on-Syn (99.7%) but transfers poorly to the
+        hardest synthetic OOD domain, Cutout-on-Real (61.0%). DeltaDirect targets this gap,
+        improving Cutout-on-Real to 72.5% and raising MoDirect-SynBench average accuracy from 79.3%
+        to 85.9% over MoDirect-Inst alone. It also transfers to real videos without real-world
+        tuning, improving MoDirect-RealBench Avg. from 58.6% to 64.5%.
+      </p>
+    </div>
+
+    <figure class="figure">
+      <div class="table-wrap" data-table="table1"></div>
+      <figcaption>
+        <b>Table 1. DeltaDirect improves motion direction understanding on both MoDirect-SynBench
+        and MoDirect-RealBench.</b> We report Top-1 accuracy (%). Rows with ± report the mean and
+        standard deviation over three seeds. Best results are in bold and second best are
+        underlined.
+      </figcaption>
+    </figure>
+
+    <div class="results__pair">
+      <figure class="figure">
+        <div class="table-wrap" data-table="table2"></div>
+        <figcaption>
+          <b>Table 2. Where to apply supervision.</b> Post-projector supervision performs best on
+          average, while readout supervision performs poorly despite the binding gap being observed
+          there.
+        </figcaption>
+      </figure>
+      <figure class="figure">
+        <div class="table-wrap" data-table="table3"></div>
+        <figcaption>
+          <b>Table 3. What motion signal to supervise.</b> Signed 2-D motion-vector supervision is
+          most effective.
+        </figcaption>
+      </figure>
+    </div>
+
+    <figure class="figure results__stack">
+      <div class="table-wrap" data-table="table4standard"></div>
+      <div class="table-wrap" data-table="table4fine"></div>
+      <figcaption>
+        <b>Table 4. DeltaDirect preserves general video understanding.</b> We compare DeltaDirect
+        with the base LLaVA-Video-7B on standard and fine-grained video benchmarks. EgoSchema uses
+        the validation set; Vinoground reports the Group score.
+      </figcaption>
+    </figure>
+
+    <noscript>
+      <p class="prose">The chart and tables need JavaScript. All numbers are in the <a href="https://arxiv.org/abs/2605.22823">paper</a>.</p>
+    </noscript>
   </div>
 </section>
 
