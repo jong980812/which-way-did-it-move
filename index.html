@@ -22,8 +22,10 @@
   <link rel="stylesheet" href="css/sections/hero.css">
   <link rel="stylesheet" href="css/sections/abstract.css">
   <link rel="stylesheet" href="css/sections/blindness.css">
+  <link rel="stylesheet" href="css/sections/dataset.css">
 
   <script src="js/hero.js" defer></script>
+  <script src="js/dataset.js" defer></script>
 </head>
 <body>
 <main>
@@ -173,6 +175,90 @@
         chance.
       </figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- == SECTION: dataset == -->
+<section class="section dataset" id="dataset">
+  <div class="container">
+    <div class="dataset__stage">
+      <div class="dataset__card">
+        <h2 class="section-title">MoDirect</h2>
+        <p>
+          MoDirect is a dataset family for signed image-plane motion direction, with three subsets:
+          MoDirect-Inst, MoDirect-SynBench, and MoDirect-RealBench.
+        </p>
+        <p>
+          Its synthetic part contains four domains under a controlled 2×2 design over foreground
+          type and background type. Each video contains a single foreground object moving in one of
+          four signed directions: left, right, up, down.
+        </p>
+      </div>
+
+      <figure class="dataset__figure">
+        <div class="plate">
+          <div class="dataset__matrix">
+            <span class="dataset__corner"></span>
+            <span class="dataset__axis mono">Syn background</span>
+            <span class="dataset__axis mono">Real background</span>
+
+            <span class="dataset__axis dataset__axis--row mono">Primitive foreground</span>
+            <div class="clip">
+              <video src="static/videos/domains/P-Syn.mp4" width="192" height="192" autoplay muted loop playsinline preload="metadata"
+                     aria-label="Primitive-on-Syn example: a geometric primitive moving over a uniform-color background"></video>
+              <p class="clip__cap mono"><span>Primitive-on-Syn</span><span>6,000 videos</span></p>
+            </div>
+            <div class="clip">
+              <video src="static/videos/domains/P-Real.mp4" width="192" height="192" autoplay muted loop playsinline preload="metadata"
+                     aria-label="Primitive-on-Real example: a geometric primitive moving over a natural scene background"></video>
+              <p class="clip__cap mono"><span>Primitive-on-Real</span><span>6,000 videos</span></p>
+            </div>
+
+            <span class="dataset__axis dataset__axis--row mono">Cutout foreground</span>
+            <div class="clip">
+              <video src="static/videos/domains/C-Syn.mp4" width="192" height="192" autoplay muted loop playsinline preload="metadata"
+                     aria-label="Cutout-on-Syn example: a segmented real-world object moving over a uniform-color background"></video>
+              <p class="clip__cap mono"><span>Cutout-on-Syn</span><span>6,000 videos</span></p>
+            </div>
+            <div class="clip">
+              <video src="static/videos/domains/C-Real.mp4" width="192" height="192" autoplay muted loop playsinline preload="metadata"
+                     aria-label="Cutout-on-Real example: a segmented real-world object moving over a natural scene background"></video>
+              <p class="clip__cap mono"><span>Cutout-on-Real</span><span>6,000 videos</span></p>
+            </div>
+          </div>
+        </div>
+        <figcaption class="caption">
+          <b>The four domains of MoDirect-SynBench.</b> Primitive videos contain rendered geometric
+          primitives such as circles, triangles, and squares; Cutout videos contain segmented
+          real-world object images. Synthetic videos use uniform-color backgrounds, whereas Real
+          videos use natural scene backgrounds.
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="dataset__family">
+      <div>
+        <h3 class="sub-title">MoDirect-Inst</h3>
+        <p>
+          100,000 video–QA pairs built from the Primitive-on-Syn domain for instruction tuning,
+          with direction MCQ, open-ended direction, and static appearance questions.
+        </p>
+      </div>
+      <div>
+        <h3 class="sub-title">MoDirect-SynBench</h3>
+        <p>
+          Four domains with 6,000 videos each, 1,500 per direction. Four-way multiple choice with
+          randomized option order; chance is 25%.
+        </p>
+      </div>
+      <div>
+        <h3 class="sub-title">MoDirect-RealBench</h3>
+        <p>
+          Real videos curated from Something-Something-V2 (722 samples), KTH (899), and TOMATO
+          (403).
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
