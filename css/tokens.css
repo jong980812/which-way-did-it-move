@@ -17,6 +17,12 @@
   --green: #22a565;
   --bar-base: #d6dce6;
 
+  /* results board: one hue per model group, validated for color-vision deficiency */
+  --g-ours: #eda100;
+  --g-closed: #2b6ff3;
+  --g-open: #1baf7a;
+  --g-motion: #4a3aa7;
+
   /* type */
   --font-head: "Gabarito", "Figtree", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;

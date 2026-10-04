@@ -606,17 +606,28 @@
     </div>
 
     <figure class="figure">
-      <div class="chart" data-src="data/results.json">
-        <div class="chart__toggle" role="group" aria-label="Benchmark shown in the chart">
-          <button class="btn" type="button" data-bench="syn" aria-pressed="true">MoDirect-SynBench</button>
-          <button class="btn" type="button" data-bench="real" aria-pressed="false">MoDirect-RealBench</button>
+      <div class="board" data-src="data/results.json">
+        <div class="board__bar">
+          <div class="board__toggle" role="group" aria-label="Benchmark used for the ranking">
+            <button class="btn" type="button" data-bench="syn" aria-pressed="true">MoDirect-SynBench</button>
+            <button class="btn" type="button" data-bench="real" aria-pressed="false">MoDirect-RealBench</button>
+          </div>
+          <ul class="board__legend">
+            <li><i class="mark mark--ours"></i>Ours</li>
+            <li><i class="mark mark--closed"></i>Closed-source</li>
+            <li><i class="mark mark--open"></i>Open-source</li>
+            <li><i class="mark mark--motion"></i>Motion-specialized</li>
+          </ul>
         </div>
-        <div class="chart__plot"></div>
+        <div class="board__body">
+          <ol class="board__rows"></ol>
+          <div class="board__detail" aria-live="polite"></div>
+        </div>
       </div>
       <figcaption>
-        <b>Average motion direction accuracy (%) of every model in Table 1.</b> The dashed line
-        marks random chance: 25.0% on MoDirect-SynBench and 39.7% on MoDirect-RealBench.
-        Yellow bars are models trained with DeltaDirect.
+        <b>Every model in Table 1, ranked by average motion direction accuracy (%).</b> The dashed
+        line marks random chance: 25.0% on MoDirect-SynBench and 39.7% on MoDirect-RealBench.
+        Select a model to see its accuracy on each subset.
       </figcaption>
     </figure>
 

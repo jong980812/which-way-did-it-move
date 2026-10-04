@@ -1,18 +1,21 @@
-// Results: bar chart with a SynBench / RealBench toggle, and the paper's tables.
+// Results: a ranked board with a SynBench / RealBench toggle and a per-domain
+// detail card, plus the paper's tables.
 (function () {
-  var chart = document.querySelector('.chart');
-  if (!chart) return;
+  var board = document.querySelector('.board');
+  if (!board) return;
 
-  fetch(chart.getAttribute('data-src'))
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  fetch(board.getAttribute('data-src'))
     .then(function (res) { return res.json(); })
     .then(function (data) {
-      buildChart(data.table1);
+      buildBoard(data.table1);
       Array.prototype.forEach.call(document.querySelectorAll('[data-table]'), function (slot) {
         var key = slot.getAttribute('data-table');
         slot.appendChild(key === 'table1' ? mainTable(data.table1) : simpleTable(data[key]));
       });
     })
-    .catch(function () { chart.closest('figure').hidden = true; });
+    .catch(function () { board.closest('figure').hidden = true; });
 
   function el(tag, className, text) {
     var node = document.createElement(tag);
@@ -21,55 +24,150 @@
     return node;
   }
 
-  // ---------- chart ----------
-  function buildChart(table) {
-    var plot = chart.querySelector('.chart__plot');
-    var buttons = Array.prototype.slice.call(chart.querySelectorAll('[data-bench]'));
+  function last(list) { return list[list.length - 1]; }
+
+  // ---------- board ----------
+  function buildBoard(table) {
+    var list = board.querySelector('.board__rows');
+    var detail = board.querySelector('.board__detail');
+    var buttons = Array.prototype.slice.call(board.querySelectorAll('[data-bench]'));
+    var bench = 'syn';
+    var selected = null;
     var rows = [];
 
     table.groups.forEach(function (group) {
-      plot.appendChild(el('p', 'chart__group', group.name));
       group.rows.forEach(function (row) {
-        var line = el('div', 'chart__row' + (row.ours ? ' is-ours' : ''));
-        var track = el('span', 'chart__track');
-        var bar = el('span', 'chart__bar');
-        var value = el('span', 'chart__val');
-        track.appendChild(bar);
-        track.appendChild(value);
-        line.appendChild(el('span', 'chart__label', row.model));
-        line.appendChild(track);
-        plot.appendChild(line);
-        rows.push({ bar: bar, value: value, syn: row.syn[row.syn.length - 1], real: row.real[row.real.length - 1] });
+        var item = el('li');
+        var button = el('button', 'board__row' + (row.ours ? ' is-ours' : ''));
+        button.type = 'button';
+        button.setAttribute('data-group', group.key);
+
+        var rank = el('span', 'board__rank');
+        var name = el('span', 'board__name');
+        name.appendChild(el('i', 'mark mark--' + group.key));
+        name.appendChild(document.createTextNode(row.model));
+        var track = el('span', 'board__track');
+        var fill = el('span', 'board__fill');
+        track.appendChild(fill);
+        var value = el('span', 'board__val');
+
+        [rank, name, track, value].forEach(function (part) { button.appendChild(part); });
+        item.appendChild(button);
+
+        var entry = { data: row, group: group, item: item, button: button, rank: rank, fill: fill, value: value, order: rows.length };
+        button.addEventListener('click', function () { select(entry); });
+        button.addEventListener('mouseenter', function () { select(entry); });
+        button.addEventListener('focus', function () { select(entry); });
+        rows.push(entry);
       });
     });
 
-    var chanceRow = el('p', 'chart__chance');
+    var chanceRow = el('p', 'board__chance');
     var chanceLabel = el('span');
     chanceRow.appendChild(chanceLabel);
-    plot.appendChild(chanceRow);
 
-    var chance = {
-      syn: table.chance.syn[table.chance.syn.length - 1],
-      real: table.chance.real[table.chance.real.length - 1]
-    };
+    function average(entry) { return last(entry.data[bench]); }
 
-    function show(bench) {
-      plot.style.setProperty('--chance', chance[bench] + '%');
-      chanceLabel.textContent = 'chance ' + chance[bench].toFixed(1);
-      rows.forEach(function (row) {
-        row.bar.style.width = row[bench] + '%';
-        row.value.style.left = row[bench] + '%';
-        row.value.textContent = row[bench].toFixed(1);
+    function show(next) {
+      bench = next;
+      var before = rows.map(function (entry) { return entry.item.getBoundingClientRect().top; });
+
+      // rank by the benchmark's average; ties keep the paper's order
+      var sorted = rows.slice().sort(function (a, b) { return average(b) - average(a) || a.order - b.order; });
+      sorted.forEach(function (entry, index) {
+        list.appendChild(entry.item);
+        entry.rank.textContent = index + 1;
+        entry.fill.style.width = average(entry) + '%';
+        entry.value.textContent = average(entry).toFixed(1);
       });
+      list.appendChild(chanceRow);
+
+      var chance = last(table.chance[bench]);
+      board.style.setProperty('--chance', chance + '%');
+      chanceLabel.textContent = 'chance ' + chance.toFixed(1);
       buttons.forEach(function (button) {
         button.setAttribute('aria-pressed', String(button.getAttribute('data-bench') === bench));
       });
+
+      // rows slide from their old position to the new one
+      if (!reduce) {
+        rows.forEach(function (entry, index) {
+          var shift = before[index] - entry.item.getBoundingClientRect().top;
+          if (!shift) return;
+          entry.item.style.transition = 'none';
+          entry.item.style.transform = 'translateY(' + shift + 'px)';
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              entry.item.style.transition = 'transform 500ms ease';
+              entry.item.style.transform = '';
+            });
+          });
+        });
+      }
+
+      if (selected) renderDetail(selected);
+    }
+
+    function select(entry) {
+      if (selected === entry) return;
+      if (selected) selected.button.setAttribute('aria-pressed', 'false');
+      selected = entry;
+      entry.button.setAttribute('aria-pressed', 'true');
+      renderDetail(entry);
+    }
+
+    function renderDetail(entry) {
+      var row = entry.data;
+      var names = bench === 'syn' ? table.columns.synLong : table.columns.real.slice(0, -1);
+      var values = row[bench];
+      var deviations = row[bench + 'Sd'] || [];
+      var chances = table.chance[bench];
+
+      detail.textContent = '';
+      var head = el('p', 'board__detail-name');
+      head.appendChild(el('i', 'mark mark--' + entry.group.key));
+      head.appendChild(document.createTextNode(row.model));
+      detail.appendChild(head);
+      detail.appendChild(el('p', 'board__detail-group', entry.group.name + ', ' + (bench === 'syn' ? 'MoDirect-SynBench' : 'MoDirect-RealBench')));
+
+      var avg = el('p', 'board__detail-avg');
+      avg.appendChild(el('b', '', last(values).toFixed(1) + '%'));
+      avg.appendChild(document.createTextNode(' average' + (deviations.length ? ' (±' + last(deviations).toFixed(1) + ')' : '')));
+      detail.appendChild(avg);
+
+      if (row.base) {
+        var base = rows.filter(function (other) { return other.data.model === row.base; })[0];
+        if (base) {
+          var gain = last(values) - last(base.data[bench]);
+          detail.appendChild(el('p', 'board__detail-gain', '+' + gain.toFixed(1) + ' points over ' + row.base));
+        }
+      }
+
+      var bars = el('ul', 'board__detail-bars');
+      bars.setAttribute('data-group', entry.group.key);
+      names.forEach(function (name, index) {
+        var line = el('li');
+        line.appendChild(el('span', 'board__detail-label', name));
+        var track = el('span', 'board__track');
+        track.style.setProperty('--chance', chances[index] + '%');
+        var fill = el('span', 'board__fill');
+        fill.style.width = values[index] + '%';
+        track.appendChild(fill);
+        line.appendChild(track);
+        line.appendChild(el('span', 'board__val', values[index].toFixed(1)));
+        bars.appendChild(line);
+      });
+      detail.appendChild(bars);
+      detail.appendChild(el('p', 'board__detail-note', 'Dashed line: chance for each subset.'));
     }
 
     buttons.forEach(function (button) {
       button.addEventListener('click', function () { show(button.getAttribute('data-bench')); });
     });
+
     show('syn');
+    // start on the paper's main result
+    select(rows.filter(function (entry) { return entry.data.base; })[0] || rows[0]);
   }
 
   // ---------- Table 1 ----------
