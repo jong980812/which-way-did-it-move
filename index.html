@@ -23,9 +23,11 @@
   <link rel="stylesheet" href="css/sections/abstract.css">
   <link rel="stylesheet" href="css/sections/blindness.css">
   <link rel="stylesheet" href="css/sections/dataset.css">
+  <link rel="stylesheet" href="css/sections/diagnosis.css">
 
   <script src="js/hero.js" defer></script>
   <script src="js/dataset.js" defer></script>
+  <script src="js/diagnosis.js" defer></script>
 </head>
 <body>
 <main>
@@ -258,6 +260,119 @@
           (403).
         </p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- == SECTION: diagnosis == -->
+<section class="section diagnosis" id="diagnosis">
+  <div class="container">
+    <h2 class="section-title">Where does directional motion blindness arise?</h2>
+    <p class="prose">
+      We trace motion direction information across the Video-LLM pipeline, from visual
+      representations to the answer token, using LLaVA-Video.
+    </p>
+
+    <div class="step">
+      <h3 class="sub-title"><span class="step__n mono">1</span>Direction is decodable, but not converted into the answer</h3>
+      <div class="prose">
+        <p>
+          A four-way linear probe on the frozen vision-encoder output recovers motion direction
+          with 99.8% accuracy, and accuracy remains high at 96.5% on the projector output. Inside
+          the LLM, visual-token probes achieve 98.1% and readout-token probes achieve 95.3%. The
+          LLM does not simply discard the direction signal.
+        </p>
+        <p>
+          Yet the model achieves only 27.6% MCQ accuracy, near the 25% chance level. Because the
+          option order is randomized, the model must bind the perceived direction to the option
+          text in the current prompt. We call this mismatch the <em>direction binding gap</em>.
+          Simple input-side scaffolds do not solve the task either: the best combination reaches
+          only 34.7% on Primitive-on-Syn.
+        </p>
+      </div>
+      <figure class="figure step__figure">
+        <div class="plate">
+          <div class="pipeline" data-src="data/diagnosis.json"></div>
+        </div>
+        <figcaption>
+          <b>Figure 2. Direction is decodable, but not converted into the answer.</b> On
+          Primitive-on-Syn in MoDirect-SynBench, motion direction remains linearly decodable
+          throughout LLaVA-Video-7B, yet QA accuracy stays near chance, exposing the direction
+          binding gap.
+        </figcaption>
+      </figure>
+
+      <div class="split step__row">
+        <p class="prose">
+          This gap persists across architectures and scales, indicating a shared structural
+          limitation rather than a model-specific artifact.
+        </p>
+        <figure class="figure step__small">
+          <img src="static/images/figure_3.png" width="900" height="515" loading="lazy"
+               alt="For nine Video-LLMs, linear probe accuracy for motion direction is far higher than their question-answering accuracy.">
+          <figcaption><b>Figure 3.</b> The direction binding gap is universal across Video-LLMs.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3 class="sub-title"><span class="step__n mono">2</span>Instruction tuning closes the gap on the source domain</h3>
+      <div class="split">
+        <div class="prose">
+          <p>
+            We fine-tune LLaVA-Video-7B on MoDirect-Inst, built from the simplest synthetic domain,
+            Primitive-on-Syn. In the vanilla model, direction is highly decodable from the readout
+            token, but its logit lens accuracy stays near chance, matching its low MCQ accuracy of
+            27.6%. After instruction tuning, logit lens accuracy rises in the late layers and
+            converges to direction probing accuracy. MCQ accuracy correspondingly increases to
+            99.5%.
+          </p>
+          <p>
+            The binding gap reopens out of domain. Instruction tuning nearly closes the gap on the
+            Primitive-on-Syn test set (0.3 points), but the gap reopens on OOD domains, e.g., 12.1
+            points on Cutout-on-Real. Although direction remains decodable from the final readout
+            token, MCQ accuracy drops as object and background complexity increase.
+          </p>
+        </div>
+        <figure class="figure step__small">
+          <img src="static/images/figure_4.png" width="689" height="468" loading="lazy"
+               alt="Layer-wise accuracy for LLaVA-Video on Primitive-on-Syn. Linear probe accuracy is high with and without tuning. Logit lens accuracy stays near chance for the vanilla model and rises to match the probe in late layers after tuning on MoDirect-Inst.">
+          <figcaption><b>Figure 4.</b> Instruction tuning closes the direction binding gap (source domain).</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3 class="sub-title"><span class="step__n mono">3</span>Shared orientation, weak magnitude</h3>
+      <div class="prose">
+        <p>
+          Using difference-in-means, we extract motion direction concept vectors from the readout
+          position of each LLM layer for each domain and motion direction. After instruction
+          tuning, these vectors become well aligned across domains, despite training only on
+          Primitive-on-Syn.
+        </p>
+        <p>
+          Yet their magnitude drops sharply on complex domains, mirroring the accuracy drop.
+          Rescaling the readout state along the concept-vector orientation to match the average
+          Primitive-on-Syn magnitude improves OOD MCQ accuracy, with the largest gain of 15.5
+          points on Cutout-on-Real. The out-of-domain failure is not due to a missing motion
+          direction geometry, but to a magnitude deficit.
+        </p>
+      </div>
+      <figure class="figure figure--wide step__figure">
+        <div class="figure__scroll">
+          <img src="static/images/fig5_magnitude.png" width="2125" height="650" loading="lazy"
+               alt="Three line charts. (a) The direction binding gap per domain: 0.3, 7.3, 10.1 and 12.1 points with MoDirect-Inst tuning, versus 0.1, 2.0, 4.8 and 3.7 with DeltaDirect. (b) Cross-domain cosine similarity of concept vectors is above 0.9 in late layers after tuning and about 0.5 for the vanilla model. (c) Concept vector magnitude by layer is highest for Primitive-on-Syn and lowest for Cutout-on-Real.">
+        </div>
+        <figcaption>
+          <b>Figure 5. Shared orientation, weak magnitude.</b> (a) Instruction tuning closes the
+          binding gap on Primitive-on-Syn, but the gap reopens on OOD domains; DeltaDirect narrows
+          it across domains. (b) Direction concept vector orientations align across domains after
+          instruction tuning, with late-layer cosine similarity exceeding 0.9. (c) Despite this
+          alignment, concept-vector magnitude decreases with visual complexity, revealing the
+          magnitude deficit behind the OOD binding gap.
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
