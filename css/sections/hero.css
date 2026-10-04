@@ -1,6 +1,6 @@
 /* SECTION: hero */
 .hero {
-  padding-block: clamp(36px, 5vw, 64px) var(--section-gap);
+  padding-block: clamp(32px, 4.5vw, 56px) var(--section-gap);
 }
 
 .hero__venue {
@@ -27,7 +27,7 @@
 
 .hero__sub {
   display: block;
-  margin-top: 0.45em;
+  margin-top: 0.4em;
   font-size: var(--fs-subtitle);
   font-weight: 600;
   line-height: 1.2;
@@ -42,18 +42,23 @@
   font-weight: 600;
 }
 
+/* a name or an affiliation never breaks away from its marker */
 .hero__authors span,
-.hero__affil span {
+.hero__affil-line span {
   white-space: nowrap;
 }
 
 .hero__affil {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px var(--space-5);
   margin: var(--space-2) 0 var(--space-5);
   color: var(--ink-2);
   font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+.hero__affil-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
 }
 
 .hero__links {
@@ -67,47 +72,57 @@
   font-size: 1.15rem;
 }
 
-.hero__scene {
-  margin-top: var(--space-7);
-}
-
+/* TL;DR: the one thing to read on the first screen */
 .hero__tldr {
   margin-top: var(--space-6);
   padding: var(--space-5) var(--space-6);
   border-radius: var(--radius);
-  background: var(--yellow-soft);
-  line-height: 1.5;
+  background: var(--yellow);
+  font-size: clamp(1.2rem, 1.85vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .hero__tldr b {
-  font-family: var(--font-head);
   font-weight: 800;
+}
+
+.hero__tldr-tag {
+  margin-right: 0.3em;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: #fff;
+  font-family: var(--font-head);
+  font-size: 0.8em;
+}
+
+.hero__scene {
+  margin-top: var(--space-5);
 }
 
 /* ---------- scene: Figure 1(a), alive ---------- */
 .scene {
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-4);
 }
 
-/* the input video: solid shapes, no outlines */
+/* the input video: soft panel, solid shapes, no outlines */
 .scene__video {
   position: relative;
-  min-height: 340px;
+  min-height: 230px;
   overflow: hidden;
-  border-radius: 24px;
-  background: var(--ink);
+  border-radius: 20px;
+  background: #edf0f5;
 }
 
 .scene__tag {
   position: absolute;
-  top: 18px;
-  left: 20px;
-  padding: 4px 14px;
+  top: 16px;
+  left: 18px;
+  padding: 3px 14px;
   border-radius: 999px;
-  background: #3a4047;
-  color: #fff;
+  background: #fff;
   font-size: 0.95rem;
   font-weight: 700;
 }
@@ -115,7 +130,7 @@
 .scene__ball,
 .scene__ghost {
   position: absolute;
-  top: 50%;
+  top: 52%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--yellow);
@@ -124,30 +139,30 @@
 
 .scene__ball {
   left: 14%;
-  width: 12%;
+  width: 15%;
   animation: scene-move var(--dur-loop) linear infinite;
 }
 
 .scene__ghost {
-  width: 2.6%;
-  opacity: 0.45;
+  width: 3.2%;
+  opacity: 0.55;
 }
 
 .scene__ghost:first-child {
-  width: 12%;
-  opacity: 0.22;
+  width: 15%;
+  opacity: 0.3;
 }
 
 /* playback bar: fills while the object is moving */
 .scene__progress {
   position: absolute;
-  right: 20px;
-  bottom: 18px;
-  left: 20px;
+  right: 18px;
+  bottom: 16px;
+  left: 18px;
   height: 8px;
   overflow: hidden;
   border-radius: 4px;
-  background: #3a4047;
+  background: #fff;
 }
 
 .scene__progress span {
@@ -159,19 +174,12 @@
   animation: scene-progress var(--dur-loop) linear infinite;
 }
 
-.scene__qa {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: var(--space-4);
-}
-
 .qa {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: var(--space-3);
-  padding: var(--space-5) var(--space-6);
-  border-radius: 24px;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border-radius: 20px;
 }
 
 .qa--color {
@@ -182,9 +190,22 @@
   background: var(--red-soft);
 }
 
+.qa__kind {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.qa--color .qa__kind {
+  color: var(--blue);
+}
+
+.qa--dir .qa__kind {
+  color: #d0362f;
+}
+
 .qa__q {
   font-family: var(--font-head);
-  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
   font-weight: 700;
   line-height: 1.25;
 }
@@ -193,18 +214,18 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  min-height: 52px;
+  margin-top: auto;
+  padding-top: var(--space-2);
 }
 
 .qa__bot {
   display: grid;
   place-items: center;
   flex: none;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: var(--ink);
-  color: #fff;
+  background: #fff;
 }
 
 .qa__bot svg {
@@ -212,25 +233,41 @@
   height: 30px;
 }
 
+/* the model's answer: dark text on white, the mark carries right or wrong */
 .qa__reply {
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
-  padding: 8px 22px;
+  gap: 0.5em;
+  padding: 6px 8px 6px 20px;
   border-radius: 999px;
-  color: #fff;
+  background: #fff;
   font-size: clamp(1.15rem, 1.6vw, 1.4rem);
   font-weight: 800;
-  opacity: 0;
+}
+
+.qa__mark {
+  display: grid;
+  place-items: center;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.qa--color .qa__mark {
+  background: var(--green);
+}
+
+.qa--dir .qa__mark {
+  background: var(--red);
 }
 
 .qa--color .qa__reply {
-  background: var(--green);
   animation: scene-say-1 var(--dur-loop) linear infinite;
 }
 
 .qa--dir .qa__reply {
-  background: var(--red);
   animation: scene-say-2 var(--dur-loop) linear infinite;
 }
 
@@ -238,7 +275,7 @@
   animation-play-state: paused;
 }
 
-/* the ball moves at constant velocity, then the model answers both questions */
+/* the ball moves at constant velocity; each answer gives a small pulse after it stops */
 @keyframes scene-move {
   0% { left: 14%; opacity: 0; }
   4% { opacity: 1; }
@@ -254,29 +291,39 @@
 }
 
 @keyframes scene-say-1 {
-  0%, 50% { opacity: 0; transform: scale(0.92); }
-  54%, 95% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1); }
+  0%, 48% { transform: scale(1); }
+  52% { transform: scale(1.1); }
+  56%, 100% { transform: scale(1); }
 }
 
 @keyframes scene-say-2 {
-  0%, 62% { opacity: 0; transform: scale(0.92); }
-  66%, 95% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1); }
+  0%, 60% { transform: scale(1); }
+  64% { transform: scale(1.1); }
+  68%, 100% { transform: scale(1); }
 }
 
-@media (max-width: 899px) {
+/* the title stays on one line wherever it fits */
+@media (min-width: 760px) {
+  .hero__q {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 959px) {
   .scene {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .scene__video {
+    grid-column: 1 / -1;
     min-height: 0;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 7;
   }
+}
 
-  .scene__qa {
-    grid-template-rows: auto;
+@media (max-width: 599px) {
+  .scene {
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
   }
 
@@ -286,18 +333,6 @@
 
   .hero__tldr {
     padding: var(--space-4) var(--space-5);
-  }
-}
-
-@media (max-width: 599px) {
-  .qa__bot {
-    width: 44px;
-    height: 44px;
-  }
-
-  .qa__bot svg {
-    width: 26px;
-    height: 26px;
   }
 }
 
@@ -315,7 +350,6 @@
 
   .qa--color .qa__reply,
   .qa--dir .qa__reply {
-    opacity: 1;
     animation: none;
   }
 }

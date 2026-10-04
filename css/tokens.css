@@ -28,7 +28,7 @@
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
 
-  --fs-title: clamp(2.8rem, 7.2vw, 6.5rem);
+  --fs-title: clamp(2.6rem, 6.4vw, 5.6rem);
   --fs-subtitle: clamp(1.3rem, 2.5vw, 2.2rem);
   --fs-authors: clamp(1.1rem, 1.6vw, 1.4rem);
   --fs-h2: clamp(2rem, 3.6vw, 3.1rem);
