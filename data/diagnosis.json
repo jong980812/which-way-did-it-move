@@ -2,11 +2,11 @@
   "source": "Figure 2 of the paper: LLaVA-Video-7B on Primitive-on-Syn (MoDirect-SynBench).",
   "chance": 25,
   "stages": [
-    { "group": "Outside LLM", "label": "Visual features", "symbol": "V", "kind": "probe", "value": 99.8 },
-    { "group": "Outside LLM", "label": "Projector output", "symbol": "F", "kind": "probe", "value": 96.5 },
-    { "group": "Inside LLM", "label": "Visual tokens", "symbol": "z", "sup": "ℓ", "kind": "probe", "value": 98.1 },
-    { "group": "Inside LLM", "label": "Final readout", "symbol": "h", "sup": "L", "kind": "probe", "value": 95.3 },
-    { "group": "Prediction", "label": "Video-LLM output", "kind": "qa", "value": 27.6 }
+    { "label": "Vision encoder", "kind": "probe", "value": 99.8 },
+    { "label": "Projector", "kind": "probe", "value": 96.5 },
+    { "label": "Visual tokens", "where": "LLM", "kind": "probe", "value": 98.1 },
+    { "label": "Final readout", "where": "LLM", "kind": "probe", "value": 95.3 },
+    { "label": "Answer", "kind": "qa", "value": 27.6 }
   ],
-  "gap": { "label": "Direction binding gap", "after": 3 }
+  "gap": "direction binding gap"
 }

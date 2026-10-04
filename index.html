@@ -429,14 +429,21 @@
         <h3 class="sub-title">Direction is decodable, but not converted into the answer</h3>
       </div>
       <p class="prose">
-        Linear probes recover motion direction at every stage: 99.8% from the vision encoder,
-        96.5% after the projector, and 98.1% and 95.3% inside the LLM. Yet MCQ accuracy is 27.6%,
-        near the 25% chance level, and the best input-side scaffold reaches only 34.7%. We call
-        this mismatch the <em>direction binding gap</em>.
+        A Video-LLM passes the video through a <b>vision encoder</b>, a <b>projector</b>, and an
+        <b>LLM</b>. A linear probe can read the motion direction at every one of these stages, yet
+        the model’s own answer is correct only 27.6% of the time, near the 25% chance level. The
+        best input-side scaffold reaches only 34.7%. We call this mismatch the
+        <em>direction binding gap</em>.
       </p>
       <figure class="figure step__figure">
-        <div class="panel pipeline-panel">
-          <div class="pipeline" data-src="data/diagnosis.json"></div>
+        <div class="pipe" data-src="data/diagnosis.json">
+          <ul class="pipe__legend">
+            <li><span class="pipe__key"></span>How often a linear probe reads the direction at that stage</li>
+            <li><span class="pipe__key pipe__key--qa"></span>How often the model answers correctly</li>
+            <li>Chance is 25% for both.</li>
+          </ul>
+          <div class="pipe__stage"></div>
+          <button class="btn btn--soft pipe__replay" type="button">Replay</button>
         </div>
         <figcaption>
           <b>Figure 2. Direction is decodable, but not converted into the answer.</b> On
