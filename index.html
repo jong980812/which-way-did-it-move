@@ -31,7 +31,6 @@
 
   <script src="js/nav.js" defer></script>
   <script src="js/hero.js" defer></script>
-  <script src="js/blindness.js" defer></script>
   <script src="js/dataset.js" defer></script>
   <script src="js/diagnosis.js" defer></script>
   <script src="js/method.js" defer></script>
@@ -70,50 +69,51 @@
 
 <!-- == SECTION: hero == -->
 <header class="hero" id="top">
-  <div class="container hero__head">
-    <p class="hero__venue">NeurIPS 2026</p>
-    <h1 class="hero__title">
-      <span class="hero__q">Which Way Did It Move?</span>
-      <span class="hero__sub">Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</span>
-    </h1>
-    <p class="hero__authors">
-      <span><a href="https://jong980812.github.io/">Jongseo Lee</a><sup>1*</sup></span>
-      <span><a href="https://hyuntak03.github.io/">Hyuntak Lee</a><sup>1*</sup></span>
-      <span>Sunghun Kim<sup>1</sup></span>
-      <span>Sooa Kim<sup>1</sup></span>
-      <span>Jihoon Chung<sup>2</sup></span>
-      <span><a href="https://sites.google.com/site/jchoivision/home?authuser=0">Jinwoo Choi</a><sup>1†</sup></span>
-    </p>
-    <p class="hero__affil">
-      <span class="hero__affil-line">
-        <span><sup>1</sup>Kyung Hee University</span>
-        <span><sup>2</sup>Princeton University</span>
-      </span>
-      <span class="hero__affil-line">
-        <span>*Equally contributed first authors</span>
-        <span>†Corresponding author</span>
-      </span>
-    </p>
-    <nav class="hero__links" aria-label="Paper links">
-      <a class="btn btn--vivid" href="https://arxiv.org/abs/2605.22823"><svg class="icon" aria-hidden="true"><use href="#i-paper"/></svg>arXiv</a>
-      <a class="btn" href="https://github.com/KHU-VLL/DeltaDirect"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>Code</a>
-      <span class="btn btn--off"><svg class="icon" aria-hidden="true"><use href="#i-data"/></svg>Data (soon)</span>
-      <a class="btn" href="#bibtex"><svg class="icon" aria-hidden="true"><use href="#i-cite"/></svg>BibTeX</a>
-    </nav>
-  </div>
-
-  <div class="hero__band">
-    <div class="container">
-      <p class="hero__tldr">
-        <b class="hero__tldr-tag">TL;DR</b>
-        On simple videos of a single object moving left, right, up, or down, most Video-LLMs
-        perform near chance. We trace the failure to a direction binding gap and introduce MoDirect
-        and DeltaDirect, which raise MoDirect-SynBench accuracy from <b>25.9% to 85.9%</b>.
+  <div class="container">
+    <div class="hero__head">
+      <p class="hero__venue">NeurIPS 2026</p>
+      <h1 class="hero__title">
+        <span class="hero__q">Which Way Did It Move?</span>
+        <span class="hero__sub">Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</span>
+      </h1>
+      <p class="hero__authors">
+        <span><a href="https://jong980812.github.io/">Jongseo Lee</a><sup>1*</sup></span>
+        <span><a href="https://hyuntak03.github.io/">Hyuntak Lee</a><sup>1*</sup></span>
+        <span>Sunghun Kim<sup>1</sup></span>
+        <span>Sooa Kim<sup>1</sup></span>
+        <span>Jihoon Chung<sup>2</sup></span>
+        <span><a href="https://sites.google.com/site/jchoivision/home?authuser=0">Jinwoo Choi</a><sup>1†</sup></span>
       </p>
+      <p class="hero__affil">
+        <span class="hero__affil-line">
+          <span><sup>1</sup>Kyung Hee University</span>
+          <span><sup>2</sup>Princeton University</span>
+        </span>
+        <span class="hero__affil-line">
+          <span>*Equally contributed first authors</span>
+          <span>†Corresponding author</span>
+        </span>
+      </p>
+      <nav class="hero__links" aria-label="Paper links">
+        <a class="btn" href="https://arxiv.org/abs/2605.22823"><svg class="icon" aria-hidden="true"><use href="#i-paper"/></svg>arXiv</a>
+        <a class="btn" href="https://github.com/KHU-VLL/DeltaDirect"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>Code</a>
+        <span class="btn btn--off"><svg class="icon" aria-hidden="true"><use href="#i-data"/></svg>Data (soon)</span>
+        <a class="btn" href="#bibtex"><svg class="icon" aria-hidden="true"><use href="#i-cite"/></svg>BibTeX</a>
+      </nav>
+    </div>
 
-      <figure class="hero__scene">
-        <p class="visually-hidden">Animation: a yellow circle moves from left to right over eight video frames. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, the Video-LLM answers Leftward, which is wrong.</p>
-        <div class="scene" aria-hidden="true">
+    <p class="hero__tldr">
+      <b class="hero__tldr-tag">TL;DR</b>
+      On simple videos of a single object moving left, right, up, or down, most Video-LLMs perform
+      near chance. We trace the failure to a direction binding gap and introduce MoDirect and
+      DeltaDirect, which raise MoDirect-SynBench accuracy from <b>25.9% to 85.9%</b>.
+    </p>
+
+    <figure class="hero__scene">
+      <p class="visually-hidden">Animation: a yellow circle moves from left to right over eight video frames. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, the Video-LLM answers Leftward, which is wrong.</p>
+      <div class="scene">
+        <p class="scene__title">Recent Video-LLMs correctly identify the object’s color but answer the wrong motion direction.</p>
+        <div class="scene__flow" aria-hidden="true">
           <div class="scene__input">
             <div class="scene__video">
               <span class="scene__dot" style="left:12%"></span>
@@ -150,51 +150,33 @@
             </div>
           </div>
         </div>
-        <figcaption class="hero__cap">
-          Figure 1(a), animated. LLaVA-Video-7B scores 25.9% on MoDirect-SynBench; chance is 25%.
-        </figcaption>
-      </figure>
-    </div>
+      </div>
+      <figcaption class="caption hero__cap">
+        Figure 1(a), animated. LLaVA-Video-7B scores 25.9% on MoDirect-SynBench; chance is 25%.
+      </figcaption>
+    </figure>
   </div>
 </header>
 
 <!-- == SECTION: abstract == -->
-<section class="section story" id="abstract">
+<section class="section section--band story" id="abstract">
   <div class="container">
     <h2 class="section-title">Summary</h2>
     <ol class="story__steps">
-      <li class="story__step story__step--find">
-        <div class="story__top">
-          <p class="story__head"><span class="story__n">1</span>Find</p>
-          <p class="story__num">25.9%</p>
-          <p class="story__note">LLaVA-Video-7B on MoDirect-SynBench. Chance is 25%.</p>
-        </div>
-        <div class="story__body">
-          <p class="story__text">Recent Video-LLMs identify an object’s color, yet fail to tell whether it moved left, right, up, or down.</p>
-          <p class="story__links"><a href="#blindness">Directional motion blindness</a></p>
-        </div>
+      <li>
+        <p class="story__head"><span class="ball-n">1</span>Find</p>
+        <p class="story__text">Recent Video-LLMs identify an object’s color, yet fail to tell whether it moved left, right, up, or down.</p>
+        <p class="story__links"><a href="#blindness">Directional motion blindness</a></p>
       </li>
-      <li class="story__step story__step--diagnose">
-        <div class="story__top">
-          <p class="story__head"><span class="story__n">2</span>Diagnose</p>
-          <p class="story__num">95.3% → 27.6%</p>
-          <p class="story__note">Direction decodable at the final readout, versus QA accuracy.</p>
-        </div>
-        <div class="story__body">
-          <p class="story__text">Motion direction is linearly decodable inside the model, but it is not bound to the correct answer option.</p>
-          <p class="story__links"><a href="#diagnosis">The direction binding gap</a></p>
-        </div>
+      <li>
+        <p class="story__head"><span class="ball-n">2</span>Diagnose</p>
+        <p class="story__text">Motion direction is linearly decodable inside the model, but it is not bound to the correct answer option.</p>
+        <p class="story__links"><a href="#diagnosis">The direction binding gap</a></p>
       </li>
-      <li class="story__step story__step--fix">
-        <div class="story__top">
-          <p class="story__head"><span class="story__n">3</span>Fix</p>
-          <p class="story__num">85.9%</p>
-          <p class="story__note">The same model on MoDirect-SynBench after tuning with DeltaDirect.</p>
-        </div>
-        <div class="story__body">
-          <p class="story__text">A controlled dataset family and a training-only objective improve direction understanding without changing inference.</p>
-          <p class="story__links"><a href="#dataset">MoDirect</a><a href="#method">DeltaDirect</a></p>
-        </div>
+      <li>
+        <p class="story__head"><span class="ball-n">3</span>Fix</p>
+        <p class="story__text">A controlled dataset family and a training-only objective improve direction understanding without changing inference.</p>
+        <p class="story__links"><a href="#dataset">MoDirect</a><a href="#method">DeltaDirect</a></p>
       </li>
     </ol>
 
@@ -234,22 +216,6 @@
       refer to this systematic failure to distinguish signed motion directions as
       <em>directional motion blindness</em>.
     </p>
-    <figure class="figure blindness__strip">
-      <div class="strip" data-src="data/results.json">
-        <ul class="strip__legend">
-          <li><i class="mark mark--closed"></i>Closed-source</li>
-          <li><i class="mark mark--open"></i>Open-source</li>
-          <li><i class="mark mark--motion"></i>Motion-specialized</li>
-        </ul>
-        <div class="strip__plot"></div>
-        <p class="strip__readout" aria-live="polite">Each mark is one model. Hover or tap a mark to see which.</p>
-      </div>
-      <figcaption>
-        <b>Most Video-LLMs sit near chance.</b> Average MoDirect-SynBench accuracy (%) of the 19
-        models evaluated without motion direction tuning in Table 1. The dashed line marks random
-        chance (25%).
-      </figcaption>
-    </figure>
     <figure class="figure figure--wide">
       <div class="figure__scroll">
         <img src="static/images/teaser.png" width="5480" height="1914" loading="lazy"

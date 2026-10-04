@@ -237,14 +237,6 @@ sup {
   cursor: default;
 }
 
-.btn--vivid {
-  background: var(--blue);
-}
-
-.btn--vivid:hover {
-  background: var(--ink);
-}
-
 /* ---------- model groups ---------- */
 /* group marks: shape and color both carry the group */
 .mark {
