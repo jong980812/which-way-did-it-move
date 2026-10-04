@@ -1,0 +1,38 @@
+/* SECTION: bibtex */
+.bibtex__box {
+  position: relative;
+  max-width: 860px;
+  background: var(--plate);
+}
+
+.bibtex__code {
+  padding: var(--space-5);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.bibtex__code code {
+  font: inherit;
+}
+
+.bibtex__copy {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+}
+
+.bibtex__ack {
+  margin-top: var(--space-8);
+}
+
+.bibtex__acktext {
+  color: var(--ink-2);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+@media (max-width: 599px) {
+  .bibtex__code {
+    padding-top: var(--space-8);
+  }
+}
