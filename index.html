@@ -232,17 +232,17 @@
     <ol class="story__steps">
       <li>
         <p class="story__head"><span class="ball-n">1</span>Find</p>
-        <p class="story__text">Recent Video-LLMs identify an object’s color, yet fail to tell whether it moved left, right, up, or down.</p>
+        <p class="story__text">Video-LLMs get an object’s <b>color right</b>, but not <b>which way it moved</b>.</p>
         <p class="story__links"><a href="#blindness">Directional motion blindness</a></p>
       </li>
       <li>
         <p class="story__head"><span class="ball-n">2</span>Diagnose</p>
-        <p class="story__text">Motion direction is linearly decodable inside the model, but it is not bound to the correct answer option.</p>
+        <p class="story__text">The direction is <b>decodable inside the model</b>, but <b>not bound to the answer</b>.</p>
         <p class="story__links"><a href="#diagnosis">The direction binding gap</a></p>
       </li>
       <li>
         <p class="story__head"><span class="ball-n">3</span>Fix</p>
-        <p class="story__text">A controlled dataset family and a training-only objective improve direction understanding without changing inference.</p>
+        <p class="story__text"><b>MoDirect</b> and <b>DeltaDirect</b> improve direction understanding <b>without changing inference</b>.</p>
         <p class="story__links"><a href="#dataset">MoDirect</a><a href="#method">DeltaDirect</a></p>
       </li>
     </ol>
@@ -380,7 +380,7 @@
 <!-- == SECTION: diagnosis == -->
 <section class="section diagnosis" id="diagnosis">
   <div class="container">
-    <h2 class="section-title">Where does directional motion blindness arise?</h2>
+    <h2 class="section-title section-title--line">Where does directional motion blindness arise?</h2>
     <p class="prose">
       We trace motion direction information through LLaVA-Video, from visual representations to
       the answer token.

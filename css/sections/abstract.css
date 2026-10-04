@@ -30,6 +30,10 @@
   line-height: 1.45;
 }
 
+.story__text b {
+  font-weight: 800;
+}
+
 .story__links {
   display: flex;
   flex-wrap: wrap;

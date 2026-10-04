@@ -112,6 +112,17 @@ sup {
   vertical-align: 0.08em;
 }
 
+/* a long title kept on one line: sized so the text always fits the container */
+.section-title--line {
+  font-size: clamp(1.7rem, 3.4vw, 2.95rem);
+}
+
+@media (min-width: 820px) {
+  .section-title--line {
+    white-space: nowrap;
+  }
+}
+
 .sub-title {
   margin-bottom: var(--space-2);
   font-family: var(--font-head);
