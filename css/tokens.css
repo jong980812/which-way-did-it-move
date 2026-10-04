@@ -14,6 +14,9 @@
   --blue-soft: #e8f0ff;
   --red: #ef5350;
   --red-soft: #ffe9e8;
+  --red-strong: #d93b36;
+  --blue-deep: #1b4fc2;
+  --panel: #f3f6fb;
   --green: #22a565;
   --bar-base: #d6dce6;
 
@@ -24,11 +27,11 @@
   --g-motion: #4a3aa7;
 
   /* type */
-  --font-head: "Gabarito", "Figtree", system-ui, sans-serif;
+  --font-head: "Montserrat", "Figtree", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
 
-  --fs-title: clamp(2.6rem, 6.4vw, 5.6rem);
+  --fs-title: clamp(2.5rem, 5.8vw, 5.2rem);
   --fs-subtitle: clamp(1.3rem, 2.5vw, 2.2rem);
   --fs-authors: clamp(1.1rem, 1.6vw, 1.4rem);
   --fs-h2: clamp(2rem, 3.6vw, 3.1rem);

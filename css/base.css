@@ -237,6 +237,44 @@ sup {
   cursor: default;
 }
 
+.btn--vivid {
+  background: var(--blue);
+}
+
+.btn--vivid:hover {
+  background: var(--ink);
+}
+
+/* ---------- model groups ---------- */
+/* group marks: shape and color both carry the group */
+.mark {
+  display: inline-block;
+  flex: none;
+  width: 13px;
+  height: 13px;
+  background: var(--g);
+}
+
+.mark--ours {
+  --g: var(--g-ours);
+  border-radius: 50%;
+}
+
+.mark--closed {
+  --g: var(--g-closed);
+  border-radius: 3px;
+}
+
+.mark--open {
+  --g: var(--g-open);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.mark--motion {
+  --g: var(--g-motion);
+  transform: rotate(45deg) scale(0.82);
+}
+
 /* ---------- fold: content that is there but not in the way ---------- */
 .fold > summary {
   display: inline-flex;

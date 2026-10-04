@@ -1,18 +1,37 @@
-/* SECTION: abstract (the story in three steps, with the abstract folded below) */
+/* SECTION: abstract (the paper in three steps, with the abstract folded below) */
 .story__steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-5);
+  margin-top: var(--space-5);
 }
 
-.story__steps li {
+.story__step {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-5);
-  border-radius: var(--radius);
-  background: var(--surface);
-  line-height: 1.5;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--panel);
+}
+
+/* the vivid top carries the step and its number; the roles match the rest of the page:
+   red = wrong, blue = signal, yellow = ours */
+.story__top {
+  padding: var(--space-5) var(--space-6);
+  color: #fff;
+}
+
+.story__step--find .story__top {
+  background: var(--red-strong);
+}
+
+.story__step--diagnose .story__top {
+  background: var(--blue);
+}
+
+.story__step--fix .story__top {
+  background: var(--yellow);
+  color: var(--ink);
 }
 
 .story__head {
@@ -20,8 +39,48 @@
   align-items: center;
   gap: var(--space-3);
   font-family: var(--font-head);
-  font-size: 1.5rem;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
   font-weight: 800;
+  line-height: 1.1;
+}
+
+.story__n {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.75em;
+  height: 1.75em;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.8em;
+}
+
+.story__num {
+  margin-top: var(--space-4);
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 2.7vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.story__note {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: 1.4;
+}
+
+.story__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: var(--space-5) var(--space-6) var(--space-6);
+}
+
+.story__text {
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  line-height: 1.45;
 }
 
 .story__links {
@@ -29,17 +88,23 @@
   flex-wrap: wrap;
   gap: var(--space-4);
   margin-top: auto;
-  padding-top: var(--space-2);
-  font-weight: 600;
+  padding-top: var(--space-4);
+  font-size: var(--fs-label);
+  font-weight: 700;
 }
 
 .story__abstract {
   margin-top: var(--space-5);
 }
 
-@media (max-width: 899px) {
+@media (max-width: 1023px) {
   .story__steps {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
+  }
+
+  .story__top,
+  .story__body {
+    padding-inline: var(--space-5);
   }
 }

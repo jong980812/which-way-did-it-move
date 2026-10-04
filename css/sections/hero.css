@@ -1,6 +1,9 @@
 /* SECTION: hero */
-.hero {
-  padding-block: clamp(32px, 4.5vw, 56px) var(--section-gap);
+
+/* ---------- head: centered title, authors, links ---------- */
+.hero__head {
+  padding-block: clamp(32px, 4.5vw, 56px) var(--space-7);
+  text-align: center;
 }
 
 .hero__venue {
@@ -21,22 +24,25 @@
   display: block;
   font-size: var(--fs-title);
   font-weight: 800;
-  line-height: 1;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   text-wrap: balance;
 }
 
 .hero__sub {
   display: block;
-  margin-top: 0.4em;
+  max-width: 26em;
+  margin: 0.45em auto 0;
   font-size: var(--fs-subtitle);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   text-wrap: balance;
 }
 
 .hero__authors {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 4px var(--space-5);
   font-size: var(--fs-authors);
   font-weight: 600;
@@ -58,12 +64,14 @@
 .hero__affil-line {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0 var(--space-5);
 }
 
 .hero__links {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2);
 }
 
@@ -72,15 +80,20 @@
   font-size: 1.15rem;
 }
 
-/* TL;DR: the one thing to read on the first screen */
+/* ---------- band: the summary and the teaser on one vivid field ---------- */
+.hero__band {
+  padding-block: var(--space-7) var(--space-6);
+  background: var(--blue);
+  color: #fff;
+}
+
 .hero__tldr {
-  margin-top: var(--space-6);
-  padding: var(--space-5) var(--space-6);
-  border-radius: var(--radius);
-  background: var(--yellow);
-  font-size: clamp(1.2rem, 1.85vw, 1.6rem);
+  max-width: 64ch;
+  margin-inline: auto;
+  font-size: clamp(1.25rem, 1.9vw, 1.65rem);
   font-weight: 500;
   line-height: 1.4;
+  text-align: center;
 }
 
 .hero__tldr b {
@@ -91,35 +104,28 @@
   margin-right: 0.3em;
   padding: 2px 12px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--yellow);
+  color: var(--ink);
   font-family: var(--font-head);
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 
 .hero__scene {
+  margin-top: var(--space-7);
+}
+
+.hero__cap {
   margin-top: var(--space-5);
+  font-size: var(--fs-small);
+  text-align: center;
 }
 
 /* ---------- scene: Figure 1(a) as one diagram: video -> Video-LLM -> answers ---------- */
 .scene {
-  padding: var(--space-6);
-  border-radius: 24px;
-  background: #f3f6fb;
-}
-
-.scene__title {
-  margin-bottom: var(--space-5);
-  font-family: var(--font-head);
-  font-size: var(--fs-h3);
-  font-weight: 800;
-  line-height: 1.25;
-  text-wrap: balance;
-}
-
-.scene__flow {
   display: grid;
-  grid-template-columns: auto auto auto auto minmax(0, 1fr);
+  grid-template-columns: repeat(5, auto);
   align-items: center;
+  justify-content: center;
   gap: var(--space-5);
 }
 
@@ -130,15 +136,11 @@
   gap: var(--space-2);
 }
 
-/* "Video-LLM" must not break at its hyphen */
-.scene__model .scene__label {
-  white-space: nowrap;
-}
-
 .scene__label {
   font-size: var(--fs-label);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 /* the input video: a square frame, like the dataset clips, stepping through 8 frames */
@@ -147,9 +149,8 @@
   width: 220px;
   aspect-ratio: 1;
   overflow: hidden;
-  border: 3px solid var(--ink);
-  border-radius: 18px;
-  background: #fffdf5;
+  border-radius: 20px;
+  background: #fff;
 }
 
 .scene__ball,
@@ -165,7 +166,7 @@
 /* where the object is in each of the 8 frames */
 .scene__dot {
   width: 3.4%;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .scene__ball {
@@ -176,9 +177,9 @@
 
 .scene__bar {
   position: absolute;
-  right: 12px;
-  bottom: 12px;
-  left: 12px;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -212,22 +213,21 @@
 .scene__arrow {
   width: 48px;
   height: 24px;
-  color: var(--ink);
 }
 
 .scene__bot {
   display: grid;
   place-items: center;
-  width: 84px;
-  height: 84px;
-  border: 3px solid var(--ink);
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
   background: #fff;
+  color: var(--ink);
 }
 
 .scene__bot svg {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
 }
 
 .scene__qa {
@@ -245,26 +245,18 @@
 .qa__q {
   padding: 10px 18px;
   border-radius: 14px;
+  background: var(--blue-deep);
   font-size: var(--fs-label);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.3;
 }
 
-.qa--color .qa__q {
-  background: var(--blue-soft);
-}
-
-.qa--dir .qa__q {
-  background: var(--red-soft);
-}
-
-/* the model's answer: dark text on white; the outline and mark say right or wrong */
+/* the model's answer: dark text on white; the mark says right or wrong */
 .qa__reply {
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
-  padding: 5px 8px 5px 18px;
-  border: 3px solid;
+  padding: 6px 8px 6px 20px;
   border-radius: 999px;
   background: #fff;
   color: var(--ink);
@@ -274,17 +266,15 @@
 }
 
 .qa--color .qa__reply {
-  border-color: var(--green);
   animation: scene-say-1 var(--dur-loop) linear infinite;
 }
 
 .qa--dir .qa__reply {
-  border-color: var(--red);
   animation: scene-say-2 var(--dur-loop) linear infinite;
 }
 
 .qa__way {
-  color: var(--red);
+  color: var(--red-strong);
 }
 
 .qa__mark {
@@ -302,7 +292,7 @@
 }
 
 .qa--dir .qa__mark {
-  background: var(--red);
+  background: var(--red-strong);
 }
 
 .scene.is-paused * {
@@ -337,33 +327,37 @@
 }
 
 /* the title stays on one line wherever it fits */
-@media (min-width: 760px) {
+@media (min-width: 900px) {
   .hero__q {
     white-space: nowrap;
   }
 }
 
 @media (max-width: 1099px) {
-  .scene__flow {
-    grid-template-columns: auto auto auto;
-    justify-content: start;
+  .scene {
+    grid-template-columns: repeat(3, auto);
   }
 
-  .scene__flow .scene__arrow:last-of-type {
+  .scene .scene__arrow:last-of-type {
     display: none;
   }
 
   .scene__qa {
     grid-column: 1 / -1;
+    justify-items: center;
+  }
+
+  .qa {
+    justify-content: center;
   }
 }
 
 @media (max-width: 599px) {
-  .scene {
-    padding: var(--space-5);
+  .hero__band {
+    padding-block: var(--space-6) var(--space-5);
   }
 
-  .scene__flow {
+  .scene {
     gap: var(--space-3);
   }
 
@@ -376,17 +370,18 @@
   }
 
   .scene__bot {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
   }
 
   .scene__bot svg {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
   }
 
-  .hero__tldr {
-    padding: var(--space-4) var(--space-5);
+  .scene__input .scene__label {
+    white-space: normal;
+    text-align: center;
   }
 }
 
