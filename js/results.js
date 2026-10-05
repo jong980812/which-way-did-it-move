@@ -29,7 +29,12 @@
   // ---------- board ----------
   function buildBoard(table) {
     var list = board.querySelector('.board__rows');
+    var body = board.querySelector('.board__body');
     var detail = board.querySelector('.board__detail');
+    // in the one-column layout the detail card opens under the selected row,
+    // where the tap was, instead of above the list and out of view
+    var stacked = window.matchMedia('(max-width: 1099px)');
+    var slot = el('li', 'board__slot');
     var buttons = Array.prototype.slice.call(board.querySelectorAll('[data-bench]'));
     var bench = 'syn';
     var selected = null;
@@ -56,7 +61,8 @@
 
         var entry = { data: row, group: group, item: item, button: button, rank: rank, fill: fill, value: value, order: rows.length };
         button.addEventListener('click', function () { select(entry); });
-        button.addEventListener('mouseenter', function () { select(entry); });
+        // hover only where the card stays put; in the one-column layout it moves with the selection
+        button.addEventListener('mouseenter', function () { if (!stacked.matches) select(entry); });
         button.addEventListener('focus', function () { select(entry); });
         rows.push(entry);
       });
@@ -81,6 +87,7 @@
         entry.value.textContent = average(entry).toFixed(1);
       });
       list.appendChild(chanceRow);
+      place();
 
       var chance = last(table.chance[bench]);
       board.style.setProperty('--chance', chance + '%');
@@ -110,10 +117,25 @@
 
     function select(entry) {
       if (selected === entry) return;
+      var top = entry.item.getBoundingClientRect().top;
       if (selected) selected.button.setAttribute('aria-pressed', 'false');
       selected = entry;
       entry.button.setAttribute('aria-pressed', 'true');
       renderDetail(entry);
+      place();
+      // the card left a row above: keep the chosen row where it was on screen
+      var shift = entry.item.getBoundingClientRect().top - top;
+      if (stacked.matches && shift) window.scrollBy(0, shift);
+    }
+
+    function place() {
+      if (stacked.matches && selected) {
+        slot.appendChild(detail);
+        list.insertBefore(slot, selected.item.nextSibling);
+      } else if (detail.parentNode !== body) {
+        body.appendChild(detail);
+        if (slot.parentNode) slot.parentNode.removeChild(slot);
+      }
     }
 
     function renderDetail(entry) {
@@ -164,6 +186,12 @@
     buttons.forEach(function (button) {
       button.addEventListener('click', function () { show(button.getAttribute('data-bench')); });
     });
+
+    if (stacked.addEventListener) {
+      stacked.addEventListener('change', place);
+    } else {
+      stacked.addListener(place);
+    }
 
     show('syn');
     // start on the paper's main result
@@ -225,7 +253,9 @@
     addRow(table.chance, false);
     table.groups.forEach(function (group) {
       var tr = el('tr', 'is-group');
-      var th = el('th', '', group.name);
+      var th = el('th');
+      // in a span, so the label can stay in view while the table scrolls sideways
+      th.appendChild(el('span', '', group.name));
       th.colSpan = width;
       tr.appendChild(th);
       body.appendChild(tr);

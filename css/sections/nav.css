@@ -81,6 +81,11 @@
     min-height: 60px;
     padding-inline: var(--space-3);
   }
+
+  .nav__list a {
+    padding: 8px 14px;
+    font-size: 1.05rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -349,9 +349,13 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  /* results.js moves the card into the list, under the selected row */
   .board__detail {
     position: static;
-    order: -1;
+  }
+
+  .board__slot {
+    margin: var(--space-1) 0 var(--space-3);
   }
 }
 
@@ -376,6 +380,19 @@
 
   .board__chance span {
     grid-column: 2 / -1;
+  }
+}
+
+@media (max-width: 599px) {
+  .board__toggle {
+    width: 100%;
+  }
+
+  .board__toggle .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding-inline: 0.75em;
+    font-size: 0.9375rem;
   }
 }
 

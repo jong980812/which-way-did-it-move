@@ -63,6 +63,5 @@
   /* motion */
   --dur-loop: 5200ms;
   --dur-hop: 700ms;
-  --dur-method: 11000ms;
   --dur-ui: 200ms;
 }

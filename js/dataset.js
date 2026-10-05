@@ -17,7 +17,10 @@
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
-        entry.target.play().catch(function () {});
+        // autoplay blocked (iOS Low Power Mode): let the viewer start it
+        entry.target.play().catch(function (error) {
+          if (error.name === 'NotAllowedError') entry.target.controls = true;
+        });
       } else {
         entry.target.pause();
       }

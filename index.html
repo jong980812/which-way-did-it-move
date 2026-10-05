@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="css/sections/bibtex.css">
 
   <script src="js/nav.js" defer></script>
+  <script src="js/overflow.js" defer></script>
   <script src="js/hero.js" defer></script>
   <script src="js/reel.js" defer></script>
   <script src="js/dataset.js" defer></script>
@@ -321,10 +322,11 @@
       <em>directional motion blindness</em>.
     </p>
     <figure class="figure figure--wide">
-      <div class="figure__scroll">
+      <picture>
+        <source media="(max-width: 767px)" srcset="static/images/teaser_stacked.png" width="1200" height="1660">
         <img src="static/images/teaser.png" width="5480" height="1914" loading="lazy"
              alt="Left: a synthetic video of a yellow circle moving from left to right. A Video-LLM answers the color question correctly (Yellow) but the direction question incorrectly (Leftward). Right: bar chart of color accuracy and motion direction accuracy for several Video-LLMs, with a chance line at 25 percent.">
-      </div>
+      </picture>
       <figcaption>
         <b>Figure 1. Directional motion blindness in Video-LLMs.</b> (a) Given a simple synthetic
         video of a yellow circle moving from left to right, recent Video-LLMs correctly identify
@@ -497,10 +499,11 @@
         missing motion direction geometry.
       </p>
       <figure class="figure figure--wide step__figure">
-        <div class="figure__scroll">
+        <picture>
+          <source media="(max-width: 767px)" srcset="static/images/fig5_stacked.png" width="726" height="2079">
           <img src="static/images/fig5_magnitude.png" width="2125" height="650" loading="lazy"
                alt="Three line charts. (a) The direction binding gap per domain: 0.3, 7.3, 10.1 and 12.1 points with MoDirect-Inst tuning, versus 0.1, 2.0, 4.8 and 3.7 with DeltaDirect. (b) Cross-domain cosine similarity of concept vectors is above 0.9 in late layers after tuning and about 0.5 for the vanilla model. (c) Concept vector magnitude by layer is highest for Primitive-on-Syn and lowest for Cutout-on-Real.">
-        </div>
+        </picture>
         <figcaption>
           <b>Figure 5. Shared orientation, weak magnitude.</b> (a) Instruction tuning closes the
           binding gap on Primitive-on-Syn, but the gap reopens on OOD domains; DeltaDirect narrows
@@ -525,105 +528,25 @@
     </p>
 
     <figure class="figure method__anim">
-      <p class="visually-hidden">
-        Animated diagram. Two adjacent video frames pass through the vision encoder and the
-        projector into the LLM. During training, the difference between the two frames’ projector
-        features is pooled and a linear motion head predicts the 2-D motion vector, which is pulled
-        toward the ground-truth vector. At inference this branch is removed and the model answers
-        through the unchanged pipeline.
+      <p class="visually-hidden" id="dd-desc">
+        An 18-second animation of a Video-LLM drawn as stacked layers: input video, vision
+        encoder, projector and LLM. During training, one small motion head is attached at the
+        projector: a single linear layer with 2D + 2 parameters. Subtracting the projector
+        features of adjacent frames leaves the motion, and the head predicts the motion vector
+        from the pooled difference. At inference the head is removed, at zero extra cost, and the
+        projector keeps the motion signal: the model answers Right.
       </p>
-      <div class="panel figure__scroll">
-        <svg class="dd" viewBox="0 0 1080 390" aria-hidden="true">
-          <defs>
-            <marker id="dd-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-              <path class="dd__tip" d="M0 0L10 5L0 10z"/>
-            </marker>
-          </defs>
-
-          <g class="dd__phase dd__phase--train">
-            <rect x="20" y="8" width="112" height="34" rx="17"/>
-            <text x="76" y="31" text-anchor="middle">Training</text>
-          </g>
-          <g class="dd__phase dd__phase--infer">
-            <rect x="142" y="8" width="122" height="34" rx="17"/>
-            <text x="203" y="31" text-anchor="middle">Inference</text>
-          </g>
-
-          <!-- input: two adjacent frames, the ball has moved to the right -->
-          <rect class="dd__frame" x="20" y="70" width="130" height="74" rx="8"/>
-          <circle class="dd__ball" cx="58" cy="110" r="11"/>
-          <text class="dd__cap" x="30" y="89">t</text>
-          <rect class="dd__frame" x="20" y="156" width="130" height="74" rx="8"/>
-          <circle class="dd__ball dd__ball--ghost" cx="58" cy="196" r="11"/>
-          <path class="dd__move" d="M74 196H94" marker-end="url(#dd-tip)"/>
-          <circle class="dd__ball" cx="112" cy="196" r="11"/>
-          <text class="dd__cap" x="30" y="175">t+1</text>
-          <text class="dd__cap" x="85" y="254" text-anchor="middle">Input video</text>
-
-          <!-- main path: unchanged at inference -->
-          <path class="dd__wire" d="M152 150H186" marker-end="url(#dd-tip)"/>
-          <rect class="dd__box" x="188" y="112" width="134" height="76" rx="12"/>
-          <text x="255" y="146" text-anchor="middle">Vision</text>
-          <text x="255" y="168" text-anchor="middle">encoder</text>
-          <path class="dd__wire" d="M322 150H352" marker-end="url(#dd-tip)"/>
-          <rect class="dd__box" x="354" y="112" width="118" height="76" rx="12"/>
-          <text x="413" y="156" text-anchor="middle">Projector</text>
-          <path class="dd__wire" d="M472 150H500" marker-end="url(#dd-tip)"/>
-          <rect class="dd__feat" x="502" y="110" width="48" height="48" rx="8"/>
-          <rect class="dd__feat" x="526" y="138" width="48" height="48" rx="8"/>
-          <text class="dd__cap" x="538" y="98" text-anchor="middle">Features</text>
-          <path class="dd__wire" d="M576 150H648" marker-end="url(#dd-tip)"/>
-          <rect class="dd__box" x="650" y="112" width="190" height="76" rx="12"/>
-          <text x="745" y="156" text-anchor="middle">LLM</text>
-          <path class="dd__wire" d="M840 150H878" marker-end="url(#dd-tip)"/>
-          <g transform="translate(970 150)">
-            <g class="dd__answer">
-              <rect class="dd__box" x="-90" y="-30" width="180" height="60" rx="14"/>
-              <text x="-18" y="6" text-anchor="middle">“Right”</text>
-              <circle class="dd__ok" cx="56" cy="0" r="13"/>
-              <path class="dd__check" d="M50 0l4.5 4.5L62.5 -4"/>
-            </g>
-          </g>
-
-          <!-- training-only branch -->
-          <text class="dd__cap dd__zone-label dd__zone-label--train" x="600" y="226">Training only</text>
-          <text class="dd__cap dd__zone-label dd__zone-label--infer" x="600" y="226">Removed at inference</text>
-          <g class="dd__branch">
-            <rect class="dd__zone" x="596" y="236" width="474" height="142" rx="16"/>
-            <path class="dd__wire" d="M538 188V300H612" marker-end="url(#dd-tip)"/>
-            <rect class="dd__delta" x="614" y="274" width="60" height="52" rx="10"/>
-            <text class="dd__big" x="644" y="310" text-anchor="middle">Δ</text>
-            <text class="dd__cap" x="644" y="350" text-anchor="middle">frame delta</text>
-            <path class="dd__wire" d="M674 300H712" marker-end="url(#dd-tip)"/>
-            <circle class="dd__box" cx="734" cy="300" r="20"/>
-            <text x="734" y="306" text-anchor="middle">δ</text>
-            <text class="dd__cap" x="734" y="350" text-anchor="middle">pool</text>
-            <path class="dd__wire" d="M754 300H790" marker-end="url(#dd-tip)"/>
-            <rect class="dd__box" x="792" y="268" width="136" height="64" rx="12"/>
-            <text x="860" y="306" text-anchor="middle">Motion head</text>
-            <path class="dd__wire" d="M928 300H962" marker-end="url(#dd-tip)"/>
-            <g transform="translate(1008 300)">
-              <circle class="dd__box" r="38"/>
-              <path class="dd__gt" d="M-24 0H14"/>
-              <path class="dd__gt-tip" d="M12 -10L29 0L12 10z"/>
-              <g class="dd__pred">
-                <path class="dd__pred-line" d="M-24 0H16"/>
-                <path class="dd__pred-tip" d="M14 -7L27 0L14 7z"/>
-              </g>
-            </g>
-            <text class="dd__cap" x="1062" y="364" text-anchor="end">prediction vs. ground truth</text>
-            <circle class="dd__p dd__p3" r="9"/>
-          </g>
-
-          <circle class="dd__p dd__p1" r="9"/>
-          <circle class="dd__p dd__p2" r="9"/>
-          <circle class="dd__p dd__p4" r="9"/>
-        </svg>
-      </div>
+      <!-- one cut per layout: the 4:5 cut stacks the words above the diagram for phones -->
+      <video class="method__video method__video--wide" src="static/videos/deltadirect_reel_16x9_1080p.mp4"
+             poster="static/images/deltadirect_poster_16x9.jpg" width="1920" height="1080"
+             muted loop playsinline controls preload="none" aria-describedby="dd-desc"></video>
+      <video class="method__video method__video--tall" src="static/videos/deltadirect_reel_4x5.mp4"
+             poster="static/images/deltadirect_poster_4x5.jpg" width="1080" height="1350"
+             muted loop playsinline controls preload="none" aria-describedby="dd-desc"></video>
       <figcaption>
-        <b>DeltaDirect, animated.</b> During training, the difference between adjacent-frame
-        projector features is pooled, and a linear motion head predicts the 2-D motion vector.
-        The branch is removed at inference.
+        <b>DeltaDirect in 18 seconds.</b> During training, a linear motion head predicts the 2-D
+        motion vector from the difference of adjacent-frame projector features. The head is
+        removed at inference.
       </figcaption>
     </figure>
 

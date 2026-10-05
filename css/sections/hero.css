@@ -112,9 +112,15 @@
   margin-top: var(--space-5);
 }
 
+/* the caption is about the reel: it is shown only when the reel is */
 .hero__cap {
+  display: none;
   max-width: none;
   text-align: center;
+}
+
+.reel.is-ready ~ .hero__cap {
+  display: block;
 }
 
 /* ---------- scene: Figure 1(a) as one diagram: video -> Video-LLM -> answers ---------- */
@@ -411,6 +417,8 @@
 
   .hero__tldr {
     padding: var(--space-4) var(--space-5);
+    font-size: 1.2rem;
+    text-align: left;
   }
 }
 
@@ -1283,5 +1291,9 @@
 
   .reel.is-ready ~ .scene {
     display: block;
+  }
+
+  .reel.is-ready ~ .hero__cap {
+    display: none;
   }
 }
