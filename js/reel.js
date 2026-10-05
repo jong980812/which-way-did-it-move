@@ -134,6 +134,8 @@
   }
 
   reel.classList.add('is-ready');
+  // the label above the reel shows only when the reel does
+  reel.parentNode.classList.add('has-reel');
   setScene(0, true);
   render();
   apply();

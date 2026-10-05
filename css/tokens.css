@@ -42,6 +42,7 @@
   --fs-label: clamp(1.1rem, 1.45vw, 1.3rem);
   --fs-mono: 1rem;
   --fs-key: clamp(1.9rem, 3vw, 2.6rem);
+  --fw-body: 400;
 
   /* space */
   --space-1: 4px;
@@ -79,6 +80,8 @@
     --fs-small: 0.875rem;
     --fs-label: 0.9375rem;
     --fs-key: 1.625rem;
+    /* Figtree at 400 reads thin on a phone screen */
+    --fw-body: 500;
     --gutter: 16px;
     --section-gap: 44px;
   }

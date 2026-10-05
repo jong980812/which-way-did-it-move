@@ -126,6 +126,7 @@
 
     <figure class="hero__scene">
       <p class="visually-hidden" id="reel-desc">An animation in nine scenes. A yellow circle moves from left to right over eight video frames. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, it answers Leftward, which is wrong. We call this failure directional motion blindness: LLaVA-Video-7B scores 25.9% on MoDirect-SynBench, where chance is 25%. Why? Linear probes still decode the direction inside the model, at 99.8% after the vision encoder, 96.5% after the projector and 95.3% in the LLM, but the answer is correct only 27.6% of the time: the direction is not bound to the answer. DeltaDirect strengthens the motion signal at the projector, and accuracy on MoDirect-SynBench rises from 25.9% to 85.9%.</p>
+      <p class="hero__watch"><span class="hero__play" aria-hidden="true"></span>Watch the paper in 26 seconds</p>
       <div class="reel">
         <div class="reel__stage" aria-hidden="true">
           <p class="reel__cap" data-scene="1">A single object moves from left to right.</p>
@@ -273,7 +274,7 @@
         </div>
       </div>
       <figcaption class="caption hero__cap">
-        The paper in nine scenes. Values are for LLaVA-Video-7B: stage accuracies from Figure 2
+        Nine scenes. Values are for LLaVA-Video-7B: stage accuracies from Figure 2
         (Primitive-on-Syn), and 25.9% and 85.9% on MoDirect-SynBench, where chance is 25%.
       </figcaption>
     </figure>
