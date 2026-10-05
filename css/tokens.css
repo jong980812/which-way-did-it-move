@@ -27,8 +27,9 @@
   --g-motion: #4a3aa7;
 
   /* type */
-  --font-head: "Montserrat", "Figtree", system-ui, sans-serif;
-  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* fallbacks name the platform fonts, so a missing web font still reads as a bold sans */
+  --font-head: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
 
   --fs-title: clamp(2.5rem, 5.8vw, 5.2rem);
@@ -64,4 +65,21 @@
   --dur-loop: 5200ms;
   --dur-hop: 700ms;
   --dur-ui: 200ms;
+}
+
+/* phones: a tighter scale, so a screen holds more of the page */
+@media (max-width: 599px) {
+  :root {
+    --fs-title: 2.125rem;
+    --fs-subtitle: 1.0625rem;
+    --fs-authors: 0.9375rem;
+    --fs-h2: 1.625rem;
+    --fs-h3: 1.1875rem;
+    --fs-body: 1rem;
+    --fs-small: 0.875rem;
+    --fs-label: 0.9375rem;
+    --fs-key: 1.625rem;
+    --gutter: 16px;
+    --section-gap: 44px;
+  }
 }

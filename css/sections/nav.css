@@ -72,19 +72,155 @@
   color: var(--ink);
 }
 
+/* ---------- narrow screens: the bar naming the current section ----------
+   nav.js adds .is-ready once it keeps the bar current; until then (or without
+   the script) the index stays a row of tabs that scrolls sideways. */
+.nav__now,
+.nav__progress {
+  display: none;
+}
+
 @media (max-width: 899px) {
   .nav__home {
     display: none;
   }
 
   .nav__inner {
-    min-height: 60px;
-    padding-inline: var(--space-3);
+    min-height: 56px;
+    padding-inline: var(--gutter);
   }
 
   .nav__list a {
     padding: 8px 14px;
-    font-size: 1.05rem;
+    font-size: 1rem;
+  }
+
+  .nav.is-ready .nav__now {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+    min-height: 56px;
+    padding: 0;
+    border: 0;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .nav__now .nav__ball {
+    display: none;
+    flex: none;
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .nav.is-home .nav__now .nav__ball {
+    display: block;
+  }
+
+  .nav__count {
+    flex: none;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--yellow);
+    font-family: var(--font-head);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    line-height: 1.5;
+  }
+
+  .nav.is-home .nav__count {
+    display: none;
+  }
+
+  .nav__name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-family: var(--font-head);
+    font-size: 1.0625rem;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nav__icon {
+    flex: none;
+    width: 26px;
+    height: 26px;
+  }
+
+  .nav__icon--close,
+  .nav.is-open .nav__icon--menu {
+    display: none;
+  }
+
+  .nav.is-open .nav__icon--close {
+    display: block;
+  }
+
+  /* the list, folded under the bar, numbered like the section titles */
+  .nav.is-ready .nav__list {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-2) var(--gutter) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    background: var(--page);
+    box-shadow: 0 16px 24px rgba(36, 41, 47, 0.08);
+    counter-reset: nav;
+  }
+
+  .nav.is-ready.is-open .nav__list {
+    display: flex;
+  }
+
+  .nav.is-ready .nav__list a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 10px 14px;
+    color: var(--ink);
+    font-size: 1.0625rem;
+  }
+
+  .nav.is-ready .nav__list a::before {
+    counter-increment: nav;
+    content: counter(nav, decimal-leading-zero);
+    color: var(--ink-2);
+    font-family: var(--font-head);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+  }
+
+  .nav.is-ready .nav__list a[aria-current="true"]::before {
+    color: var(--ink);
+  }
+
+  /* how far down the page the reader is */
+  .nav.is-ready .nav__progress {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    display: block;
+    height: 3px;
+  }
+
+  .nav__progress span {
+    display: block;
+    height: 100%;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
   }
 }
 

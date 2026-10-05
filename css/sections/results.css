@@ -384,6 +384,23 @@
 }
 
 @media (max-width: 599px) {
+  .keys > div,
+  .board__detail {
+    padding: var(--space-4);
+  }
+
+  .keys__name {
+    font-size: 0.9375rem;
+  }
+
+  .board__detail-name {
+    font-size: 1.125rem;
+  }
+
+  .board__detail-avg b {
+    font-size: 1.75rem;
+  }
+
   .board__toggle {
     width: 100%;
   }

@@ -415,9 +415,27 @@
     text-align: center;
   }
 
+  .hero {
+    padding-top: var(--space-5);
+  }
+
+  .hero__title {
+    margin: var(--space-3) 0 var(--space-4);
+  }
+
+  .hero__venue {
+    padding: 2px 12px;
+  }
+
+  .hero__links .btn {
+    padding: 0.5em 1.1em;
+    font-size: 1rem;
+  }
+
   .hero__tldr {
-    padding: var(--space-4) var(--space-5);
-    font-size: 1.2rem;
+    margin-top: var(--space-5);
+    padding: var(--space-4);
+    font-size: 1.0625rem;
     text-align: left;
   }
 }

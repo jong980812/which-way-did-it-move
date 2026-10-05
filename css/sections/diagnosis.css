@@ -273,6 +273,12 @@
   to { opacity: 1; transform: translateX(-50%) scale(1); }
 }
 
+@media (max-width: 599px) {
+  .step {
+    margin-top: var(--space-7);
+  }
+}
+
 /* small screens: a plain list, every number shown */
 @media (max-width: 759px) {
   .pipe__stage {

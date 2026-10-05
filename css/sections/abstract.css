@@ -58,3 +58,23 @@
     padding: var(--space-5);
   }
 }
+
+@media (max-width: 599px) {
+  .story__steps {
+    margin-top: var(--space-4);
+  }
+
+  .story__steps li {
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border-radius: var(--radius);
+  }
+
+  .story__head {
+    font-size: 1.25rem;
+  }
+
+  .story__text {
+    font-size: 1rem;
+  }
+}
