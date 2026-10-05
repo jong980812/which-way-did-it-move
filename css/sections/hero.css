@@ -112,7 +112,7 @@
   margin-top: var(--space-5);
 }
 
-/* the caption is about the reel: it is shown only when the reel is */
+/* the caption is about the reel: it is shown only with the reel or its video */
 .hero__cap {
   display: none;
   max-width: none;
@@ -1283,6 +1283,15 @@
   100% { left: 86cqw; opacity: 1; transform: scale(1.5); }
 }
 
+/* phones: the reel as a 4:5 video (videos.js plays it), in place of the static diagram */
+.hero__video {
+  display: none;
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  background: var(--stage);
+}
+
 @media (max-width: 759px), (prefers-reduced-motion: reduce) {
   .reel,
   .reel.is-ready {
@@ -1295,5 +1304,21 @@
 
   .reel.is-ready ~ .hero__cap {
     display: none;
+  }
+}
+
+@media (max-width: 759px) {
+  .hero__video {
+    display: block;
+  }
+
+  .scene,
+  .reel.is-ready ~ .scene {
+    display: none;
+  }
+
+  .hero__cap,
+  .reel.is-ready ~ .hero__cap {
+    display: block;
   }
 }
