@@ -13,18 +13,15 @@
   justify-content: space-between;
   gap: var(--space-5);
   max-width: calc(var(--container-wide) + 2 * var(--gutter));
-  min-height: 76px;
+  min-height: var(--nav-h);
 }
 
+/* the ball, as the page's mark; the Home tab names the top of the page */
 .nav__home {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
   color: var(--ink);
-  font-family: var(--font-head);
-  font-size: 1.2rem;
-  font-weight: 800;
-  white-space: nowrap;
+  font-size: 1.8rem;
 }
 
 .nav__home:hover {
@@ -52,10 +49,10 @@
 
 .nav__list a {
   display: block;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 999px;
   color: var(--ink-2);
-  font-size: 1.0625rem;
+  font-size: 1.45rem;
   font-weight: 600;
   white-space: nowrap;
   transition: background-color var(--dur-ui), color var(--dur-ui);
@@ -80,13 +77,12 @@
   display: none;
 }
 
-@media (max-width: 899px) {
+@media (max-width: 1279px) {
   .nav__home {
     display: none;
   }
 
   .nav__inner {
-    min-height: 56px;
     padding-inline: var(--gutter);
   }
 
@@ -101,7 +97,7 @@
     align-items: center;
     gap: var(--space-3);
     min-width: 0;
-    min-height: 56px;
+    min-height: var(--nav-h);
     padding: 0;
     border: 0;
     background: none;
@@ -112,8 +108,8 @@
   .nav__now .nav__ball {
     display: none;
     flex: none;
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 1.35rem;
+    height: 1.35rem;
   }
 
   .nav.is-home .nav__now .nav__ball {
@@ -122,12 +118,12 @@
 
   .nav__count {
     flex: none;
-    padding: 2px 9px;
+    padding: 3px 13px;
     border-radius: 999px;
     background: var(--accent);
     color: var(--on-accent);
     font-family: var(--font-head);
-    font-size: 0.8125rem;
+    font-size: 1.2rem;
     font-variant-numeric: tabular-nums;
     font-weight: 800;
     line-height: 1.5;
@@ -142,7 +138,7 @@
     min-width: 0;
     overflow: hidden;
     font-family: var(--font-head);
-    font-size: 1.0625rem;
+    font-size: 1.6rem;
     font-weight: 800;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -150,8 +146,8 @@
 
   .nav__icon {
     flex: none;
-    width: 26px;
-    height: 26px;
+    width: 39px;
+    height: 39px;
   }
 
   .nav__icon--close,
@@ -187,23 +183,31 @@
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    padding: 10px 14px;
+    padding: 13px 18px;
     color: var(--ink);
-    font-size: 1.0625rem;
+    font-size: 1.5rem;
   }
 
   .nav.is-ready .nav__list a::before {
     counter-increment: nav;
     content: counter(nav, decimal-leading-zero);
+    min-width: 1.6em;
     color: var(--ink-2);
     font-family: var(--font-head);
-    font-size: 0.8125rem;
+    font-size: 1.1rem;
     font-variant-numeric: tabular-nums;
     font-weight: 800;
   }
 
+  .nav.is-ready .nav__list a[aria-current="true"],
   .nav.is-ready .nav__list a[aria-current="true"]::before {
     color: var(--on-accent);
+  }
+
+  /* Home is not a numbered section */
+  .nav.is-ready .nav__list li:first-child a::before {
+    counter-increment: none;
+    content: "";
   }
 
   /* how far down the page the reader is */
@@ -213,7 +217,7 @@
     bottom: -1px;
     left: 0;
     display: block;
-    height: 3px;
+    height: 4px;
   }
 
   .nav__progress span {

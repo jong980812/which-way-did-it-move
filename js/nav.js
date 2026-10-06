@@ -1,6 +1,7 @@
-// Section index: highlight the section being read. On narrow screens the
-// index folds into a bar that names that section ("03 / 07 MoDirect") over a
-// reading-progress line; the bar's button opens the full list.
+// Section index: highlight the section being read, Home while the hero is on
+// screen (and on arrival). On narrow screens the index folds into a bar that
+// names that section ("03 / 07 MoDirect") over a reading-progress line; the
+// bar's button opens the full list.
 (function () {
   var nav = document.querySelector('.nav');
   var list = nav && nav.querySelector('.nav__list');
@@ -10,7 +11,6 @@
   var count = nav.querySelector('.nav__count');
   var name = nav.querySelector('.nav__name');
   var progress = nav.querySelector('.nav__progress span');
-  var title = name.textContent;
   var links = Array.prototype.slice.call(list.querySelectorAll('a'));
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var byId = {};
@@ -32,11 +32,11 @@
       }
     });
 
-    // the bar: the paper's title over the hero, then the section's number and name
+    // the bar: Home (the first link) over the hero, then the section's number and name
     var index = links.indexOf(active);
-    nav.classList.toggle('is-home', index < 0);
-    count.textContent = index < 0 ? '' : pad(index + 1) + ' / ' + pad(links.length);
-    name.textContent = index < 0 ? title : active.textContent;
+    nav.classList.toggle('is-home', index <= 0);
+    count.textContent = index <= 0 ? '' : pad(index) + ' / ' + pad(links.length - 1);
+    name.textContent = index < 0 ? 'Home' : active.textContent;
 
     // a wide index that still overflows scrolls sideways: keep the current link in view
     if (active && list.scrollWidth > list.clientWidth) {
@@ -93,8 +93,9 @@
   window.addEventListener('resize', queueProgress);
   drawProgress();
 
-  // CSS shows the bar only once the script can keep it current
+  // CSS shows the bar only once the script can keep it current; a visit starts at Home
   nav.classList.add('is-ready');
+  setCurrent('top');
 
   if (!('IntersectionObserver' in window)) return;
 
@@ -105,8 +106,8 @@
     });
   }, { rootMargin: '-33% 0px -66% 0px' });
 
-  // the hero is observed too, so nothing is highlighted while it is on screen
-  ['top'].concat(Object.keys(byId)).forEach(function (id) {
+  // the hero ("top") is one of them: Home is current while it crosses that line
+  Object.keys(byId).forEach(function (id) {
     var section = document.getElementById(id);
     if (section) observer.observe(section);
   });

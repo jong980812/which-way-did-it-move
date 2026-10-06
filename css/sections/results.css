@@ -208,7 +208,7 @@
 /* detail card: the selected model on each subset */
 .board__detail {
   position: sticky;
-  top: 96px;
+  top: calc(var(--nav-h) + 20px);
   padding: var(--space-5);
   border-radius: var(--radius);
   background: #f3f6fb;

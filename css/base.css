@@ -12,7 +12,7 @@ html {
 
 /* anchors land below the sticky section index */
 [id] {
-  scroll-margin-top: 96px;
+  scroll-margin-top: calc(var(--nav-h) + 16px);
 }
 
 body {
@@ -413,13 +413,6 @@ main {
   .split {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
-  }
-}
-
-/* the index is shorter here */
-@media (max-width: 899px) {
-  [id] {
-    scroll-margin-top: 72px;
   }
 }
 

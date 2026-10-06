@@ -4,7 +4,7 @@
 .palette {
   position: fixed;
   z-index: 20;
-  top: 88px;
+  top: calc(var(--nav-h) + 12px);
   right: 16px;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@
 }
 
 /* narrow screens: bottom right, where it covers no heading */
-@media (max-width: 899px) {
+@media (max-width: 1279px) {
   .palette {
     top: auto;
     right: 10px;

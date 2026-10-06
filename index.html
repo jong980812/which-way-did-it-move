@@ -82,17 +82,18 @@
 <!-- == SECTION: nav == -->
 <nav class="nav is-home" aria-label="Sections">
   <div class="container nav__inner">
-    <a class="nav__home" href="#top"><span class="nav__ball"></span>Which Way Did It Move?</a>
+    <a class="nav__home" href="#top" aria-label="Which Way Did It Move? Back to the top"><span class="nav__ball"></span></a>
     <!-- narrow screens (nav.js): the section being read, and a button that opens the list -->
     <button class="nav__now" type="button" aria-expanded="false" aria-controls="nav-list">
       <span class="visually-hidden">Sections, now reading: </span>
       <span class="nav__ball" aria-hidden="true"></span>
       <span class="nav__count"></span>
-      <span class="nav__name">Which Way Did It Move?</span>
+      <span class="nav__name">Home</span>
       <svg class="nav__icon nav__icon--menu" aria-hidden="true"><use href="#i-menu"/></svg>
       <svg class="nav__icon nav__icon--close" aria-hidden="true"><use href="#i-close"/></svg>
     </button>
     <ol class="nav__list" id="nav-list">
+      <li><a href="#top">Home</a></li>
       <li><a href="#abstract">Summary</a></li>
       <li><a href="#blindness">Blindness</a></li>
       <li><a href="#dataset">MoDirect</a></li>
