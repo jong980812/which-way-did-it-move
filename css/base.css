@@ -213,6 +213,12 @@ main {
   height: 1.1em;
 }
 
+/* a full-colour logo (Hugging Face) is drawn a little larger than a line icon */
+.icon--logo {
+  width: 1.35em;
+  height: auto;
+}
+
 /* ---------- figures ---------- */
 .figure img {
   width: 100%;

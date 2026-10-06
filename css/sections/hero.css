@@ -18,7 +18,7 @@
   background: var(--accent);
   color: var(--on-accent);
   font-family: var(--font-head);
-  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-size: clamp(1.2rem, 1.72vw, 1.55rem);
   font-weight: 800;
   line-height: 1.3;
 }
@@ -71,7 +71,7 @@
 .hero__affil {
   margin: var(--space-2) 0 var(--space-5);
   color: var(--ink-2);
-  font-size: var(--fs-small);
+  font-size: calc(var(--fs-small) * 1.15);
   line-height: 1.6;
 }
 
@@ -91,7 +91,7 @@
 
 .hero__links .btn {
   padding: 0.55em 1.25em;
-  font-size: 1.0625rem;
+  font-size: 1.22rem;
 }
 
 /* TL;DR: the one thing to read on the first screen */
@@ -525,12 +525,12 @@
   }
 
   .hero__venue {
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
 
   .hero__links .btn {
     padding: 0.5em 1.1em;
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
 
   .hero__tldr {

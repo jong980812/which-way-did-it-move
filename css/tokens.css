@@ -1,9 +1,9 @@
 /* Design tokens. Change colors, type, spacing and motion timing here only. */
 :root {
-  /* color: the yellow ball is the identity; blue = signal / correct, red = wrong / gap
-     (the same roles these colors play in the paper's figures) */
+  /* color: the accent ball is the identity (deep green; yellow and navy are previews below);
+     blue = signal / correct, red = wrong / gap (the same roles these colors play in the paper's figures) */
   --page: #ffffff;
-  --band: #fff9e6;
+  --band: #eff7f2;
   --surface: #ffffff;
   --ink: #24292f;
   --ink-2: #5f6b7a;
@@ -11,14 +11,14 @@
   /* the object's yellow: the ball in the example videos, the same in every palette */
   --yellow: #ffc533;
   /* the page's accent and its tints; --on-accent is text set on --accent */
-  --accent: #ffc533;
-  --accent-soft: #fff1c2;
-  --accent-pastel: #ffe59a;
-  --on-accent: var(--ink);
+  --accent: #2a7350;
+  --accent-soft: #e0efe6;
+  --accent-pastel: #cbe4d5;
+  --on-accent: #fff;
   /* the venue badge's Opera House: sails and harbour */
-  --sail: #fff;
-  --wave: #2b6ff3;
-  --wave-2: #7fb0ff;
+  --sail: var(--accent);
+  --wave: #9fd3ff;
+  --wave-2: #d2ebff;
   --blue: #2b6ff3;
   --blue-soft: #e8f0ff;
   --red: #ef5350;
@@ -40,9 +40,9 @@
   --font-body: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
 
-  --fs-title: clamp(2.5rem, 5vw, 4.4rem);
-  --fs-subtitle: clamp(1.25rem, 2vw, 1.8rem);
-  --fs-authors: clamp(1rem, 1.3vw, 1.2rem);
+  --fs-title: clamp(2.875rem, 5.75vw, 5.05rem);
+  --fs-subtitle: clamp(1.4375rem, 2.3vw, 2.07rem);
+  --fs-authors: clamp(1.15rem, 1.5vw, 1.38rem);
   --fs-h2: clamp(1.8rem, 3vw, 2.6rem);
   --fs-h3: clamp(1.25rem, 1.7vw, 1.5rem);
   --fs-body: clamp(1.0625rem, 1.25vw, 1.1875rem);
@@ -77,7 +77,7 @@
   --dur-ui: 200ms;
 }
 
-/* PREVIEW: two alternative accents, switched by js/palette.js (remove both with it once a
+/* PREVIEW: two alternative accents, switched by js/palette.js (remove both with it once the
    palette is chosen). The object's yellow, the chart colours and the videos stay as they are. */
 :root[data-accent="navy"] {
   --band: #eef2f9;
@@ -90,23 +90,23 @@
   --wave-2: #c5d9ff;
 }
 
-:root[data-accent="green"] {
-  --band: #eff7f2;
-  --accent: #2a7350;
-  --accent-soft: #e0efe6;
-  --accent-pastel: #cbe4d5;
-  --on-accent: #fff;
-  --sail: var(--accent);
-  --wave: #9fd3ff;
-  --wave-2: #d2ebff;
+:root[data-accent="yellow"] {
+  --band: #fff9e6;
+  --accent: #ffc533;
+  --accent-soft: #fff1c2;
+  --accent-pastel: #ffe59a;
+  --on-accent: var(--ink);
+  --sail: #fff;
+  --wave: #2b6ff3;
+  --wave-2: #7fb0ff;
 }
 
 /* phones: a tighter scale, so a screen holds more of the page */
 @media (max-width: 599px) {
   :root {
-    --fs-title: 2.125rem;
-    --fs-subtitle: 1.0625rem;
-    --fs-authors: 0.9375rem;
+    --fs-title: min(2.45rem, 10.4vw);
+    --fs-subtitle: 1.22rem;
+    --fs-authors: 1.08rem;
     --fs-h2: 1.625rem;
     --fs-h3: 1.1875rem;
     --fs-body: 1rem;
