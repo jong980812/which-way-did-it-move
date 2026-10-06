@@ -119,8 +119,8 @@ main {
   left: 0;
   padding: 0.05em 0.5em;
   border-radius: 999px;
-  background: var(--yellow);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
   font-size: var(--n);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.04em;
@@ -134,7 +134,7 @@ main {
   height: 0.5em;
   margin-right: 0.4em;
   border-radius: 50%;
-  background: var(--yellow);
+  background: var(--accent);
   vertical-align: 0.08em;
 }
 
@@ -186,7 +186,8 @@ main {
   width: 2em;
   height: 2em;
   border-radius: 50%;
-  background: var(--yellow);
+  background: var(--accent);
+  color: var(--on-accent);
   font-family: var(--font-head);
   font-weight: 800;
   line-height: 1;
@@ -254,12 +255,13 @@ main {
 }
 
 .btn--soft {
-  background: var(--yellow-soft);
+  background: var(--accent-soft);
   color: var(--ink);
 }
 
 .btn--soft:hover {
-  background: var(--yellow);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 /* ---------- model groups ---------- */
@@ -299,7 +301,7 @@ main {
   gap: 0.5em;
   padding: 0.5em 1.15em;
   border-radius: 999px;
-  background: var(--yellow-soft);
+  background: var(--accent-soft);
   font-weight: 600;
   list-style: none;
   cursor: pointer;
@@ -321,7 +323,8 @@ main {
 }
 
 .fold > summary:hover {
-  background: var(--yellow);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 .fold__body {
@@ -435,7 +438,7 @@ main {
   }
 
   .data-table tbody tr.is-ours > td:first-child {
-    background: var(--yellow-soft);
+    background: var(--accent-soft);
   }
 
   .data-table .is-group span {

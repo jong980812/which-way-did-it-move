@@ -9,7 +9,7 @@
 .keys > div {
   padding: var(--space-5);
   border-radius: var(--radius);
-  background: var(--yellow-soft);
+  background: var(--accent-soft);
 }
 
 .keys__name {
@@ -68,7 +68,7 @@
 }
 
 .board__toggle .btn {
-  background: var(--yellow-soft);
+  background: var(--accent-soft);
   color: var(--ink);
 }
 
@@ -120,7 +120,7 @@
 }
 
 .board__row.is-ours {
-  background: var(--yellow-soft);
+  background: var(--accent-soft);
   font-weight: 700;
 }
 
@@ -246,7 +246,8 @@
   margin-top: var(--space-2);
   padding: 2px 12px;
   border-radius: 999px;
-  background: var(--yellow);
+  background: var(--accent);
+  color: var(--on-accent);
   font-size: 0.95rem;
   font-weight: 700;
 }
@@ -302,7 +303,7 @@
 }
 
 .data-table .is-ours td {
-  background: var(--yellow-soft);
+  background: var(--accent-soft);
 }
 
 .data-table .is-ours td:first-child {

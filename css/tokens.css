@@ -8,9 +8,17 @@
   --ink: #24292f;
   --ink-2: #5f6b7a;
   --line: #e4e7ec;
+  /* the object's yellow: the ball in the example videos, the same in every palette */
   --yellow: #ffc533;
-  --yellow-soft: #fff1c2;
-  --yellow-pastel: #ffe59a;
+  /* the page's accent and its tints; --on-accent is text set on --accent */
+  --accent: #ffc533;
+  --accent-soft: #fff1c2;
+  --accent-pastel: #ffe59a;
+  --on-accent: var(--ink);
+  /* the venue badge's Opera House: sails and harbour */
+  --sail: #fff;
+  --wave: #2b6ff3;
+  --wave-2: #7fb0ff;
   --blue: #2b6ff3;
   --blue-soft: #e8f0ff;
   --red: #ef5350;
@@ -67,6 +75,30 @@
   --dur-loop: 5200ms;
   --dur-hop: 700ms;
   --dur-ui: 200ms;
+}
+
+/* PREVIEW: two alternative accents, switched by js/palette.js (remove both with it once a
+   palette is chosen). The object's yellow, the chart colours and the videos stay as they are. */
+:root[data-accent="navy"] {
+  --band: #eef2f9;
+  --accent: #213f6e;
+  --accent-soft: #e2e9f4;
+  --accent-pastel: #d0dcef;
+  --on-accent: #fff;
+  --sail: var(--accent);
+  --wave: #8fb6ff;
+  --wave-2: #c5d9ff;
+}
+
+:root[data-accent="green"] {
+  --band: #eff7f2;
+  --accent: #2a7350;
+  --accent-soft: #e0efe6;
+  --accent-pastel: #cbe4d5;
+  --on-accent: #fff;
+  --sail: var(--accent);
+  --wave: #9fd3ff;
+  --wave-2: #d2ebff;
 }
 
 /* phones: a tighter scale, so a screen holds more of the page */

@@ -1,0 +1,56 @@
+/* PREVIEW: palette switcher, fixed at the top right under the section index
+   (bottom right on narrow screens).
+   Remove this file, js/palette.js and the .palette markup once a palette is chosen. */
+.palette {
+  position: fixed;
+  z-index: 20;
+  top: 88px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 6px 18px rgba(36, 41, 47, 0.12);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.palette__label {
+  margin-right: 2px;
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.palette__swatch {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 0 1px var(--line);
+  cursor: pointer;
+}
+
+.palette__swatch[aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--ink);
+}
+
+/* narrow screens: bottom right, where it covers no heading */
+@media (max-width: 899px) {
+  .palette {
+    top: auto;
+    right: 10px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    padding: 4px 6px 4px 10px;
+  }
+
+  .palette__swatch {
+    width: 24px;
+    height: 24px;
+  }
+}

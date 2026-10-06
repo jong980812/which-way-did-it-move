@@ -35,7 +35,7 @@
   width: 0.8em;
   height: 0.8em;
   border-radius: 50%;
-  background: var(--yellow);
+  background: var(--accent);
 }
 
 .nav__list {
@@ -62,14 +62,14 @@
 }
 
 .nav__list a:hover {
-  background: var(--yellow-soft);
+  background: var(--accent-soft);
   color: var(--ink);
   text-decoration: none;
 }
 
 .nav__list a[aria-current="true"] {
-  background: var(--yellow);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 /* ---------- narrow screens: the bar naming the current section ----------
@@ -124,7 +124,8 @@
     flex: none;
     padding: 2px 9px;
     border-radius: 999px;
-    background: var(--yellow);
+    background: var(--accent);
+    color: var(--on-accent);
     font-family: var(--font-head);
     font-size: 0.8125rem;
     font-variant-numeric: tabular-nums;
@@ -202,7 +203,7 @@
   }
 
   .nav.is-ready .nav__list a[aria-current="true"]::before {
-    color: var(--ink);
+    color: var(--on-accent);
   }
 
   /* how far down the page the reader is */
@@ -218,7 +219,7 @@
   .nav__progress span {
     display: block;
     height: 100%;
-    background: var(--yellow);
+    background: var(--accent);
     transform: scaleX(0);
     transform-origin: 0 50%;
   }

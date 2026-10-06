@@ -19,6 +19,15 @@
   <link rel="preload" href="static/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="static/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
 
+  <!-- PREVIEW: apply a chosen palette before the first paint (see js/palette.js) -->
+  <script>
+    (function () {
+      var accent = (location.search.match(/[?&]accent=(\w+)/) || [])[1];
+      try { accent = accent || localStorage.getItem('accent'); } catch (e) {}
+      if (accent === 'navy' || accent === 'green') document.documentElement.setAttribute('data-accent', accent);
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
@@ -31,6 +40,7 @@
   <link rel="stylesheet" href="css/sections/method.css">
   <link rel="stylesheet" href="css/sections/results.css">
   <link rel="stylesheet" href="css/sections/bibtex.css">
+  <link rel="stylesheet" href="css/sections/palette.css">
 
   <script src="js/nav.js" defer></script>
   <script src="js/overflow.js" defer></script>
@@ -41,6 +51,7 @@
   <script src="js/videos.js" defer></script>
   <script src="js/results.js" defer></script>
   <script src="js/bibtex.js" defer></script>
+  <script src="js/palette.js" defer></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -55,15 +66,15 @@
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
   <!-- the Sydney Opera House: four sails on the podium, over the harbour -->
   <symbol id="i-opera" viewBox="0 0 64 42">
-    <g fill="#fff" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round">
+    <g style="fill: var(--sail, #fff)" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round">
       <path d="M10 26C11 15 17 7 27 3C26 11 26 19 28 26Z"/>
       <path d="M23 26C24 17 30 11 39 8C38 14 38 20 40 26Z"/>
       <path d="M34 26C35 19 40 15 48 13C47 18 47 22 49 26Z"/>
       <path d="M44 26C45 22 49 19 54 18C53 21 53 24 55 26Z"/>
       <rect x="6" y="26" width="52" height="5" rx="2.5"/>
     </g>
-    <path d="M7 35.5q3.25-2.6 6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0" fill="none" stroke="#2b6ff3" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M13.5 39.5q3.25-2.2 6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0" fill="none" stroke="#7fb0ff" stroke-width="2" stroke-linecap="round"/>
+    <path d="M7 35.5q3.25-2.6 6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0" fill="none" style="stroke: var(--wave, #2b6ff3)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M13.5 39.5q3.25-2.2 6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0" fill="none" style="stroke: var(--wave-2, #7fb0ff)" stroke-width="2" stroke-linecap="round"/>
   </symbol>
   <symbol id="i-cite" viewBox="0 0 24 24"><path d="M10 8H6v5h4c0 2-1 3.5-3 4M18 8h-4v5h4c0 2-1 3.5-3 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
@@ -93,6 +104,14 @@
   </div>
   <span class="nav__progress" aria-hidden="true"><span></span></span>
 </nav>
+
+<!-- PREVIEW: palette switcher, top right; remove with css/sections/palette.css and js/palette.js -->
+<div class="palette" role="group" aria-label="Page color (preview)">
+  <span class="palette__label">Color</span>
+  <button class="palette__swatch" type="button" data-accent="yellow" style="--c: #ffc533" aria-pressed="true"><span class="visually-hidden">Yellow</span></button>
+  <button class="palette__swatch" type="button" data-accent="navy" style="--c: #213f6e" aria-pressed="false"><span class="visually-hidden">Navy</span></button>
+  <button class="palette__swatch" type="button" data-accent="green" style="--c: #2a7350" aria-pressed="false"><span class="visually-hidden">Green</span></button>
+</div>
 
 <main>
 

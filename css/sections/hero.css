@@ -15,7 +15,8 @@
   gap: 0.5em;
   padding: 0.3em 1em 0.3em 0.75em;
   border-radius: 999px;
-  background: var(--yellow);
+  background: var(--accent);
+  color: var(--on-accent);
   font-family: var(--font-head);
   font-size: clamp(1.05rem, 1.5vw, 1.35rem);
   font-weight: 800;
@@ -98,7 +99,7 @@
   margin-top: var(--space-6);
   padding: var(--space-5) var(--space-6);
   border-radius: var(--radius);
-  background: var(--yellow-pastel);
+  background: var(--accent-pastel);
   font-size: clamp(1.15rem, 1.7vw, 1.55rem);
   font-weight: 500;
   line-height: 1.4;
@@ -150,7 +151,8 @@
   gap: 0.45em;
   padding: 0.25em 0.9em 0.25em 0.3em;
   border-radius: 999px;
-  background: var(--yellow);
+  background: var(--accent);
+  color: var(--on-accent);
   font-size: 0.68em;
   transition: background-color var(--dur-ui), color var(--dur-ui);
 }
@@ -181,7 +183,7 @@
   width: 1.7em;
   height: 1.7em;
   border-radius: 50%;
-  background: var(--ink);
+  background: var(--on-accent);
 }
 
 .hero__play::before {
@@ -191,7 +193,7 @@
   left: 55%;
   border-top: 0.36em solid transparent;
   border-bottom: 0.36em solid transparent;
-  border-left: 0.56em solid #fff;
+  border-left: 0.56em solid var(--accent);
   transform: translate(-50%, -50%);
 }
 
@@ -203,11 +205,11 @@
   }
 
   .hero__watch:hover .hero__play {
-    background: var(--yellow);
+    background: var(--accent);
   }
 
   .hero__watch:hover .hero__play::before {
-    border-left-color: var(--ink);
+    border-left-color: var(--on-accent);
   }
 }
 
@@ -592,7 +594,7 @@
 .reel__stage,
 .hero__video {
   border: 3px solid var(--ink);
-  box-shadow: 10px 10px 0 var(--yellow);
+  box-shadow: 10px 10px 0 var(--accent);
 }
 
 .reel.is-paused .reel__stage * {
@@ -1447,7 +1449,7 @@
   .reel__stage,
   .hero__video {
     border-width: 2px;
-    box-shadow: 6px 6px 0 var(--yellow);
+    box-shadow: 6px 6px 0 var(--accent);
   }
 
   .hero__cap {

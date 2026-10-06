@@ -30,7 +30,8 @@
   width: 1.7em;
   height: 1.7em;
   border-radius: 50%;
-  background: var(--yellow);
+  background: var(--accent);
+  color: var(--on-accent);
   font-weight: 800;
   line-height: 1;
 }
