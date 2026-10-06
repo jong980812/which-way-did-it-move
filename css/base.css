@@ -98,11 +98,12 @@ main {
 }
 
 .section-title {
-  /* the number: half the title's size, never under 15px */
-  --n: max(0.9375rem, 0.5em);
+  /* the number: 60% of the title's size, never under 18px; a yellow pill
+     like the count in the narrow-screen section bar */
+  --n: max(1.125rem, 0.6em);
   position: relative;
   margin-bottom: var(--space-4);
-  padding-top: calc(var(--n) * 1.35 + 0.25rem);
+  padding-top: calc(var(--n) * 1.4 + 0.5rem);
   counter-increment: section;
   font-family: var(--font-head);
   font-size: var(--fs-h2);
@@ -116,11 +117,14 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  color: var(--ink-2);
+  padding: 0.05em 0.5em;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: var(--ink);
   font-size: var(--n);
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.06em;
-  line-height: 1.35;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
 }
 
 .section-title::before {
@@ -136,7 +140,7 @@ main {
 
 /* a long title kept on one line: sized so the text always fits the container */
 .section-title--line {
-  font-size: clamp(1.7rem, 3.4vw, 2.95rem);
+  font-size: clamp(1.6rem, 2.9vw, 2.5rem);
 }
 
 @media (min-width: 820px) {

@@ -20,14 +20,36 @@
   align-items: center;
   gap: var(--space-3);
   font-family: var(--font-head);
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
   font-weight: 800;
   line-height: 1.1;
 }
 
 .story__text {
-  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
   line-height: 1.45;
+}
+
+/* the step's one number: what the paper measured or achieved */
+.story__stat {
+  display: grid;
+  gap: 2px;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+.story__stat b {
+  font-family: var(--font-head);
+  font-size: clamp(1.45rem, 2.1vw, 1.9rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.story__stat span {
+  color: var(--ink-2);
+  font-size: var(--fs-small);
+  line-height: 1.4;
 }
 
 .story__text b {
@@ -76,5 +98,9 @@
 
   .story__text {
     font-size: 1rem;
+  }
+
+  .story__stat b {
+    font-size: 1.375rem;
   }
 }

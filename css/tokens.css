@@ -32,16 +32,16 @@
   --font-body: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
 
-  --fs-title: clamp(2.5rem, 5.8vw, 5.2rem);
-  --fs-subtitle: clamp(1.3rem, 2.5vw, 2.2rem);
-  --fs-authors: clamp(1.1rem, 1.6vw, 1.4rem);
-  --fs-h2: clamp(2rem, 3.6vw, 3.1rem);
-  --fs-h3: clamp(1.35rem, 2vw, 1.7rem);
-  --fs-body: clamp(1.125rem, 1.5vw, 1.375rem);
-  --fs-small: clamp(1rem, 1.2vw, 1.125rem);
-  --fs-label: clamp(1.1rem, 1.45vw, 1.3rem);
+  --fs-title: clamp(2.5rem, 5vw, 4.4rem);
+  --fs-subtitle: clamp(1.25rem, 2vw, 1.8rem);
+  --fs-authors: clamp(1rem, 1.3vw, 1.2rem);
+  --fs-h2: clamp(1.8rem, 3vw, 2.6rem);
+  --fs-h3: clamp(1.25rem, 1.7vw, 1.5rem);
+  --fs-body: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  --fs-small: clamp(0.9375rem, 1vw, 1rem);
+  --fs-label: clamp(1rem, 1.2vw, 1.125rem);
   --fs-mono: 1rem;
-  --fs-key: clamp(1.9rem, 3vw, 2.6rem);
+  --fs-key: clamp(1.75rem, 2.6vw, 2.25rem);
   --fw-body: 400;
 
   /* space */
@@ -55,10 +55,11 @@
   --space-8: 64px;
   --space-9: 96px;
   --gutter: clamp(20px, 4.4vw, 64px);
-  --section-gap: clamp(56px, 7vw, 96px);
+  --section-gap: clamp(56px, 6vw, 84px);
   --container: 1280px;
   --container-wide: 1280px;
-  --measure: none;
+  /* the longest a paragraph line gets: about 75 characters of Figtree */
+  --measure: 37em;
   --radius: 16px;
   --radius-sm: 10px;
 

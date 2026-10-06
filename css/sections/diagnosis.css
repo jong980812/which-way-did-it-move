@@ -26,6 +26,10 @@
   max-width: 680px;
 }
 
+.step__more {
+  margin-top: var(--space-4);
+}
+
 /* ---------- pipe: the direction signal followed through a Video-LLM ----------
    Same look as the pipeline scene of the hero reel. diagnosis.js builds the
    stages from data/diagnosis.json. Sizes inside the stage are in cqw. */

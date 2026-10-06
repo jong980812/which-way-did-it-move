@@ -97,14 +97,13 @@
 }
 
 .dataset__role {
-  display: inline-block;
-  margin-bottom: var(--space-2);
-  padding: 1px 10px;
-  border-radius: 999px;
-  background: var(--blue-soft);
-  color: var(--blue);
-  font-size: 0.875rem;
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--ink-2);
+  font-size: 0.8125rem;
   font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 1023px) {

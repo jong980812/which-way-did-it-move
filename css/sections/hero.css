@@ -78,8 +78,8 @@
 }
 
 .hero__links .btn {
-  padding: 0.55em 1.3em;
-  font-size: 1.15rem;
+  padding: 0.55em 1.25em;
+  font-size: 1.0625rem;
 }
 
 /* TL;DR: the one thing to read on the first screen */
@@ -88,7 +88,7 @@
   padding: var(--space-5) var(--space-6);
   border-radius: var(--radius);
   background: var(--yellow-pastel);
-  font-size: clamp(1.3rem, 2.1vw, 1.85rem);
+  font-size: clamp(1.15rem, 1.7vw, 1.55rem);
   font-weight: 500;
   line-height: 1.4;
   text-align: center;

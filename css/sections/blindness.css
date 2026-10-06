@@ -1,4 +1,4 @@
-/* SECTION: blindness */
-.blindness .figure {
-  margin-top: var(--space-6);
+/* SECTION: blindness (text beside Figure 1(b); panel (a) is the hero reel) */
+.blindness .split {
+  margin-top: var(--space-2);
 }

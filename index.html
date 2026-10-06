@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- the page is light only: keeps Chrome's auto dark mode from inverting it -->
+  <meta name="color-scheme" content="only light">
   <title>Which Way Did It Move? Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</title>
   <meta name="description" content="Most Video-LLMs perform near chance on the motion direction of a single moving object. We trace the failure to a direction binding gap and introduce MoDirect and DeltaDirect. NeurIPS 2026.">
   <meta property="og:type" content="website">
@@ -229,8 +231,9 @@
           <button class="btn btn--soft" type="button" data-reel-restart>Replay</button>
         </div>
       </div>
-      <!-- phones: the same reel, rendered as a 4:5 video -->
-      <video class="hero__video" src="static/videos/hero_reel_4x5.mp4"
+      <!-- phones: the same reel, rendered as a 4:5 video. Its first 0.4 s blend the last scene
+           into the first, for the loop; the first play starts after them (#t=0.4) -->
+      <video class="hero__video" src="static/videos/hero_reel_4x5.mp4#t=0.4"
              poster="static/images/hero_reel_poster_4x5.jpg" width="1080" height="1350"
              muted loop playsinline controls preload="none" aria-describedby="reel-desc"></video>
       <div class="scene">
@@ -289,16 +292,19 @@
       <li>
         <p class="story__head"><span class="ball-n">1</span>Find</p>
         <p class="story__text">Video-LLMs get an object’s <b>color right</b>, but not <b>which way it moved</b>.</p>
+        <p class="story__stat"><b>25.9%</b><span>direction accuracy of LLaVA-Video-7B, where chance is 25%</span></p>
         <p class="story__links"><a href="#blindness">Directional motion blindness</a></p>
       </li>
       <li>
         <p class="story__head"><span class="ball-n">2</span>Diagnose</p>
         <p class="story__text">The direction is <b>decodable inside the model</b>, but <b>not bound to the answer</b>.</p>
+        <p class="story__stat"><b>95.3% vs. 27.6%</b><span>a linear probe in the LLM vs. the model’s own answer</span></p>
         <p class="story__links"><a href="#diagnosis">The direction binding gap</a></p>
       </li>
       <li>
         <p class="story__head"><span class="ball-n">3</span>Fix</p>
         <p class="story__text"><b>MoDirect</b> and <b>DeltaDirect</b> improve direction understanding <b>without changing inference</b>.</p>
+        <p class="story__stat"><b>25.9% → 85.9%</b><span>MoDirect-SynBench accuracy with DeltaDirect</span></p>
         <p class="story__links"><a href="#dataset">MoDirect</a><a href="#method">DeltaDirect</a></p>
       </li>
     </ol>
@@ -333,26 +339,23 @@
 <section class="section blindness" id="blindness">
   <div class="container">
     <h2 class="section-title">Directional motion blindness</h2>
-    <p class="prose">
-      On a seemingly trivial synthetic video of a yellow circle moving from left to right, most
-      Video-LLMs show accuracy close to random chance (25%), with GPT-5 only reaching 58.9%. We
-      refer to this systematic failure to distinguish signed motion directions as
-      <em>directional motion blindness</em>.
-    </p>
-    <figure class="figure figure--wide">
-      <picture>
-        <source media="(max-width: 767px)" srcset="static/images/teaser_stacked.png" width="1200" height="1660">
-        <img src="static/images/teaser.png" width="5480" height="1914" loading="lazy"
-             alt="Left: a synthetic video of a yellow circle moving from left to right. A Video-LLM answers the color question correctly (Yellow) but the direction question incorrectly (Leftward). Right: bar chart of color accuracy and motion direction accuracy for several Video-LLMs, with a chance line at 25 percent.">
-      </picture>
-      <figcaption>
-        <b>Figure 1. Directional motion blindness in Video-LLMs.</b> (a) Given a simple synthetic
-        video of a yellow circle moving from left to right, recent Video-LLMs correctly identify
-        the object’s color but answer the wrong motion direction. (b) Across Video-LLMs, appearance
-        recognition is high, yet signed motion direction accuracy remains much lower, often near
-        chance.
-      </figcaption>
-    </figure>
+    <div class="split">
+      <p class="prose">
+        On a seemingly trivial synthetic video of a yellow circle moving from left to right, most
+        Video-LLMs show accuracy close to random chance (25%), with GPT-5 only reaching 58.9%. We
+        refer to this systematic failure to distinguish signed motion directions as
+        <em>directional motion blindness</em>.
+      </p>
+      <!-- panel (a), the example video and the two answers, is the reel at the top of the page -->
+      <figure class="figure">
+        <img src="static/images/teaser_b.png" width="1600" height="947" loading="lazy"
+             alt="Bar chart of color accuracy and motion direction accuracy for eight Video-LLMs. Color accuracy is near 90 to 95 percent for all; motion direction accuracy ranges from 25.9 to 53.5 percent, close to the 25 percent chance line, except LLaVA-Video-7B with DeltaDirect at 85.4 percent.">
+        <figcaption>
+          <b>Figure 1(b).</b> Across Video-LLMs, appearance recognition is high, yet signed motion
+          direction accuracy remains much lower, often near chance.
+        </figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -489,33 +492,25 @@
     <div class="step">
       <div class="step__head">
         <span class="ball-n">2</span>
-        <h3 class="sub-title">Instruction tuning closes the gap on the source domain</h3>
+        <h3 class="sub-title">Tuning closes the gap in domain; out of domain, the signal is too weak</h3>
       </div>
-      <div class="split">
-        <p class="prose">
-          After tuning on MoDirect-Inst, logit lens accuracy converges to probing accuracy and MCQ
-          accuracy on Primitive-on-Syn rises from 27.6% to 99.5%. But the gap reopens out of
-          domain: 0.3 points on Primitive-on-Syn, 12.1 points on Cutout-on-Real.
-        </p>
-        <figure class="figure step__small">
+      <p class="prose">
+        After tuning on MoDirect-Inst, logit lens accuracy converges to probing accuracy and MCQ
+        accuracy on Primitive-on-Syn rises from 27.6% to 99.5%. But the gap reopens out of
+        domain: 0.3 points on Primitive-on-Syn, 12.1 points on Cutout-on-Real. The motion
+        direction concept vectors still align across domains, but their magnitude drops with
+        visual complexity. Restoring only the magnitude recovers up to 15.5 points on
+        Cutout-on-Real: the out-of-domain failure is a magnitude deficit, not a missing motion
+        direction geometry.
+      </p>
+      <details class="fold step__more">
+        <summary>Show Figure 4: the gap closing on the source domain</summary>
+        <figure class="figure step__small fold__body">
           <img src="static/images/figure_4.png" width="689" height="468" loading="lazy"
                alt="Layer-wise accuracy for LLaVA-Video on Primitive-on-Syn. Linear probe accuracy is high with and without tuning. Logit lens accuracy stays near chance for the vanilla model and rises to match the probe in late layers after tuning on MoDirect-Inst.">
           <figcaption><b>Figure 4.</b> Instruction tuning closes the direction binding gap (source domain).</figcaption>
         </figure>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step__head">
-        <span class="ball-n">3</span>
-        <h3 class="sub-title">Shared orientation, weak magnitude</h3>
-      </div>
-      <p class="prose">
-        After instruction tuning, motion direction concept vectors align across domains, but
-        their magnitude drops with visual complexity. Restoring only the magnitude recovers up to
-        15.5 points on Cutout-on-Real: the out-of-domain failure is a magnitude deficit, not a
-        missing motion direction geometry.
-      </p>
+      </details>
       <figure class="figure figure--wide step__figure">
         <picture>
           <source media="(max-width: 767px)" srcset="static/images/fig5_stacked.png" width="726" height="2079">
