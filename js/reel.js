@@ -123,6 +123,10 @@
 
   restart.addEventListener('click', function () { jump(0); });
 
+  // the label over the reel ("Click to start") plays it from the first scene too
+  var start = document.querySelector('[data-reel-start]');
+  if (start) start.addEventListener('click', function () { jump(0); });
+
   // no frames arrive while the tab is hidden: do not count that time
   document.addEventListener('visibilitychange', function () { last = null; });
 

@@ -8,6 +8,19 @@
 (function () {
   var videos = Array.prototype.slice.call(document.querySelectorAll('.hero__video, .method__video'));
   if (!videos.length) return;
+
+  // the label over the hero reel ("Tap to start") plays the phone video from its
+  // first scene; it is a viewer's choice, so it works under reduced motion too
+  var start = document.querySelector('[data-reel-start]');
+  var hero = document.querySelector('.hero__video');
+  if (start && hero) {
+    start.addEventListener('click', function () {
+      if (!hero.offsetWidth) return; // wide screens: reel.js restarts the HTML reel
+      if (hero.readyState) hero.currentTime = 0.4;
+      hero.play().catch(function () {});
+    });
+  }
+
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!('IntersectionObserver' in window)) return;
 

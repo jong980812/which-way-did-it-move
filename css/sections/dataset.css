@@ -35,6 +35,11 @@
   line-height: 1;
 }
 
+.dataset__get {
+  margin-top: var(--space-4);
+  font-weight: 700;
+}
+
 /* rows = foreground type, columns = background type */
 .dataset__matrix {
   display: grid;

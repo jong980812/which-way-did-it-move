@@ -53,6 +53,18 @@
   <symbol id="i-data" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></g></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <!-- the Sydney Opera House: four sails on the podium, over the harbour -->
+  <symbol id="i-opera" viewBox="0 0 64 42">
+    <g fill="#fff" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round">
+      <path d="M10 26C11 15 17 7 27 3C26 11 26 19 28 26Z"/>
+      <path d="M23 26C24 17 30 11 39 8C38 14 38 20 40 26Z"/>
+      <path d="M34 26C35 19 40 15 48 13C47 18 47 22 49 26Z"/>
+      <path d="M44 26C45 22 49 19 54 18C53 21 53 24 55 26Z"/>
+      <rect x="6" y="26" width="52" height="5" rx="2.5"/>
+    </g>
+    <path d="M7 35.5q3.25-2.6 6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0" fill="none" stroke="#2b6ff3" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M13.5 39.5q3.25-2.2 6.5 0t6.5 0t6.5 0t6.5 0t6.5 0t6.5 0" fill="none" stroke="#7fb0ff" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
   <symbol id="i-cite" viewBox="0 0 24 24"><path d="M10 8H6v5h4c0 2-1 3.5-3 4M18 8h-4v5h4c0 2-1 3.5-3 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
@@ -88,7 +100,7 @@
 <header class="hero" id="top">
   <div class="container">
     <div class="hero__head">
-      <p class="hero__venue">NeurIPS 2026</p>
+      <p class="hero__venue"><svg class="hero__venue-icon" aria-hidden="true"><use href="#i-opera"/></svg>NeurIPS 2026<span class="visually-hidden">, Sydney</span></p>
       <h1 class="hero__title">
         <span class="hero__q">Which Way Did It Move?</span>
         <span class="hero__sub">Diagnosing and Overcoming Directional Motion Blindness in Video-LLMs</span>
@@ -114,7 +126,7 @@
       <nav class="hero__links" aria-label="Paper links">
         <a class="btn" href="https://arxiv.org/abs/2605.22823"><svg class="icon" aria-hidden="true"><use href="#i-paper"/></svg>arXiv</a>
         <a class="btn" href="https://github.com/KHU-VLL/DeltaDirect"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>Code</a>
-        <span class="btn btn--off"><svg class="icon" aria-hidden="true"><use href="#i-data"/></svg>Data (soon)</span>
+        <a class="btn" href="https://huggingface.co/datasets/KHUjongseo/Modirect-family"><svg class="icon" aria-hidden="true"><use href="#i-data"/></svg>Data</a>
         <a class="btn" href="#bibtex"><svg class="icon" aria-hidden="true"><use href="#i-cite"/></svg>BibTeX</a>
       </nav>
     </div>
@@ -128,7 +140,11 @@
 
     <figure class="hero__scene">
       <p class="visually-hidden" id="reel-desc">An animation in nine scenes. A yellow circle moves from left to right over eight video frames. Asked for its color, the Video-LLM correctly answers Yellow. Asked which way it moved, it answers Leftward, which is wrong. We call this failure directional motion blindness: LLaVA-Video-7B scores 25.9% on MoDirect-SynBench, where chance is 25%. Why? Linear probes still decode the direction inside the model, at 99.8% after the vision encoder, 96.5% after the projector and 95.3% in the LLM, but the answer is correct only 27.6% of the time: the direction is not bound to the answer. DeltaDirect strengthens the motion signal at the projector, and accuracy on MoDirect-SynBench rises from 25.9% to 85.9%.</p>
-      <p class="hero__watch"><span class="hero__play" aria-hidden="true"></span>Watch the paper in 26 seconds</p>
+      <!-- the reel plays by itself; this starts it over from the first scene -->
+      <button class="hero__watch" type="button" data-reel-start>
+        <span class="hero__start"><span class="hero__play" aria-hidden="true"></span><span class="hero__start-click">Click</span><span class="hero__start-tap">Tap</span> to start</span>
+        <span>Watch the paper in 26 seconds</span>
+      </button>
       <div class="reel">
         <div class="reel__stage" aria-hidden="true">
           <p class="reel__cap" data-scene="1">A single object moves from left to right.</p>
@@ -376,6 +392,7 @@
           <li><span aria-hidden="true">↑</span>up</li>
           <li><span aria-hidden="true">↓</span>down</li>
         </ul>
+        <p class="dataset__get"><a href="https://huggingface.co/datasets/KHUjongseo/Modirect-family">Get MoDirect on Hugging Face →</a></p>
       </div>
 
       <figure class="figure">

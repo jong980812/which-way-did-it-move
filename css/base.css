@@ -262,13 +262,6 @@ main {
   background: var(--yellow);
 }
 
-.btn--off,
-.btn--off:hover {
-  background: var(--line);
-  color: var(--ink-2);
-  cursor: default;
-}
-
 /* ---------- model groups ---------- */
 /* group marks: shape and color both carry the group */
 .mark {
